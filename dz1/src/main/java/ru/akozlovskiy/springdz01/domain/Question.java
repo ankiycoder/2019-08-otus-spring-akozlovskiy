@@ -1,7 +1,7 @@
 package ru.akozlovskiy.springdz01.domain;
 
 /**
- * Вопрос
+ * Р’РѕРїСЂРѕСЃ
  * 
  * @author akozlovskiy
  *
@@ -9,17 +9,17 @@ package ru.akozlovskiy.springdz01.domain;
 public class Question {
 
 	/**
-	 * Текст вопроса
+	 * РўРµРєСЃС‚ РІРѕРїСЂРѕСЃР°
 	 */
 	private String questionText;
 
 	/**
-	 * Список ответов через запятую
+	 * РЎРїРёСЃРѕРє РѕС‚РІРµС‚РѕРІ С‡РµСЂРµР· Р·Р°РїСЏС‚СѓСЋ
 	 */
 	private String responses;
 
 	/**
-	 * Номер правильного ответа
+	 * РќРѕРјРµСЂ РїСЂР°РІРёР»СЊРЅРѕРіРѕ РѕС‚РІРµС‚Р°
 	 */
 	private int correctAnswerNumber;
 

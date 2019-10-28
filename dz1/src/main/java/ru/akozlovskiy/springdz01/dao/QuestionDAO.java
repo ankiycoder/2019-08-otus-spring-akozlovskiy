@@ -7,7 +7,7 @@ import ru.akozlovskiy.springdz01.domain.Question;
 
 /**
  * 
- *  Сервис получения списка вопросов
+ *  РЎРµСЂРІРёСЃ РїРѕР»СѓС‡РµРЅРёСЏ СЃРїРёСЃРєР° РІРѕРїСЂРѕСЃРѕРІ
  * @author akozlovskiy
  *
  */

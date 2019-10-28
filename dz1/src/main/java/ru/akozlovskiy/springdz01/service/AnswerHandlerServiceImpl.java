@@ -16,8 +16,8 @@ public class AnswerHandlerServiceImpl implements AnswerHandlerService {
 	public void printTestingResult() {
 		for (Answer answer : answerList) {
 			Question question = answer.getQuestion();
-			String result = answer.answerIscorrect() ? "Ïğàâèëüíî" : "Îøèáêà";
-			System.out.println("Âîïğîñ: " + question.getQuestionText() + " -> " + result);
+			String result = answer.answerIscorrect() ? "ĞŸÑ€Ğ°Ğ²Ğ¸Ğ»ÑŒĞ½Ğ¾" : "ĞÑˆĞ¸Ğ±ĞºĞ°";
+			System.out.println("Ğ’Ğ¾Ğ¿Ñ€Ğ¾Ñ: " + question.getQuestionText() + " -> " + result);
 		}
 	}
 }

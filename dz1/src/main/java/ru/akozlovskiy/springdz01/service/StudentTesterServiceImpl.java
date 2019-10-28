@@ -25,10 +25,10 @@ public class StudentTesterServiceImpl implements StudentTesterService {
 
 			questionList = questionDAO.getQuestionList();
 
-			System.out.println("Введите фамилию:");			
+			System.out.println("Р’РІРµРґРёС‚Рµ С„Р°РјРёР»РёСЋ:");			
 			String surname = scanner.nextLine();
 
-			System.out.println("Введите имя:");
+			System.out.println("Р’РІРµРґРёС‚Рµ РёРјСЏ:");
 			String name = scanner.nextLine();
 
 			for (Question question : questionList) {
@@ -38,17 +38,17 @@ public class StudentTesterServiceImpl implements StudentTesterService {
 				answerHandler.addAnswer(question, answerNumber);
 			}
 
-			System.out.println("\nРезультаты тестирования студента " + surname + " " + name + ":");
+			System.out.println("\nР РµР·СѓР»СЊС‚Р°С‚С‹ С‚РµСЃС‚РёСЂРѕРІР°РЅРёСЏ СЃС‚СѓРґРµРЅС‚Р° " + surname + " " + name + ":");
 			answerHandler.printTestingResult();
 
 		} catch (IOException e) {
-			System.out.println("Ошибка при чтении данных из файла с вопросами");
+			System.out.println("РћС€РёР±РєР° РїСЂРё С‡С‚РµРЅРёРё РґР°РЅРЅС‹С… РёР· С„Р°Р№Р»Р° СЃ РІРѕРїСЂРѕСЃР°РјРё");
 		}
 	}
 
 	private Integer getAnswerNumber(Scanner scanner) {
 		while (!scanner.hasNextInt()) {
-			System.out.println("Введите номер ответа соответствующий предложенным вариантам!");
+			System.out.println("Р’РІРµРґРёС‚Рµ РЅРѕРјРµСЂ РѕС‚РІРµС‚Р° СЃРѕРѕС‚РІРµС‚СЃС‚РІСѓСЋС‰РёР№ РїСЂРµРґР»РѕР¶РµРЅРЅС‹Рј РІР°СЂРёР°РЅС‚Р°Рј!");
 			scanner.next();
 		}
 		return scanner.nextInt();
