@@ -6,6 +6,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 
@@ -13,10 +14,17 @@ import au.com.bytecode.opencsv.CSVReader;
 import au.com.bytecode.opencsv.bean.ColumnPositionMappingStrategy;
 import au.com.bytecode.opencsv.bean.CsvToBean;
 import ru.akozlovskiy.springdz01.domain.Question;
+import ru.akozlovskiy.springdz01.service.LocalizationService;
 
 public class QuestionDAOImpl implements QuestionDAO {
-	
+
 	private Resource resource;
+
+	@Autowired
+	LocalizationService localizationService;
+
+	@Value("${locale}")
+	String locale;
 
 	public QuestionDAOImpl(Resource resource) {
 		this.resource = resource;
@@ -40,7 +48,16 @@ public class QuestionDAOImpl implements QuestionDAO {
 
 		CsvToBean<Question> csvToBean = new CsvToBean<>();
 
-		return csvToBean.parse(setColumMapping(), csvReader);
+		List<Question> questionList = csvToBean.parse(setColumMapping(), csvReader);
+
+		convertToLocale(questionList);
+
+		return questionList;
+	}
+
+	private void convertToLocale(List<Question> questionList) {
+		questionList.stream().forEach(
+				question -> question.setQuestionText(localizationService.getString(question.getQuestionText())));
 	}
 
 	private static ColumnPositionMappingStrategy<Question> setColumMapping() {

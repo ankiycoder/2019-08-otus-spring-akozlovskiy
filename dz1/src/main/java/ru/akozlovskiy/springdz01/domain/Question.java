@@ -1,5 +1,10 @@
 package ru.akozlovskiy.springdz01.domain;
 
+import java.util.Locale;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
+
 /**
  * Вопрос
  * 
@@ -7,6 +12,9 @@ package ru.akozlovskiy.springdz01.domain;
  *
  */
 public class Question {
+
+	@Autowired
+	MessageSource messageSource;
 
 	/**
 	 * Текст вопроса
@@ -23,22 +31,12 @@ public class Question {
 	 */
 	private int correctAnswerNumber;
 
-	private String response;
-
 	public String getQuestionText() {
 		return questionText;
 	}
 
 	public void setQuestionText(String questionText) {
 		this.questionText = questionText;
-	}
-
-	public String getResponse() {
-		return response;
-	}
-
-	public void setResponse(String response) {
-		this.response = response;
 	}
 
 	public int getCorrectAnswerNumber() {
@@ -55,7 +53,7 @@ public class Question {
 
 	public void setResponses(String responses) {
 		this.responses = responses;
-	}
+	}		
 
 	public void printQuestion() {
 
