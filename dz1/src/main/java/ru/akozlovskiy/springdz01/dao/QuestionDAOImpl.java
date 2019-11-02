@@ -6,6 +6,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 
 import au.com.bytecode.opencsv.CSVReader;
@@ -14,12 +15,22 @@ import au.com.bytecode.opencsv.bean.CsvToBean;
 import ru.akozlovskiy.springdz01.domain.Question;
 
 public class QuestionDAOImpl implements QuestionDAO {
-
+	
 	private Resource resource;
 
-	public List<Question> getQuestionList() throws IOException {
+	public QuestionDAOImpl(Resource resource) {
+		this.resource = resource;
+	}
 
-		InputStream resourceAsStream = resource.getInputStream();
+	public List<Question> getQuestionList() {
+
+		InputStream resourceAsStream = null;
+		try {
+			resourceAsStream = resource.getInputStream();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 		InputStreamReader r = new InputStreamReader(resourceAsStream);
 
@@ -38,13 +49,5 @@ public class QuestionDAOImpl implements QuestionDAO {
 		String[] columns = new String[] { "questionText", "responses", "correctAnswerNumber" };
 		strategy.setColumnMapping(columns);
 		return strategy;
-	}
-
-	public Resource getResource() {
-		return resource;
-	}
-
-	public void setResource(Resource resource) {
-		this.resource = resource;
 	}
 }

@@ -11,13 +11,13 @@
 		</property>
 	</bean>
 
-	<bean id="answerHandler"
+	<!--  bean id="answerHandler"
 		class="ru.akozlovskiy.springdz01.service.AnswerHandlerServiceImpl">
-	</bean>
+	</bean-->
 
-	<bean id="tester"
+	<!--  bean id="tester"
 		class="ru.akozlovskiy.springdz01.service.StudentTesterServiceImpl">
 		<constructor-arg name="questionDAO" ref="questionDAO" />
 		<constructor-arg name="answerHandler" ref="answerHandler" />
-	</bean>
+	</bean-->
 </beans>

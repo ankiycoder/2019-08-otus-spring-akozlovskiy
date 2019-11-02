@@ -1,6 +1,5 @@
 package ru.akozlovskiy.springdz01.service;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -41,9 +40,7 @@ public class StudentTesterServiceImpl implements StudentTesterService {
 			System.out.println("\nРезультаты тестирования студента " + surname + " " + name + ":");
 			answerHandler.printTestingResult();
 
-		} catch (IOException e) {
-			System.out.println("Ошибка при чтении данных из файла с вопросами");
-		}
+		} 
 	}
 
 	private Integer getAnswerNumber(Scanner scanner) {
