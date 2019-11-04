@@ -12,6 +12,8 @@ import org.springframework.core.io.Resource;
 import ru.akozlovskiy.springdz01.dao.QuestionDAO;
 import ru.akozlovskiy.springdz01.dao.QuestionDAOImpl;
 import ru.akozlovskiy.springdz01.service.AnswerHandlerService;
+import ru.akozlovskiy.springdz01.service.ConsoleService;
+import ru.akozlovskiy.springdz01.service.ConsoleServiceImpl;
 import ru.akozlovskiy.springdz01.service.StudentTesterService;
 import ru.akozlovskiy.springdz01.service.StudentTesterServiceImpl;
 
@@ -24,8 +26,8 @@ public class ApplicationConfig {
 	}
 
 	@Bean
-	StudentTesterService studentTesterService(AnswerHandlerService answerHandler, QuestionDAO questionDAO) {
-		return new StudentTesterServiceImpl(questionDAO, answerHandler);
+	StudentTesterService studentTesterService(AnswerHandlerService answerHandler, QuestionDAO questionDAO, ConsoleService consoleService) {
+		return new StudentTesterServiceImpl(questionDAO, answerHandler, consoleService);
 	}
 
 	@Bean
@@ -48,5 +50,10 @@ public class ApplicationConfig {
 		ms.setBasename("/i18n/bundle");
 		ms.setDefaultEncoding("UTF-8");
 		return ms;
+	}
+
+	@Bean
+	public ConsoleService consoleService() {
+		return new ConsoleServiceImpl();
 	}
 }

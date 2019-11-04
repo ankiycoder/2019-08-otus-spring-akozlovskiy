@@ -6,10 +6,11 @@ import ru.akozlovskiy.springdz01.domain.Question;
 
 /**
  * 
- *  Сервис получения списка вопросов
+ * Сервис получения списка вопросов
+ * 
  * @author akozlovskiy
  *
  */
 public interface QuestionDAO {
-	public List<Question> getQuestionList();
+	List<Question> getQuestionList();
 }

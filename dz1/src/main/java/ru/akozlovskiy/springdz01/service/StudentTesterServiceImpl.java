@@ -1,10 +1,8 @@
 package ru.akozlovskiy.springdz01.service;
 
 import java.util.List;
-import java.util.Scanner;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.MessageSource;
 
 import ru.akozlovskiy.springdz01.dao.QuestionDAO;
 import ru.akozlovskiy.springdz01.domain.Question;
@@ -12,52 +10,48 @@ import ru.akozlovskiy.springdz01.domain.Question;
 public class StudentTesterServiceImpl implements StudentTesterService {
 
 	private QuestionDAO questionDAO;
-	private AnswerHandlerService answerHandler;
+
+	private AnswerHandlerService answerHandlerService;
+
+	private ConsoleService consoleService;
+
+	private String surname;
+
+	private String name;
 
 	@Autowired
-	MessageSource messageSource;
+	private LocalizationService localizationService;
 
-	@Autowired
-	LocalizationService localizationService;
-
-	public StudentTesterServiceImpl(QuestionDAO questionDAO, AnswerHandlerService answerHandler) {
+	public StudentTesterServiceImpl(QuestionDAO questionDAO, AnswerHandlerService answerHandler,
+			ConsoleService consoleService) {
 		this.questionDAO = questionDAO;
-		this.answerHandler = answerHandler;
+		this.answerHandlerService = answerHandler;
+		this.consoleService = consoleService;
 	}
 
 	public void test() {
 
-		List<Question> questionList;
+		List<Question> questionList = questionDAO.getQuestionList();
 
-		try (Scanner scanner = new Scanner(System.in)) {
+		readFio();
 
-			questionList = questionDAO.getQuestionList();
+		for (Question question : questionList) {
+			question.printQuestion();
 
-			System.out.println(localizationService.getString("enter.surname"));
-			String surname = scanner.nextLine();
+			int answerNumber = consoleService.getAnswerNumber();
 
-			System.out.println(localizationService.getString("enter.name"));
-			String name = scanner.nextLine();
-
-			for (Question question : questionList) {
-				question.printQuestion();
-
-				int answerNumber = getAnswerNumber(scanner);
-				answerHandler.addAnswer(question, answerNumber);
-			}
-
-			System.out.println("\n" + localizationService.getString("test.result")  + " " + surname + " " + name + ":");
-			answerHandler.printTestingResult();
-
+			answerHandlerService.addAnswer(question, answerNumber);
 		}
+
+		System.out.println("\n" + localizationService.getString("test.result") + " " + surname + " " + name + ":");
+		answerHandlerService.printTestingResult();
 	}
 
-	private Integer getAnswerNumber(Scanner scanner) {
-		while (!scanner.hasNextInt()) {
-			System.out.println(localizationService.getString("enter.correct.number"));
-			scanner.next();
-		}
-		return scanner.nextInt();
-	}
+	private void readFio() {
+		System.out.println(localizationService.getString("enter.surname"));
+		surname = consoleService.getString();
 
+		System.out.println(localizationService.getString("enter.name"));
+		name = consoleService.getString();
+	}
 }

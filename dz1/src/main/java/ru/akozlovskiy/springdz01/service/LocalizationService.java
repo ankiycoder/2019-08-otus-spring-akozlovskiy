@@ -19,5 +19,4 @@ public class LocalizationService {
 	public String getString(String stringCode) {
 		return messageSource.getMessage(stringCode, null, null, new Locale(locale, "RU"));
 	}
-
 }
