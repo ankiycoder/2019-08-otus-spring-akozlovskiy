@@ -14,6 +14,8 @@ import ru.akozlovskiy.springdz01.dao.QuestionDAOImpl;
 import ru.akozlovskiy.springdz01.service.AnswerHandlerService;
 import ru.akozlovskiy.springdz01.service.ConsoleService;
 import ru.akozlovskiy.springdz01.service.ConsoleServiceImpl;
+import ru.akozlovskiy.springdz01.service.LocalizationService;
+import ru.akozlovskiy.springdz01.service.LocalizationServiceImpl;
 import ru.akozlovskiy.springdz01.service.StudentTesterService;
 import ru.akozlovskiy.springdz01.service.StudentTesterServiceImpl;
 
@@ -31,8 +33,11 @@ public class ApplicationConfig {
 	}
 
 	@Bean
-	QuestionDAO questionDAO(@Value("classpath:Questions.csv") Resource resource) {
-		return new QuestionDAOImpl(resource);
+	QuestionDAO questionDAO(@Value("${locale}") String locale, LocalizationService localizationService) {
+		String fileName = "Questions_"+ locale + ".csv";
+		FileSystemResourceLoader fileSystemResourceLoader = new FileSystemResourceLoader();
+		Resource resource = fileSystemResourceLoader.getResource(fileName);
+		return new QuestionDAOImpl(resource, localizationService);
 	}
 
 	@Bean
@@ -55,5 +60,9 @@ public class ApplicationConfig {
 	@Bean
 	public ConsoleService consoleService() {
 		return new ConsoleServiceImpl();
+	}
+	
+	@Bean LocalizationService localizationService() {
+		return new LocalizationServiceImpl();
 	}
 }

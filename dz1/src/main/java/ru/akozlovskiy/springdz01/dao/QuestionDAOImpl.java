@@ -21,13 +21,14 @@ public class QuestionDAOImpl implements QuestionDAO {
 	private Resource resource;
 
 	@Autowired
-	LocalizationService localizationService;
+	private LocalizationService localizationService;
 
 	@Value("${locale}")
-	String locale;
+	private String locale;
 
-	public QuestionDAOImpl(Resource resource) {
+	public QuestionDAOImpl(Resource resource, LocalizationService localizationService) {
 		this.resource = resource;
+		this.localizationService = localizationService;
 	}
 
 	public List<Question> getQuestionList() {
@@ -50,7 +51,7 @@ public class QuestionDAOImpl implements QuestionDAO {
 
 		List<Question> questionList = csvToBean.parse(setColumMapping(), csvReader);
 
-		convertToLocale(questionList);
+		//convertToLocale(questionList);
 
 		return questionList;
 	}

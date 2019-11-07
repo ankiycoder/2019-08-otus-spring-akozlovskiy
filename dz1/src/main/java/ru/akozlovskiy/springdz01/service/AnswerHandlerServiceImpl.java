@@ -11,9 +11,9 @@ import ru.akozlovskiy.springdz01.domain.Question;
 public class AnswerHandlerServiceImpl implements AnswerHandlerService {
 
 	@Autowired
-	LocalizationService localizationService;
+	private LocalizationServiceImpl localizationService;
 
-	List<Answer> answerList = new ArrayList<Answer>();
+	private List<Answer> answerList = new ArrayList<Answer>();
 
 	public void addAnswer(Question question, int answerNumber) {
 		answerList.add(new Answer(question, answerNumber));

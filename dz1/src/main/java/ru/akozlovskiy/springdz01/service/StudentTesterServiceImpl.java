@@ -20,7 +20,7 @@ public class StudentTesterServiceImpl implements StudentTesterService {
 	private String name;
 
 	@Autowired
-	private LocalizationService localizationService;
+	private LocalizationServiceImpl localizationService;
 
 	public StudentTesterServiceImpl(QuestionDAO questionDAO, AnswerHandlerService answerHandler,
 			ConsoleService consoleService) {

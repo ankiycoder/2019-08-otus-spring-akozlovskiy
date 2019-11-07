@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class ConsoleServiceImpl implements ConsoleService {
 
 	@Autowired
-	LocalizationService localizationService;
+	private LocalizationServiceImpl localizationService;
 
 	private Scanner scanner;
 
@@ -16,7 +16,7 @@ public class ConsoleServiceImpl implements ConsoleService {
 	}
 
 	@Override
-	public Integer getAnswerNumber() {
+	public int getAnswerNumber() {
 		while (!scanner.hasNextInt()) {
 			System.out.println(localizationService.getString("enter.correct.number"));
 			scanner.next();
