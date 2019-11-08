@@ -3,17 +3,18 @@ package ru.akozlovskiy.springdz01.service;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
-
 import ru.akozlovskiy.springdz01.domain.Answer;
 import ru.akozlovskiy.springdz01.domain.Question;
 
 public class AnswerHandlerServiceImpl implements AnswerHandlerService {
 
-	@Autowired
-	private LocalizationServiceImpl localizationService;
+	private final LocalizationService localizationService;
 
-	private List<Answer> answerList = new ArrayList<Answer>();
+	private final List<Answer> answerList = new ArrayList<Answer>();
+
+	public AnswerHandlerServiceImpl(LocalizationService localizationService) {
+		this.localizationService = localizationService;
+	}
 
 	public void addAnswer(Question question, int answerNumber) {
 		answerList.add(new Answer(question, answerNumber));

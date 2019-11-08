@@ -2,16 +2,14 @@ package ru.akozlovskiy.springdz01.service;
 
 import java.util.Scanner;
 
-import org.springframework.beans.factory.annotation.Autowired;
-
 public class ConsoleServiceImpl implements ConsoleService {
 
-	@Autowired
-	private LocalizationServiceImpl localizationService;
+	private final LocalizationService localizationService;
 
-	private Scanner scanner;
+	private final Scanner scanner;
 
-	public ConsoleServiceImpl() {
+	public ConsoleServiceImpl(LocalizationService localizationService) {
+		this.localizationService = localizationService;
 		scanner = new Scanner(System.in);
 	}
 

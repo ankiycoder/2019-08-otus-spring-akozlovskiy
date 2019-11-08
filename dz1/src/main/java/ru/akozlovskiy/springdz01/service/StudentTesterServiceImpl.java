@@ -9,11 +9,11 @@ import ru.akozlovskiy.springdz01.domain.Question;
 
 public class StudentTesterServiceImpl implements StudentTesterService {
 
-	private QuestionDAO questionDAO;
+	private final QuestionDAO questionDAO;
 
-	private AnswerHandlerService answerHandlerService;
+	private final AnswerHandlerService answerHandlerService;
 
-	private ConsoleService consoleService;
+	private final ConsoleService consoleService;
 
 	private String surname;
 
