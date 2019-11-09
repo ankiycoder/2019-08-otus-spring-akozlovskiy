@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 public class LocalizationServiceImpl implements LocalizationService {
 
 	private final MessageSource messageSource;
+	
 	private final LocaleService localeService;
 
 	public LocalizationServiceImpl(MessageSource messageSource, LocaleService localeService) {

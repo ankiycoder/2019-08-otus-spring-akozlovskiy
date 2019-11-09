@@ -31,14 +31,14 @@ public class ApplicationConfig {
 
 	@Bean
 	StudentTesterService studentTesterService(AnswerHandlerService answerHandler, QuestionDAO questionDAO,
-			ConsoleService consoleService) {
-		return new StudentTesterServiceImpl(questionDAO, answerHandler, consoleService);
+			ConsoleService consoleService, LocalizationService localizationService) {
+		return new StudentTesterServiceImpl(questionDAO, answerHandler, consoleService, localizationService);
 	}
 
 	@Bean
 	QuestionDAO questionDAO(LocaleService localeService, LocalizationService localizationService) {
 		String fileName = "Questions_" + localeService.getLocale() + ".csv";
-		ClassPathResource classPathResource = new ClassPathResource(fileName);				
+		ClassPathResource classPathResource = new ClassPathResource(fileName);
 		return new QuestionDAOImpl(classPathResource);
 	}
 
@@ -52,15 +52,16 @@ public class ApplicationConfig {
 	}
 
 	@Bean
-	public MessageSource messageSource() {
+	MessageSource messageSource() {
 		ReloadableResourceBundleMessageSource ms = new ReloadableResourceBundleMessageSource();
 		ms.setBasename("/i18n/bundle");
 		ms.setDefaultEncoding("UTF-8");
 		return ms;
 	}
 
-	@Bean
-	public ConsoleService consoleService(LocalizationService localizationService) {
+	//Бины создаются через @Service
+	/*@Bean
+	ConsoleService consoleService(LocalizationService localizationService) {
 		return new ConsoleServiceImpl(localizationService);
 	}
 
@@ -72,5 +73,5 @@ public class ApplicationConfig {
 	@Bean
 	LocaleService localeService() {
 		return new LocaleServiceImpl();
-	}
+	}*/
 }

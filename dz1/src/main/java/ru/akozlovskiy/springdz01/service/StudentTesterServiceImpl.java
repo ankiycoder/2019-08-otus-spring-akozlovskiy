@@ -2,8 +2,6 @@ package ru.akozlovskiy.springdz01.service;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
-
 import ru.akozlovskiy.springdz01.dao.QuestionDAO;
 import ru.akozlovskiy.springdz01.domain.Question;
 
@@ -19,14 +17,14 @@ public class StudentTesterServiceImpl implements StudentTesterService {
 
 	private String name;
 
-	@Autowired
-	private LocalizationServiceImpl localizationService;
+	private final LocalizationService localizationService;
 
 	public StudentTesterServiceImpl(QuestionDAO questionDAO, AnswerHandlerService answerHandler,
-			ConsoleService consoleService) {
+			ConsoleService consoleService, LocalizationService localizationService) {
 		this.questionDAO = questionDAO;
 		this.answerHandlerService = answerHandler;
 		this.consoleService = consoleService;
+		this.localizationService = localizationService;
 	}
 
 	public void test() {

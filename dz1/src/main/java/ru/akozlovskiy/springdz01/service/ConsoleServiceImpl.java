@@ -2,6 +2,9 @@ package ru.akozlovskiy.springdz01.service;
 
 import java.util.Scanner;
 
+import org.springframework.stereotype.Service;
+
+@Service
 public class ConsoleServiceImpl implements ConsoleService {
 
 	private final LocalizationService localizationService;
