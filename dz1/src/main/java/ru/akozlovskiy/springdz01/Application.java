@@ -14,10 +14,8 @@ public class Application {
 
 	public static void main(String[] args) throws IOException {
 
-		AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
-		context.register(Application.class);
-		context.refresh();		
-		
+		AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(Application.class);
+
 		StudentTesterService tester = context.getBean(StudentTesterService.class);
 		tester.test();
 	}

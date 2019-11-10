@@ -3,9 +3,12 @@ package ru.akozlovskiy.springdz01.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import ru.akozlovskiy.springdz01.domain.Answer;
 import ru.akozlovskiy.springdz01.domain.Question;
 
+@Service
 public class AnswerHandlerServiceImpl implements AnswerHandlerService {
 
 	private final LocalizationService localizationService;

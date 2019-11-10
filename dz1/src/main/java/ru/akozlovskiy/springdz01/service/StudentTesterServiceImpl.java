@@ -2,9 +2,12 @@ package ru.akozlovskiy.springdz01.service;
 
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import ru.akozlovskiy.springdz01.dao.QuestionDAO;
 import ru.akozlovskiy.springdz01.domain.Question;
 
+@Service
 public class StudentTesterServiceImpl implements StudentTesterService {
 
 	private final QuestionDAO questionDAO;

@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 public class LocaleServiceImpl implements LocaleService {
 
 	@Value("${locale}")
-	String locale;
+	private String locale;
 
 	@Override
 	public String getLocale() {
