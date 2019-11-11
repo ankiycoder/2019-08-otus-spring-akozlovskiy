@@ -1,56 +1,58 @@
 package ru.akozlovskiy.springdz01.service;
 
-import java.io.IOException;
 import java.util.List;
-import java.util.Scanner;
+
+import org.springframework.stereotype.Service;
 
 import ru.akozlovskiy.springdz01.dao.QuestionDAO;
 import ru.akozlovskiy.springdz01.domain.Question;
 
+@Service
 public class StudentTesterServiceImpl implements StudentTesterService {
 
-	private QuestionDAO questionDAO;
-	private AnswerHandlerService answerHandler;
+	private final QuestionDAO questionDAO;
 
-	public StudentTesterServiceImpl(QuestionDAO questionDAO, AnswerHandlerService answerHandler) {
+	private final AnswerHandlerService answerHandlerService;
+
+	private final ConsoleService consoleService;
+
+	private String surname;
+
+	private String name;
+
+	private final LocalizationService localizationService;
+
+	public StudentTesterServiceImpl(QuestionDAO questionDAO, AnswerHandlerService answerHandler,
+			ConsoleService consoleService, LocalizationService localizationService) {
 		this.questionDAO = questionDAO;
-		this.answerHandler = answerHandler;
+		this.answerHandlerService = answerHandler;
+		this.consoleService = consoleService;
+		this.localizationService = localizationService;
 	}
 
 	public void test() {
 
-		List<Question> questionList;
+		List<Question> questionList = questionDAO.getQuestionList();
 
-		try (Scanner scanner = new Scanner(System.in)) {
+		readFio();
 
-			questionList = questionDAO.getQuestionList();
+		for (Question question : questionList) {
+			question.printQuestion();
 
-			System.out.println("¬ведите фамилию:");			
-			String surname = scanner.nextLine();
+			int answerNumber = consoleService.getAnswerNumber();
 
-			System.out.println("¬ведите им€:");
-			String name = scanner.nextLine();
-
-			for (Question question : questionList) {
-				question.printQuestion();
-
-				int answerNumber = getAnswerNumber(scanner);
-				answerHandler.addAnswer(question, answerNumber);
-			}
-
-			System.out.println("\n–езультаты тестировани€ студента " + surname + " " + name + ":");
-			answerHandler.printTestingResult();
-
-		} catch (IOException e) {
-			System.out.println("ќшибка при чтении данных из файла с вопросами");
+			answerHandlerService.addAnswer(question, answerNumber);
 		}
+
+		System.out.println("\n" + localizationService.getString("test.result") + " " + surname + " " + name + ":");
+		answerHandlerService.printTestingResult();
 	}
 
-	private Integer getAnswerNumber(Scanner scanner) {
-		while (!scanner.hasNextInt()) {
-			System.out.println("¬ведите номер ответа соответствующий предложенным вариантам!");
-			scanner.next();
-		}
-		return scanner.nextInt();
+	private void readFio() {
+		System.out.println(localizationService.getString("enter.surname"));
+		surname = consoleService.getString();
+
+		System.out.println(localizationService.getString("enter.name"));
+		name = consoleService.getString();
 	}
 }

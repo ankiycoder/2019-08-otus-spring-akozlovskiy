@@ -1,7 +1,7 @@
 package ru.akozlovskiy.springdz01.domain;
 
 /**
- * Ответы 
+ * РћС‚РІРµС‚С‹ 
  * @author akozlovskiy
  *
  */
@@ -9,12 +9,12 @@ public class Answer {
 
 	
 	/**
-	 * Вопрос
+	 * Р’РѕРїСЂРѕСЃ
 	 */
 	private Question question;
 	
 	/**
-	 * Ответ
+	 * РћС‚РІРµС‚
 	 */
 	private int answerNumber;
 

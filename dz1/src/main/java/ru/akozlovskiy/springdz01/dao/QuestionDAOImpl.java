@@ -15,11 +15,21 @@ import ru.akozlovskiy.springdz01.domain.Question;
 
 public class QuestionDAOImpl implements QuestionDAO {
 
-	private Resource resource;
+	private final Resource resource;
 
-	public List<Question> getQuestionList() throws IOException {
+	public QuestionDAOImpl(Resource resource) {
+		this.resource = resource;
+	}
 
-		InputStream resourceAsStream = resource.getInputStream();
+	public List<Question> getQuestionList() {
+
+		InputStream resourceAsStream = null;
+		try {
+			resourceAsStream = resource.getInputStream();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 		InputStreamReader r = new InputStreamReader(resourceAsStream);
 
@@ -29,7 +39,9 @@ public class QuestionDAOImpl implements QuestionDAO {
 
 		CsvToBean<Question> csvToBean = new CsvToBean<>();
 
-		return csvToBean.parse(setColumMapping(), csvReader);
+		List<Question> questionList = csvToBean.parse(setColumMapping(), csvReader);
+
+		return questionList;
 	}
 
 	private static ColumnPositionMappingStrategy<Question> setColumMapping() {
@@ -38,13 +50,5 @@ public class QuestionDAOImpl implements QuestionDAO {
 		String[] columns = new String[] { "questionText", "responses", "correctAnswerNumber" };
 		strategy.setColumnMapping(columns);
 		return strategy;
-	}
-
-	public Resource getResource() {
-		return resource;
-	}
-
-	public void setResource(Resource resource) {
-		this.resource = resource;
 	}
 }

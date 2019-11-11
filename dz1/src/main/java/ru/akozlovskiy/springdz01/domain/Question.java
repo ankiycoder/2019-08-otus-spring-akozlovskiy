@@ -1,7 +1,7 @@
 package ru.akozlovskiy.springdz01.domain;
 
 /**
- * Вопрос
+ * Р’РѕРїСЂРѕСЃ
  * 
  * @author akozlovskiy
  *
@@ -9,21 +9,19 @@ package ru.akozlovskiy.springdz01.domain;
 public class Question {
 
 	/**
-	 * Текст вопроса
+	 * РўРµРєСЃС‚ РІРѕРїСЂРѕСЃР°
 	 */
 	private String questionText;
 
 	/**
-	 * Список ответов через запятую
+	 * РЎРїРёСЃРѕРє РѕС‚РІРµС‚РѕРІ С‡РµСЂРµР· Р·Р°РїСЏС‚СѓСЋ
 	 */
 	private String responses;
 
 	/**
-	 * Номер правильного ответа
+	 * РќРѕРјРµСЂ РїСЂР°РІРёР»СЊРЅРѕРіРѕ РѕС‚РІРµС‚Р°
 	 */
 	private int correctAnswerNumber;
-
-	private String response;
 
 	public String getQuestionText() {
 		return questionText;
@@ -31,14 +29,6 @@ public class Question {
 
 	public void setQuestionText(String questionText) {
 		this.questionText = questionText;
-	}
-
-	public String getResponse() {
-		return response;
-	}
-
-	public void setResponse(String response) {
-		this.response = response;
 	}
 
 	public int getCorrectAnswerNumber() {
@@ -55,7 +45,7 @@ public class Question {
 
 	public void setResponses(String responses) {
 		this.responses = responses;
-	}
+	}		
 
 	public void printQuestion() {
 

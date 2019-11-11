@@ -1,5 +1,0 @@
-Какая коллекция позволяет достать объект по ключу; ArrayList,LinkedList,HashMap;  3
-Какая коллекция хранит множество неповторяющихся объектов; ArrayList,HashSet,LinkedList; 2 
-Какая коллекция хранит отсортированное множество; HashSet,TreeSet,HashMap; 2
-Какая коллекция гарантирует порядок элементов; HashSet,TreeSet,HashMap; 2
-Какая операция выполняется за O(1) у коллекций ArrayList и LinkedList; get, set, add; 3 

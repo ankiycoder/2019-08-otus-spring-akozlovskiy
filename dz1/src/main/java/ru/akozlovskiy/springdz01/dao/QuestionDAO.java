@@ -1,16 +1,16 @@
 package ru.akozlovskiy.springdz01.dao;
 
-import java.io.IOException;
 import java.util.List;
 
 import ru.akozlovskiy.springdz01.domain.Question;
 
 /**
  * 
- *  Сервис получения списка вопросов
+ * РЎРµСЂРІРёСЃ РїРѕР»СѓС‡РµРЅРёСЏ СЃРїРёСЃРєР° РІРѕРїСЂРѕСЃРѕРІ
+ * 
  * @author akozlovskiy
  *
  */
 public interface QuestionDAO {
-	public List<Question> getQuestionList() throws IOException;
+	List<Question> getQuestionList();
 }

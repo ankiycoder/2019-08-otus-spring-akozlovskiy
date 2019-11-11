@@ -4,20 +4,20 @@ import ru.akozlovskiy.springdz01.domain.Question;
 
 /**
  * 
- * Сервис обработки ответов
+ * РЎРµСЂРІРёСЃ РѕР±СЂР°Р±РѕС‚РєРё РѕС‚РІРµС‚РѕРІ
  * @author akozlovskiy
  *
  */
 public interface AnswerHandlerService {
 
-	/** Добавляет Вопрос и полученный на него ответ 
+	/** Р”РѕР±Р°РІР»СЏРµС‚ Р’РѕРїСЂРѕСЃ Рё РїРѕР»СѓС‡РµРЅРЅС‹Р№ РЅР° РЅРµРіРѕ РѕС‚РІРµС‚ 
 	 * @param question
 	 * @param answerNumber
 	 */
 	public void addAnswer(Question question, int answerNumber);
 
 	/**
-	 * Распечатывает результаты теста
+	 * Р Р°СЃРїРµС‡Р°С‚С‹РІР°РµС‚ СЂРµР·СѓР»СЊС‚Р°С‚С‹ С‚РµСЃС‚Р°
 	 */
 	public void printTestingResult();
 	
