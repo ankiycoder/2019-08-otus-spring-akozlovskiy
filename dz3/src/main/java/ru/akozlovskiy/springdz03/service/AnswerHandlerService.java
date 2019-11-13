@@ -22,6 +22,6 @@ public interface AnswerHandlerService {
 	/**
 	 * Распечатывает результаты теста
 	 */
-	public void printTestingResult();
+	public String printTestingResult();
 
 }

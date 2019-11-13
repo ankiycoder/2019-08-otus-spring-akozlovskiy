@@ -23,6 +23,7 @@ public class LocalizationServiceImpl implements LocalizationService {
 
 	@Override
 	public String getString(String stringCode) {
-		return messageSource.getMessage(stringCode, null, null, new Locale(applicationSettings.getLocale(), "RU"));
+		Locale locale = new Locale(applicationSettings.getLocale());
+		return messageSource.getMessage(stringCode, null, null, locale);
 	}
 }

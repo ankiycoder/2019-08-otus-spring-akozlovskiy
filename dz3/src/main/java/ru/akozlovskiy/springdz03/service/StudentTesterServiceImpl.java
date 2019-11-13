@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 import ru.akozlovskiy.springdz03.dao.QuestionDAO;
 import ru.akozlovskiy.springdz03.domain.Question;
 
-
 @Service
 public class StudentTesterServiceImpl implements StudentTesterService {
 
@@ -46,7 +45,7 @@ public class StudentTesterServiceImpl implements StudentTesterService {
 		}
 
 		System.out.println("\n" + localizationService.getString("test.result") + " " + surname + " " + name + ":");
-		answerHandlerService.printTestingResult();
+		System.out.println(answerHandlerService.printTestingResult());
 	}
 
 	private void readFio() {

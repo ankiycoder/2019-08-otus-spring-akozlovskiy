@@ -23,13 +23,18 @@ public class AnswerHandlerServiceImpl implements AnswerHandlerService {
 		answerList.add(new Answer(question, answerNumber));
 	}
 
-	public void printTestingResult() {
+	public String printTestingResult() {
+
+		StringBuilder strb = new StringBuilder();
+
 		for (Answer answer : answerList) {
 			Question question = answer.getQuestion();
 			String result = answer.answerIscorrect() ? localizationService.getString("response.ok")
 					: localizationService.getString("response.error");
-			System.out
-					.println(localizationService.getString("question") + question.getQuestionText() + " -> " + result);
+
+			strb.append(localizationService.getString("question") + question.getQuestionText() + " -> " + result + "\n");
+
 		}
+		return strb.toString();
 	}
 }
