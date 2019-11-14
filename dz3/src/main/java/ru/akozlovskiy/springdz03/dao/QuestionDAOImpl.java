@@ -7,13 +7,14 @@ import java.io.InputStreamReader;
 import java.util.List;
 
 import org.springframework.core.io.Resource;
+import org.springframework.stereotype.Service;
 
 import au.com.bytecode.opencsv.CSVReader;
 import au.com.bytecode.opencsv.bean.ColumnPositionMappingStrategy;
 import au.com.bytecode.opencsv.bean.CsvToBean;
 import ru.akozlovskiy.springdz03.domain.Question;
 
-
+@Service
 public class QuestionDAOImpl implements QuestionDAO {
 
 	private final Resource resource;
