@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.io.IOException;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +32,7 @@ public class AnswerHandlerServiceImplTest {
 		Mockito.when(localizationService.getString("question")).thenReturn("Question: ");
 	}
 
+	@DisplayName("Распечатка успешного ответа")
 	@Test
 	public void printTestingResultOkResponse() throws IOException {
 		Question question = new Question();
@@ -39,9 +41,10 @@ public class AnswerHandlerServiceImplTest {
 		answerHandlerService.addAnswer(question, 3);
 
 		String result = answerHandlerService.printTestingResult();
-		assertEquals("Question: What collection allows you to get an object by key -> OK\n", result);
+		assertEquals("Question: " + QUESTION_TEXT + " -> OK\n", result);
 	}
 
+	@DisplayName("Распечатка ошибочного ответа")
 	@Test
 	public void printTestingResultErrorResponse() throws IOException {
 		answerHandlerService = new AnswerHandlerServiceImpl(localizationService);
@@ -51,6 +54,6 @@ public class AnswerHandlerServiceImplTest {
 		answerHandlerService.addAnswer(question, 1);
 
 		String result = answerHandlerService.printTestingResult();
-		assertEquals("Question: What collection allows you to get an object by key -> Error\n", result);
+		assertEquals("Question: " + QUESTION_TEXT + " -> Error\n", result);
 	}
 }

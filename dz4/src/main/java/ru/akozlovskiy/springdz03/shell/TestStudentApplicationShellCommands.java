@@ -7,7 +7,7 @@ import org.springframework.shell.standard.ShellMethod;
 import ru.akozlovskiy.springdz03.service.StudentTesterService;
 
 @ShellComponent
-public class TestStudentSpringApplicationShellCommands {
+public class TestStudentApplicationShellCommands {
 
 	@Autowired
 	private StudentTesterService studentTesterService;
