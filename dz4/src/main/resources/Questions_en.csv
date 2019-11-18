@@ -1,0 +1,5 @@
+What collection allows you to get an object by key; ArrayList,LinkedList,HashMap;  3
+What collection stores many non-repeating objects; ArrayList,HashSet,LinkedList; 2  
+Which collection stores the sorted set; HashSet,TreeSet,HashMap; 2 
+Which collection guarantees the order of elements; HashSet,TreeSet,HashMap; 2
+What operation is performed in O (1) for the ArrayList and LinkedList collections; get, set, add; 3  
