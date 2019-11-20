@@ -1,27 +1,30 @@
 package ru.akozlovskiy.springdz05.domain;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 public class Author {
 
-	private long id;
+	private Long id;
 
 	private String name;
 
-	private Date birthDate;
+	private LocalDate birthDate;
+	
+	public Author() {
+	}
 
-	public Author(long id, String name, Date birthDate) {
+	public Author(Long id, String name, LocalDate localDate) {
 		super();
 		this.id = id;
 		this.name = name;
-		this.birthDate = birthDate;
+		this.birthDate = localDate;
 	}
 
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -33,11 +36,11 @@ public class Author {
 		this.name = name;
 	}
 
-	public Date getBirthDate() {
+	public LocalDate getBirthDate() {
 		return birthDate;
 	}
 
-	public void setBirthDate(Date birthDate) {
+	public void setBirthDate(LocalDate birthDate) {
 		this.birthDate = birthDate;
 	}
 }
