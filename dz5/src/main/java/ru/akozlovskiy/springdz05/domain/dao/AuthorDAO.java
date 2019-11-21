@@ -6,7 +6,7 @@ import ru.akozlovskiy.springdz05.domain.Author;
 
 public interface AuthorDAO {
 
-	void insert(Author author);
+	void add(Author author);
 
 	Author getById(long id);
 

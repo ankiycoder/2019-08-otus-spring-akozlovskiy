@@ -6,15 +6,15 @@ public class Book {
 
 	private String title;
 
-	private long authorID;
+	private Long authorId;
 
-	private long genreID;
+	private Long genreID;
 
-	public Book(long id, String title, long authorID, long genreID) {
+	public Book(long id, String title, Long authorId, Long genreID) {
 		super();
 		this.id = id;
 		this.title = title;
-		this.authorID = authorID;
+		this.authorId = authorId;
 		this.genreID = genreID;
 	}
 
@@ -34,19 +34,20 @@ public class Book {
 		this.title = title;
 	}
 
-	public long getAuthorID() {
-		return authorID;
+	public Long getAuthorId() {
+		return authorId;
 	}
 
-	public void setAuthorID(long authorID) {
-		this.authorID = authorID;
+	public void setAuthorId(Long authorId) {
+		this.authorId = authorId;
 	}
 
-	public long getGenreID() {
+	public Long getGenreID() {
 		return genreID;
 	}
 
-	public void setGenreID(long genreID) {
+	public void setGenreID(Long genreID) {
 		this.genreID = genreID;
 	}
+
 }

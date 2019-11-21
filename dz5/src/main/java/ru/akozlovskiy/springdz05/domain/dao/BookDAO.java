@@ -6,7 +6,7 @@ import ru.akozlovskiy.springdz05.domain.Book;
 
 public interface BookDAO {
 
-	void insert(Book book);
+	void add(Book book);
 
 	Book getById(int id);
 
