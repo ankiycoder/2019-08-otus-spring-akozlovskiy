@@ -1,11 +1,12 @@
 package ru.akozlovskiy.springdz05.domain.dao;
 
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import java.time.LocalDate;
-import java.util.List;
+import java.time.format.DateTimeFormatter;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,39 +15,37 @@ import org.springframework.context.annotation.Import;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import ru.akozlovskiy.springdz05.domain.Author;
-import ru.akozlovskiy.springdz05.domain.Book;
+import ru.akozlovskiy.springdz05.exception.DaoException;
 
 @ExtendWith(SpringExtension.class)
 @JdbcTest
-@Import({AuthorDAOJdbc.class, BookDAOJdbc.class})
+@Import({ AuthorDAOJdbc.class })
+@DisplayName("DAO севрис по работе с авторами")
 public class AuthorDAOJdbcTest {
 
 	@Autowired
 	AuthorDAOJdbc authorDAOJdbc;
-	
-	@Autowired
-	BookDAOJdbc bookDAOJdbc;
+
+	private final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
 	@Test
-	public void testDao() {
-		Author author = new Author(1l, "name1", LocalDate.now());
-		authorDAOJdbc.add(author);
-		
-		Author author2 = new Author(2l, "name2", LocalDate.now());
-		authorDAOJdbc.add(author2);
-		
-		Book book = new Book(1l, "title", 2l, null) ;
-		bookDAOJdbc.add(book);
-		
-		Book book2 = new Book(2l, "title2", 2l, null) ;
-		bookDAOJdbc.add(book2);
-		
-		Author getByIdResult = authorDAOJdbc.getById(2);	
-		assertThat(author).isEqualToComparingFieldByField(getByIdResult);
-		
-		List<Author> authorList = authorDAOJdbc.getAll();
-		assertEquals(authorList.size(), 2);
-		
-		
+	@DisplayName("Успешность добавления в случае корректных данных")
+	public void testAddAngGetById() throws DaoException {
+
+		long authorID = authorDAOJdbc.add("Булгаков", "1891-05-15");
+		assertNotEquals(0, authorID);
+
+		Author author = authorDAOJdbc.getById(authorID);
+		assertEquals("Булгаков", author.getName());
+		assertEquals("1891-05-15", dateFormatter.format(author.getBirthDate()));
+
+	}
+
+	@Test
+	@DisplayName("Возврат ошибки при добавлении с кривой датой рождения")
+	public void testAddWithErrorBirthDate() throws DaoException {
+		assertThrows(DaoException.class, () -> {
+			authorDAOJdbc.add("name", "errorFormatBirthDate");
+		});
 	}
 }

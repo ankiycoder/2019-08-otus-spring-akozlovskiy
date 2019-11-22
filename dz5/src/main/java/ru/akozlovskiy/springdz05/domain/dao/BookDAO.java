@@ -3,13 +3,13 @@ package ru.akozlovskiy.springdz05.domain.dao;
 import java.util.List;
 
 import ru.akozlovskiy.springdz05.domain.Book;
+import ru.akozlovskiy.springdz05.exception.DaoException;
 
 public interface BookDAO {
 
-	void add(Book book);
+	List<Book> findAllByAuthor(String author) throws DaoException;
 
-	Book getById(int id);
+	Book getById(long id) throws DaoException;
 
-	List<Book> getAll();
-
+	long add(String bookname, String authorName, String description) throws DaoException;
 }

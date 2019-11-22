@@ -6,12 +6,6 @@ public class Genre {
 
 	private String description;
 
-	public Genre(long id, String description) {
-		super();
-		this.id = id;
-		this.description = description;
-	}
-
 	public long getId() {
 		return id;
 	}

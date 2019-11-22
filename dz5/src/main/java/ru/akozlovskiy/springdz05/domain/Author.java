@@ -1,8 +1,6 @@
 package ru.akozlovskiy.springdz05.domain;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 
 public class Author {
 
@@ -12,20 +10,7 @@ public class Author {
 
 	private LocalDate birthDate;
 
-	private List<Book> bookList = new ArrayList<Book>();
-
 	public Author() {
-	}
-
-	public Author(Long id, String name, LocalDate localDate) {
-		super();
-		this.id = id;
-		this.name = name;
-		this.birthDate = localDate;
-	}
-
-	public void addBook(Book book) {
-		bookList.add(book);
 	}
 
 	public Long getId() {
@@ -50,13 +35,5 @@ public class Author {
 
 	public void setBirthDate(LocalDate birthDate) {
 		this.birthDate = birthDate;
-	}
-
-	public List<Book> getBookList() {
-		return bookList;
-	}
-
-	public void setBookList(List<Book> bookList) {
-		this.bookList = bookList;
 	}
 }
