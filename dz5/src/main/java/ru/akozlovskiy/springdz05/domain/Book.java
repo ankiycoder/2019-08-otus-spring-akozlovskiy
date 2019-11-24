@@ -3,12 +3,12 @@ package ru.akozlovskiy.springdz05.domain;
 public class Book {
 
 	private long id;
-	
+
 	private String bookName;
 
 	private Author author;
 
-	private Long genreID;
+	private Genre genre;
 
 	public long getId() {
 		return id;
@@ -34,11 +34,19 @@ public class Book {
 		this.author = author;
 	}
 
-	public Long getGenreID() {
-		return genreID;
+	public Genre getGenre() {
+		return genre;
 	}
 
-	public void setGenreID(Long genreID) {
-		this.genreID = genreID;
+	public void setGenre(Genre genre) {
+		this.genre = genre;
+	}
+
+	public String toString() {
+		StringBuilder strb = new StringBuilder();
+		strb.append("ID = ").append(id).append(", bookName = ").append(bookName).append(", author = ")
+				.append(author.getName()).append(", genre = ").append(genre.getDescription());
+		return strb.toString();
+
 	}
 }

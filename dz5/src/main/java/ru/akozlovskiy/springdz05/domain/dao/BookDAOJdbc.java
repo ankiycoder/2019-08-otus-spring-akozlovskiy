@@ -3,44 +3,59 @@ package ru.akozlovskiy.springdz05.domain.dao;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.ResultSetExtractor;
-import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcOperations;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
+import org.springframework.stereotype.Repository;
+import org.springframework.util.CollectionUtils;
 
 import ru.akozlovskiy.springdz05.domain.Author;
 import ru.akozlovskiy.springdz05.domain.Book;
 import ru.akozlovskiy.springdz05.domain.Genre;
 import ru.akozlovskiy.springdz05.exception.DaoException;
 
+@Repository
 public class BookDAOJdbc implements BookDAO {
 
-	private final AuthorDAOJdbc authorDAOJdbc;
+	private static final String ID_FIELD = "id";
+
+	private static final String GENRE_ID_FIELD = "genreID";
+
+	private static final String BOOK_NAME_FIELD = "BookName";
+
+	private static final String AUTHOR_ID_FIELD = "authorId";
 	
-	private final GenreDAOJdbc genreDAOJdbc;
+	private static final String SELECT_SQL = "SELECT bk.id, bk.BookName, ath.id as authorId, bk.genreid as genreid from book bk inner join author ath on bk.authorId = ath.id inner join genre g on bk.genreid = g.id WHERE ";
+
+	private final AuthorDAO authorDAO;
+
+	private final GenreDAO genreDAO;
 
 	private final NamedParameterJdbcOperations namedParameterJdbcOperations;
 
-	public BookDAOJdbc(NamedParameterJdbcOperations namedParameterJdbcOperations, AuthorDAOJdbc authorDAOJdbc,
-			JdbcTemplate jdbcTemplate,  GenreDAOJdbc genreDAOJdbc) {
+	public BookDAOJdbc(NamedParameterJdbcOperations namedParameterJdbcOperations, AuthorDAO authorDAO,
+			JdbcTemplate jdbcTemplate, GenreDAO genreDAO) {
 		this.namedParameterJdbcOperations = namedParameterJdbcOperations;
-		this.authorDAOJdbc = authorDAOJdbc;
-		this.genreDAOJdbc = genreDAOJdbc;
+		this.authorDAO = authorDAO;
+		this.genreDAO = genreDAO;
 	}
 
 	@Override
 	public Book getById(long id) {
-		Map<String, Object> params = Collections.singletonMap("id", id);
-		String sql = "SELECT * FROM BOOK WHERE ID =:id";
-		return namedParameterJdbcOperations.queryForObject(sql, params, new BookMapper(authorDAOJdbc));
+		String sql = SELECT_SQL + " bk.id = ?";
+		List<Book> query = namedParameterJdbcOperations.getJdbcOperations().query(sql,
+				new BookResultSetExtractor(authorDAO, genreDAO), id);
+
+		if (CollectionUtils.isEmpty(query)) {
+			return null;
+		}
+		return query.get(0);
 	}
 
 	@Override
@@ -50,76 +65,84 @@ public class BookDAOJdbc implements BookDAO {
 		Genre genre = getGenre(description);
 
 		KeyHolder holder = new GeneratedKeyHolder();
-		SqlParameterSource parameters = new MapSqlParameterSource().addValue("BookName", bookname)
-				.addValue("authorId", author.getId()).addValue("genreID", genre.getId());
+		SqlParameterSource parameters = new MapSqlParameterSource().addValue(BOOK_NAME_FIELD, bookname)
+				.addValue("authorId", author.getId()).addValue(GENRE_ID_FIELD, genre.getId());
 		namedParameterJdbcOperations.update(
 				"INSERT INTO BOOK (BookName, authorId, genreID) VALUES (:BookName, :authorId, :genreID)", parameters,
 				holder);
 		return holder.getKey().longValue();
 	}
 
+	@Override
+	public List<Book> findAllByAuthor(String authorName) {
+
+		String sql = SELECT_SQL + "ath.name = ?";
+		return namedParameterJdbcOperations.getJdbcOperations().query(sql,
+				new BookResultSetExtractor(authorDAO, genreDAO), authorName);
+	}
+
+	@Override
+	public List<Book> findByName(String bookName) {
+
+		String sql = SELECT_SQL + "bk.bookname = ?";
+		return namedParameterJdbcOperations.getJdbcOperations().query(sql,
+				new BookResultSetExtractor(authorDAO, genreDAO), bookName);
+	}
+
+	static class BookResultSetExtractor implements ResultSetExtractor<List<Book>> {
+
+		List<Book> books = new ArrayList<Book>();
+
+		private Author author = null;
+		private Genre genre = null;
+
+		private final AuthorDAO authorDAO;
+
+		private final GenreDAO genreDAO;
+
+		public BookResultSetExtractor(AuthorDAO authorDAO, GenreDAO genreDAO) {
+			this.authorDAO = authorDAO;
+			this.genreDAO = genreDAO;
+		}
+
+		@Override
+		public List<Book> extractData(ResultSet set) throws SQLException {
+
+			while (set.next()) {
+				Book book = new Book();
+				book.setId(set.getLong(ID_FIELD));
+				book.setBookName(set.getString(BOOK_NAME_FIELD));
+
+				if (author == null) {
+					long authorId = set.getLong(AUTHOR_ID_FIELD);
+					author = authorDAO.getById(authorId);
+				}
+				book.setAuthor(author);
+
+				if (genre == null) {
+					long genreId = set.getLong(GENRE_ID_FIELD);
+					genre = genreDAO.getById(genreId);
+				}
+				book.setGenre(genre);
+				books.add(book);
+			}
+			return books;
+		}
+	}
+
 	private Genre getGenre(String description) throws DaoException {
 		try {
-			return genreDAOJdbc.getByDescription(description);
+			return genreDAO.getByDescription(description);
 		} catch (org.springframework.dao.IncorrectResultSizeDataAccessException e) {
 			throw new DaoException("Ошибка добавления книги. В базе на найден жанр: " + description);
 		}
 	}
-	
+
 	private Author getAuthor(String authorName) throws DaoException {
 		try {
-			return authorDAOJdbc.getByName(authorName);
+			return authorDAO.getByName(authorName);
 		} catch (org.springframework.dao.IncorrectResultSizeDataAccessException e) {
 			throw new DaoException("Ошибка добавления книги. В базе на найден автор с именем: " + authorName);
-		}
-	}
-
-	@Override
-	public List<Book> findAllByAuthor(String authorName) {
-
-		String sql2 = "SELECT bk.id, bk.BookName, ath.id as authorId from book bk inner join author ath on bk.authorId = ath.id inner join genre g on bk.genreid = g.id WHERE ath.name = ?";
-		return namedParameterJdbcOperations.getJdbcOperations().query(sql2, new ResultSetExtractor<List<Book>>() {
-
-			List<Book> books = new ArrayList<Book>();
-
-			Author author = null;
-
-			@Override
-			public List<Book> extractData(ResultSet set) throws SQLException {
-
-				while (set.next()) {
-					Book book = new Book();
-					book.setId(set.getLong("id"));
-					book.setBookName(set.getString("BookName"));
-
-					if (author == null) {
-						long authorId = set.getLong("authorId");
-						author = authorDAOJdbc.getById(authorId);
-					}
-					book.setAuthor(author);
-					books.add(book);
-				}
-				return books;
-			}
-		}, authorName);
-	}
-
-	private static class BookMapper implements RowMapper<Book> {
-
-		private AuthorDAOJdbc authorDAOJdbc;
-
-		public BookMapper(AuthorDAOJdbc authorDAOJdbc) {
-			this.authorDAOJdbc = authorDAOJdbc;
-		}
-
-		@Override
-		public Book mapRow(ResultSet resultSet, int rowNum) throws SQLException {
-			Book book = new Book();
-			book.setId(resultSet.getLong("id"));
-			book.setBookName(resultSet.getString("BookName"));
-			long authorid = resultSet.getLong("authorid");
-			book.setAuthor(authorDAOJdbc.getById(authorid));
-			return book;
 		}
 	}
 }

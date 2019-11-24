@@ -36,4 +36,10 @@ public class Author {
 	public void setBirthDate(LocalDate birthDate) {
 		this.birthDate = birthDate;
 	}
+
+	public String toString() {
+		StringBuilder strb = new StringBuilder();
+		strb.append("ID = ").append(id).append(", name = ").append(name).append(", birthDate = ").append(birthDate);
+		return strb.toString();
+	}
 }

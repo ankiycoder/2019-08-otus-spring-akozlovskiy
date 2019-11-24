@@ -14,11 +14,17 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcOperations;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
+import org.springframework.stereotype.Repository;
 
 import ru.akozlovskiy.springdz05.domain.Author;
 import ru.akozlovskiy.springdz05.exception.DaoException;
 
+@Repository
 public class AuthorDAOJdbc implements AuthorDAO {
+
+	private static final String NAME_FIELD = "name";
+	private static final String ID_FIELD = "id";
+	private static final String BIRTH_DATE_FIELD = "birthDate";
 
 	private static final String YYYY_MM_DD = "yyyy-MM-dd";
 
@@ -48,7 +54,7 @@ public class AuthorDAOJdbc implements AuthorDAO {
 		}
 
 		KeyHolder holder = new GeneratedKeyHolder();
-		SqlParameterSource parameters = new MapSqlParameterSource().addValue("name", name).addValue("birthDate",
+		SqlParameterSource parameters = new MapSqlParameterSource().addValue("name", name).addValue(BIRTH_DATE_FIELD,
 				localDate);
 
 		namedParameterJdbcOperations.update("INSERT INTO AUTHOR (name, birthDate) VALUES (:name, :birthDate)",
@@ -77,10 +83,10 @@ public class AuthorDAOJdbc implements AuthorDAO {
 
 		@Override
 		public Author mapRow(ResultSet resultSet, int i) throws SQLException {
-			java.sql.Date birthDate = resultSet.getDate("birthDate");
+			java.sql.Date birthDate = resultSet.getDate(BIRTH_DATE_FIELD);
 			Author author = new Author();
-			author.setId(resultSet.getLong("id"));
-			author.setName(resultSet.getString("name"));
+			author.setId(resultSet.getLong(ID_FIELD));
+			author.setName(resultSet.getString(NAME_FIELD));
 			author.setBirthDate(birthDate.toLocalDate());
 			return author;
 		}

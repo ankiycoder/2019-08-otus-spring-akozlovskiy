@@ -1,5 +1,6 @@
 package ru.akozlovskiy.springdz05.domain.dao;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -27,7 +28,7 @@ public class BookDAOJdbcTest {
 	private static final String GENRE_IN_BD = "GENRE_TEST";
 
 	@Autowired
-	BookDAOJdbc bookDAOJdbc;
+	private BookDAOJdbc bookDAOJdbc;
 
 	@Test
 	@DisplayName("Успешность добавления в случае корректных данных")
@@ -40,6 +41,7 @@ public class BookDAOJdbcTest {
 
 		assertEquals(book.getBookName(), testBookName);
 		assertEquals(book.getAuthor().getName(), AUTHOR_NAME_IN_BD);
+		assertEquals(book.getGenre().getDescription(), GENRE_IN_BD);
 	}
 
 	@Test
@@ -71,5 +73,16 @@ public class BookDAOJdbcTest {
 	public void testFindAllByAuthorWhenNotFound() {
 		List<Book> bookList = bookDAOJdbc.findAllByAuthor("WRONG_AUTHOR_NAME");
 		assertEquals(0, bookList.size());
+	}
+
+	@Test
+	@DisplayName("Поиск по имени")
+	public void testFindByName() throws DaoException {
+		String bookName = "testBookNameForTest";
+		long bookId = bookDAOJdbc.add(bookName, AUTHOR_NAME_IN_BD, GENRE_IN_BD);
+		Book bookById = bookDAOJdbc.getById(bookId);
+		List<Book> bookList = bookDAOJdbc.findByName(bookName);
+		Book bookByName = bookList.get(0);
+		assertThat(bookById).usingRecursiveComparison().isEqualTo(bookByName);
 	}
 }

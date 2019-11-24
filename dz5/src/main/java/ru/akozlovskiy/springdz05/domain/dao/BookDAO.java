@@ -7,9 +7,11 @@ import ru.akozlovskiy.springdz05.exception.DaoException;
 
 public interface BookDAO {
 
-	List<Book> findAllByAuthor(String author) throws DaoException;
+	long add(String bookname, String authorName, String description) throws DaoException;
 
 	Book getById(long id) throws DaoException;
 
-	long add(String bookname, String authorName, String description) throws DaoException;
+	List<Book> findByName(String authorName);
+
+	List<Book> findAllByAuthor(String author) throws DaoException;
 }

@@ -21,4 +21,10 @@ public class Genre {
 	public void setDescription(String description) {
 		this.description = description;
 	}
+
+	public String toString() {
+		StringBuilder strb = new StringBuilder();
+		strb.append("ID = ").append(id).append(", description = ").append(description);
+		return strb.toString();
+	}
 }

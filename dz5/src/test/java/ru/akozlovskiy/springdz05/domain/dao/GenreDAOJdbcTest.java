@@ -1,5 +1,6 @@
 package ru.akozlovskiy.springdz05.domain.dao;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
@@ -22,25 +23,35 @@ import ru.akozlovskiy.springdz05.exception.DaoException;
 @DisplayName("DAO сервис по работе с жанрами")
 public class GenreDAOJdbcTest {
 
+	private static final String GENRE_DESCRIPTION = "Фантастика";
+
 	@Autowired
-	GenreDAOJdbc genreDAOJdbc;
+	private GenreDAOJdbc genreDAOJdbc;
 
 	@Test
-	@DisplayName("Успешность добавления  и посика")
+	@DisplayName("Успешность добавления  и поиска по ID")
 	public void testAddAndGetById() throws DaoException {
 
-		long id = genreDAOJdbc.add("Фантастика");
-		assertNotEquals(0, id);
+		String description = GENRE_DESCRIPTION;
 
+		long id = genreDAOJdbc.add(description);
 		Genre genre = genreDAOJdbc.getById(id);
-		assertEquals("Фантастика", genre.getDescription());
+		assertEquals(description, genre.getDescription());
 		assertEquals(id, genre.getId());
 	}
 
 	@Test
-	@DisplayName("Поиск всех жнров в БД")
-	public void testGetAll() throws DaoException {
+	@DisplayName("Поиск по имени")
+	public void testGetByName() throws DaoException {
+		long genreId = genreDAOJdbc.add(GENRE_DESCRIPTION);
+		Genre genreById = genreDAOJdbc.getById(genreId);
+		Genre genreByDescriptopn = genreDAOJdbc.getByDescription(GENRE_DESCRIPTION);
+		assertThat(genreById).isEqualToComparingFieldByField(genreByDescriptopn);
+	}
 
+	@Test
+	@DisplayName("Поиск всех жанров в БД")
+	public void testGetAll() throws DaoException {
 		genreDAOJdbc.add("test1");
 		genreDAOJdbc.add("test2");
 		genreDAOJdbc.add("test3");
