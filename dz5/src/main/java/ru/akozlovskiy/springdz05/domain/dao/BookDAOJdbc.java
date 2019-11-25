@@ -5,7 +5,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcOperations;
@@ -39,8 +38,7 @@ public class BookDAOJdbc implements BookDAO {
 
 	private final NamedParameterJdbcOperations namedParameterJdbcOperations;
 
-	public BookDAOJdbc(NamedParameterJdbcOperations namedParameterJdbcOperations, AuthorDAO authorDAO,
-			JdbcTemplate jdbcTemplate, GenreDAO genreDAO) {
+	public BookDAOJdbc(NamedParameterJdbcOperations namedParameterJdbcOperations, AuthorDAO authorDAO, GenreDAO genreDAO) {
 		this.namedParameterJdbcOperations = namedParameterJdbcOperations;
 		this.authorDAO = authorDAO;
 		this.genreDAO = genreDAO;
@@ -91,7 +89,7 @@ public class BookDAOJdbc implements BookDAO {
 
 	static class BookResultSetExtractor implements ResultSetExtractor<List<Book>> {
 
-		List<Book> books = new ArrayList<Book>();
+		List<Book> books = new ArrayList<>();
 
 		private Author author = null;
 		private Genre genre = null;
