@@ -72,7 +72,7 @@ public class BookDAOJpa implements BookDAO {
 	private Genre getGenre(String description) throws DaoException {
 		try {
 			return genreDAO.getByDescription(description);
-		} catch (org.springframework.dao.IncorrectResultSizeDataAccessException e) {
+		} catch (javax.persistence.NoResultException e) {
 			throw new DaoException("Ошибка добавления книги. В базе на найден жанр: " + description);
 		}
 	}
@@ -80,7 +80,7 @@ public class BookDAOJpa implements BookDAO {
 	private Author getAuthor(String authorName) throws DaoException {
 		try {
 			return authorDAO.getByName(authorName);
-		} catch (org.springframework.dao.IncorrectResultSizeDataAccessException e) {
+		} catch (javax.persistence.NoResultException e) {
 			throw new DaoException("Ошибка добавления книги. В базе на найден автор с именем: " + authorName);
 		}
 	}

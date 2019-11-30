@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.context.annotation.Import;
+import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import ru.akozlovskiy.springdz06.domain.Genre;
@@ -22,6 +23,7 @@ import ru.akozlovskiy.springdz06.exception.DaoException;
 @DataJpaTest
 @Import({ GenreDAOJpa.class })
 @DisplayName("DAO сервис по работе с жанрами")
+@Sql(scripts = "classpath:db/testdata.sql")
 public class GenreDAOJpaTest {
 
 	private static final String GENRE_DESCRIPTION = "Фантастика";
