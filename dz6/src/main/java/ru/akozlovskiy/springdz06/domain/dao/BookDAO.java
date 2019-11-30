@@ -11,7 +11,7 @@ public interface BookDAO {
 
 	Book getById(long id) throws DaoException;
 
-	List<Book> findByName(String authorName);
+	List<Book> findByName(String Name);
 
 	List<Book> findAllByAuthor(String author) throws DaoException;
 }

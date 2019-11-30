@@ -1,13 +1,30 @@
 package ru.akozlovskiy.springdz06.domain;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
+@Entity
 public class Book {
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 
+	@Column(name="bookname")
 	private String bookName;
 
+	@ManyToOne(targetEntity = Author.class, fetch = FetchType.EAGER)
+	@JoinColumn(nullable = false, name = "authorid")
 	private Author author;
 
+	@ManyToOne(targetEntity = Genre.class, fetch = FetchType.EAGER)
+	@JoinColumn(nullable = false, name = "genreid")
 	private Genre genre;
 
 	public long getId() {
