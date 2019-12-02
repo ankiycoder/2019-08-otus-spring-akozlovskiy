@@ -16,14 +16,12 @@ import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import ru.akozlovskiy.springdz06.domain.Genre;
-import ru.akozlovskiy.springdz06.domain.dao.jpa.GenreDAOJpa;
 import ru.akozlovskiy.springdz06.exception.DaoException;
 
 @ExtendWith(SpringExtension.class)
 @DataJpaTest
 @Import({ GenreDAOJpa.class })
 @DisplayName("DAO сервис по работе с жанрами")
-@Sql(scripts = "classpath:db/testdata.sql")
 public class GenreDAOJpaTest {
 
 	private static final String GENRE_DESCRIPTION = "Фантастика";
@@ -33,7 +31,7 @@ public class GenreDAOJpaTest {
 
 	@Autowired
 	private TestEntityManager em;
-	
+
 	@Test
 	@DisplayName("Добавление")
 	public void testAdd() throws DaoException {
@@ -48,7 +46,7 @@ public class GenreDAOJpaTest {
 		Genre genre = new Genre();
 		genre.setDescription(GENRE_DESCRIPTION);
 		em.persistAndFlush(genre);
-		
+
 		Genre getByIdGenre = genreDAO.getById(genre.getId());
 		assertThat(genre).isEqualToComparingFieldByField(getByIdGenre);
 	}
@@ -59,7 +57,7 @@ public class GenreDAOJpaTest {
 		Genre genre = new Genre();
 		genre.setDescription(GENRE_DESCRIPTION);
 		em.persistAndFlush(genre);
-		
+
 		Genre genreByDescriptopn = genreDAO.getByDescription(GENRE_DESCRIPTION);
 		assertThat(genre).isEqualToComparingFieldByField(genreByDescriptopn);
 	}

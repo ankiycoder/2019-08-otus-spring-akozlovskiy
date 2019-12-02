@@ -24,7 +24,6 @@ import ru.akozlovskiy.springdz06.exception.DaoException;
 @DataJpaTest
 @Import({ BookDAOJpa.class, AuthorDAOJpa.class, GenreDAOJpa.class })
 @DisplayName("DAO сервис по работе с книгами")
-@Sql(scripts = "classpath:db/testdata.sql")
 public class BookDAOJpaTest {
 
 	private static final String BOOK_NAME_BD = "BOOK_NAME1";
@@ -33,7 +32,7 @@ public class BookDAOJpaTest {
 
 	@Autowired
 	private BookDAOJpa bookDAO;
-	
+
 	@Autowired
 	private TestEntityManager em;
 
@@ -51,29 +50,25 @@ public class BookDAOJpaTest {
 	@Test
 	@DisplayName("Поиск по названию")
 	public void testFindByName() throws DaoException {
-
-		List<Book> bookList = bookDAO.findByName(BOOK_NAME_BD);
-		assertThat(bookList).isNotEmpty();
-		
-		Book book = bookList.get(0);
+		Book book = bookDAO.findByName(BOOK_NAME_BD);
 		assertEquals(book.getBookName(), BOOK_NAME_BD);
 		assertEquals(book.getAuthor().getName(), AUTHOR_NAME_IN_BD);
 		assertEquals(book.getGenre().getDescription(), GENRE_IN_BD);
 	}
-	
+
 	@Test
 	@DisplayName("Поиск по автору")
 	public void testFindByAuthor() throws DaoException {
 
 		List<Book> bookList = bookDAO.findAllByAuthor(AUTHOR_NAME_IN_BD);
 		assertThat(bookList).isNotEmpty();
-		
+
 		Book book = bookList.get(0);
 		assertEquals(book.getBookName(), BOOK_NAME_BD);
 		assertEquals(book.getAuthor().getName(), AUTHOR_NAME_IN_BD);
 		assertEquals(book.getGenre().getDescription(), GENRE_IN_BD);
 	}
-	
+
 	@Test
 	@DisplayName("Добавление в случае корректных данных")
 	public void testAddAndGetById() throws DaoException {

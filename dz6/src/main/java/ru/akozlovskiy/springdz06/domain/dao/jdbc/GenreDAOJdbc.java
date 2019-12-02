@@ -12,12 +12,11 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcOperations;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
-import org.springframework.stereotype.Repository;
 
 import ru.akozlovskiy.springdz06.domain.Genre;
 import ru.akozlovskiy.springdz06.domain.dao.GenreDAO;
 
-@Repository
+//@Repository
 public class GenreDAOJdbc implements GenreDAO {
 
 	private static final String ID_FIELD = "id";

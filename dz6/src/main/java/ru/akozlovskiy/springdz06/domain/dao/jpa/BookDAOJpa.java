@@ -7,13 +7,16 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import ru.akozlovskiy.springdz06.domain.Author;
 import ru.akozlovskiy.springdz06.domain.Book;
 import ru.akozlovskiy.springdz06.domain.Genre;
+import ru.akozlovskiy.springdz06.domain.dao.AuthorDAO;
 import ru.akozlovskiy.springdz06.domain.dao.BookDAO;
+import ru.akozlovskiy.springdz06.domain.dao.GenreDAO;
 import ru.akozlovskiy.springdz06.exception.DaoException;
 
 @SuppressWarnings("JpaQlInspection")
@@ -25,10 +28,15 @@ public class BookDAOJpa implements BookDAO {
 	private EntityManager em;
 
 	@Autowired
-	private AuthorDAOJpa authorDAO;
+	private AuthorDAO authorDAO;
 
 	@Autowired
-	private GenreDAOJpa genreDAO;
+	private GenreDAO genreDAO;
+
+	public BookDAOJpa(AuthorDAO authorDAO, GenreDAOJpa genreDAO) {
+		this.authorDAO = authorDAO;
+		this.genreDAO = genreDAO;
+	}
 
 	@Override
 	public long add(String bookName, String authorName, String description) throws DaoException {
@@ -51,12 +59,12 @@ public class BookDAOJpa implements BookDAO {
 	}
 
 	@Override
-	public List<Book> findByName(String name) {
+	public Book findByName(String name) {
 		TypedQuery<Book> query = em.createQuery(
 				"select b from Book b join fetch b.genre g join fetch b.author a where b.bookName=:bookName",
 				Book.class);
 		query.setParameter("bookName", name);
-		return query.getResultList();
+		return query.getSingleResult();
 	}
 
 	@Override
@@ -72,7 +80,7 @@ public class BookDAOJpa implements BookDAO {
 	private Genre getGenre(String description) throws DaoException {
 		try {
 			return genreDAO.getByDescription(description);
-		} catch (javax.persistence.NoResultException e) {
+		} catch (EmptyResultDataAccessException e) {
 			throw new DaoException("Ошибка добавления книги. В базе на найден жанр: " + description);
 		}
 	}
@@ -80,8 +88,16 @@ public class BookDAOJpa implements BookDAO {
 	private Author getAuthor(String authorName) throws DaoException {
 		try {
 			return authorDAO.getByName(authorName);
-		} catch (javax.persistence.NoResultException e) {
+		} catch (EmptyResultDataAccessException e) {
 			throw new DaoException("Ошибка добавления книги. В базе на найден автор с именем: " + authorName);
 		}
+	}
+
+	@Override
+	public List<Book> getAll() throws DaoException {
+		TypedQuery<Book> query = em.createQuery(
+				"select b from Book b",
+				Book.class);
+		return query.getResultList();
 	}
 }

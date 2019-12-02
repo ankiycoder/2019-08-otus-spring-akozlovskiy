@@ -4,13 +4,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
+import javax.persistence.NoResultException;
+
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcOperations;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
-import org.springframework.stereotype.Repository;
 import org.springframework.util.CollectionUtils;
 
 import ru.akozlovskiy.springdz06.domain.Author;
@@ -21,7 +22,7 @@ import ru.akozlovskiy.springdz06.domain.dao.BookDAO;
 import ru.akozlovskiy.springdz06.domain.dao.GenreDAO;
 import ru.akozlovskiy.springdz06.exception.DaoException;
 
-@Repository
+//@Repository
 public class BookDAOJdbc implements BookDAO {
 
 	private static final String ID_FIELD = "id";
@@ -72,16 +73,14 @@ public class BookDAOJdbc implements BookDAO {
 
 	@Override
 	public List<Book> findAllByAuthor(String authorName) {
-
 		String sql = SELECT_SQL + "ath.name = ?";
 		return namedParameterJdbcOperations.getJdbcOperations().query(sql, new BookMapper(), authorName);
 	}
 
 	@Override
-	public List<Book> findByName(String bookName) {
-
+	public Book findByName(String bookName) {
 		String sql = SELECT_SQL + "bk.bookname = ?";
-		return namedParameterJdbcOperations.getJdbcOperations().query(sql, new BookMapper(), bookName);
+		return namedParameterJdbcOperations.getJdbcOperations().queryForObject(sql, new BookMapper(), bookName);
 	}
 
 	private class BookMapper implements RowMapper<Book> {
@@ -125,5 +124,11 @@ public class BookDAOJdbc implements BookDAO {
 		} catch (org.springframework.dao.IncorrectResultSizeDataAccessException e) {
 			throw new DaoException("Ошибка добавления книги. В базе на найден автор с именем: " + authorName);
 		}
+	}
+
+	@Override
+	public List<Book> getAll() throws DaoException {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

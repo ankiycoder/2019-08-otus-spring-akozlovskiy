@@ -59,5 +59,4 @@ public class AuthorDAOJpa implements AuthorDAO {
 		em.persist(author);
 		return author.getId();
 	}
-
 }

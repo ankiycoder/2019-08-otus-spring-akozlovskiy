@@ -1,6 +1,7 @@
 package ru.akozlovskiy.springdz06.shell;
 
 import java.util.List;
+import java.util.Objects;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.shell.standard.ShellComponent;
@@ -13,6 +14,7 @@ import ru.akozlovskiy.springdz06.domain.Genre;
 import ru.akozlovskiy.springdz06.domain.dao.AuthorDAO;
 import ru.akozlovskiy.springdz06.domain.dao.BookDAO;
 import ru.akozlovskiy.springdz06.domain.dao.GenreDAO;
+import ru.akozlovskiy.springdz06.domain.service.CommentService;
 import ru.akozlovskiy.springdz06.exception.DaoException;
 
 @ShellComponent
@@ -26,6 +28,21 @@ public class LibraryApplicationShellCommands {
 
 	@Autowired
 	private GenreDAO genreDAO;
+
+	@Autowired
+	private CommentService commentService;
+
+	@ShellMethod(value = "Поиск всех книг", key = { "falb", "getAllBook" })
+	public String getAllBook() throws DaoException {
+
+		List<Book> bookList = bookDAO.getAll();
+
+		StringBuilder strb = new StringBuilder();
+		bookList.stream().forEach(book -> {
+			strb.append(book.toString()).append("\n");
+		});
+		return strb.toString();
+	}
 
 	@ShellMethod(value = "Поиск книг по автору", key = { "faba", "findAllBookByAuthor" })
 	public String findAllBookByAuthor(String auhtor) throws DaoException {
@@ -52,22 +69,16 @@ public class LibraryApplicationShellCommands {
 			return ex.getMessage();
 		}
 	}
-	
 
 	@ShellMethod(value = "Поиск книги по имени", key = { "fbbn", "findBookByName" })
 	public String findBookByName(String bookname) throws DaoException {
 
-		List<Book> bookList = bookDAO.findByName(bookname);
+		Book book = bookDAO.findByName(bookname);
 
-		if (CollectionUtils.isEmpty(bookList)) {
+		if (Objects.isNull(book)) {
 			return "Книга с названием " + bookname + " не найдена";
 		}
-
-		StringBuilder strb = new StringBuilder();
-		bookList.stream().forEach(book -> {
-			strb.append(book.toString()).append("\n");
-		});
-		return strb.toString();
+		return book.toString();
 	}
 
 	@ShellMethod(value = "Список всех авторов", key = { "gaat", "getAllAuthor" })
@@ -80,7 +91,6 @@ public class LibraryApplicationShellCommands {
 		});
 		return strb.toString();
 	}
-	
 
 	@ShellMethod(value = "Добавить автора", key = { "adat", "addAuthor" })
 	public String addAuthor(String name, String birthDate) {
@@ -88,7 +98,7 @@ public class LibraryApplicationShellCommands {
 		try {
 			author = authorDAO.add(name, birthDate);
 		} catch (DaoException e) {
-			return e.getMessage(); 
+			return e.getMessage();
 		}
 		return "Добавлен новый автор, ID = " + author;
 	}
@@ -108,5 +118,16 @@ public class LibraryApplicationShellCommands {
 	public String addGenre(String description) {
 		long bookid = genreDAO.add(description);
 		return "Добавлен новый жанр, ID = " + bookid;
+	}
+
+	@ShellMethod(value = "Добавить комментарий к книге", key = { "adcm", "addComment" })
+	public String addComment(String comment, String bookName) {
+		long commentid;
+		try {
+			commentid = commentService.add(comment, bookName);
+		} catch (Throwable e) {
+			return e.getMessage();
+		}
+		return "Добавлен новый коментарий, ID = " + commentid;
 	}
 }

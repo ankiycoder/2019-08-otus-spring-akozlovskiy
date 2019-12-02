@@ -14,13 +14,12 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcOperations;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
-import org.springframework.stereotype.Repository;
 
 import ru.akozlovskiy.springdz06.domain.Author;
 import ru.akozlovskiy.springdz06.domain.dao.AuthorDAO;
 import ru.akozlovskiy.springdz06.exception.DaoException;
 
-@Repository
+//@Repository
 public class AuthorDAOJdbc implements AuthorDAO {
 
 	private static final String NAME_FIELD = "name";

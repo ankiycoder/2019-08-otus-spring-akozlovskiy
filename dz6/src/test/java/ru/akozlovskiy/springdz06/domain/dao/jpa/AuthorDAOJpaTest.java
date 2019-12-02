@@ -26,7 +26,6 @@ import ru.akozlovskiy.springdz06.exception.DaoException;
 @DataJpaTest
 @Import({ AuthorDAOJpa.class })
 @DisplayName("DAO севрис по работе с авторами")
-@Sql(scripts = "classpath:db/testdata.sql")
 public class AuthorDAOJpaTest {
 
 	private static final String AUTHOR_BIRTH_DATE = "1891-05-15";

@@ -8,9 +8,8 @@
 		<createTable tableName="AUTHOR"
 			remarks="A table to contain all books">
 			<column name="ID" type="int" autoIncrement="true">
-				<constraints unique="true"
-					primaryKey="true" />
-					
+				<constraints unique="true" primaryKey="true" />
+
 			</column>
 			<column name="NAME" type="varchar(255)">
 				<constraints nullable="false" unique="false" />
@@ -46,5 +45,6 @@
 			</column>
 		</createTable>
 	</changeSet>
-	 
+
+
 </databaseChangeLog>
