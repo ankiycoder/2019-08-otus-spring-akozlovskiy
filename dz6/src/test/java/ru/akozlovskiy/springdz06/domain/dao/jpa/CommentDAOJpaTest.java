@@ -12,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.context.annotation.Import;
-import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import ru.akozlovskiy.springdz06.domain.Book;
@@ -22,7 +21,7 @@ import ru.akozlovskiy.springdz06.exception.DaoException;
 @ExtendWith(SpringExtension.class)
 @DataJpaTest
 @Import({ BookDAOJpa.class, CommentDAOJpa.class, AuthorDAOJpa.class, GenreDAOJpa.class })
-@DisplayName("DAO сервис по работе с комментариями")
+@DisplayName("DAO по работе с комментариями")
 public class CommentDAOJpaTest {
 
 	@Autowired

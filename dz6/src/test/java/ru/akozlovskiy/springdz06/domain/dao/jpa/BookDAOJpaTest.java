@@ -3,7 +3,6 @@ package ru.akozlovskiy.springdz06.domain.dao.jpa;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.List;
 
@@ -14,16 +13,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.context.annotation.Import;
-import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import ru.akozlovskiy.springdz06.domain.Author;
 import ru.akozlovskiy.springdz06.domain.Book;
+import ru.akozlovskiy.springdz06.domain.Genre;
 import ru.akozlovskiy.springdz06.exception.DaoException;
 
 @ExtendWith(SpringExtension.class)
 @DataJpaTest
 @Import({ BookDAOJpa.class, AuthorDAOJpa.class, GenreDAOJpa.class })
-@DisplayName("DAO сервис по работе с книгами")
+@DisplayName("DAO по работе с книгами")
 public class BookDAOJpaTest {
 
 	private static final String BOOK_NAME_BD = "BOOK_NAME1";
@@ -39,12 +39,9 @@ public class BookDAOJpaTest {
 	@Test
 	@DisplayName("Поиск по ID")
 	public void testGetById() throws DaoException {
-
-		Book book = bookDAO.getById(1l);
-
-		assertEquals(book.getBookName(), BOOK_NAME_BD);
-		assertEquals(book.getAuthor().getName(), AUTHOR_NAME_IN_BD);
-		assertEquals(book.getGenre().getDescription(), GENRE_IN_BD);
+		Book bookgetById = bookDAO.getById(1l);
+		Book bookFind = em.find(Book.class, 1l);
+		assertThat(bookgetById).isEqualToComparingFieldByField(bookFind);
 	}
 
 	@Test
@@ -70,31 +67,24 @@ public class BookDAOJpaTest {
 	}
 
 	@Test
-	@DisplayName("Добавление в случае корректных данных")
+	@DisplayName("Добавление")
 	public void testAddAndGetById() throws DaoException {
+
+		Author author = em.find(Author.class, 1l);
+		Genre genre = em.find(Genre.class, 1l);
+
 		String testBookName = "booknametest";
-		long bookId = bookDAO.add(testBookName, AUTHOR_NAME_IN_BD, GENRE_IN_BD);
+
+		Book book = new Book();
+		book.setBookName(testBookName);
+		book.setAuthor(author);
+		book.setGenre(genre);
+
+		long bookId = bookDAO.add(book);
 		assertNotEquals(0, bookId);
 
-		Book book = em.find(Book.class, bookId);
-		assertEquals(book.getBookName(), testBookName);
-		assertEquals(book.getAuthor().getName(), AUTHOR_NAME_IN_BD);
-		assertEquals(book.getGenre().getDescription(), GENRE_IN_BD);
-	}
+		Book findBook = em.find(Book.class, bookId);
 
-	@Test
-	@DisplayName("Возврат ошибки при добавлении с не заведенным автором")
-	public void tesAddDaoWithWrongAuthor() throws DaoException {
-		assertThrows(DaoException.class, () -> {
-			bookDAO.add("bookname", "WRONG_AUTHOR_NAME", GENRE_IN_BD);
-		});
-	}
-
-	@Test
-	@DisplayName("Возврат ошибки при добавлении с не заведенным жанром")
-	public void tesAddDaoWithWrongGenre() throws DaoException {
-		assertThrows(DaoException.class, () -> {
-			bookDAO.add("bookname", AUTHOR_NAME_IN_BD, "WRONG_GENRE");
-		});
+		assertThat(findBook).isEqualToComparingFieldByField(book);
 	}
 }

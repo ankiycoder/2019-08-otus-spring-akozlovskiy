@@ -10,10 +10,11 @@ import org.springframework.util.CollectionUtils;
 
 import ru.akozlovskiy.springdz06.domain.Author;
 import ru.akozlovskiy.springdz06.domain.Book;
+import ru.akozlovskiy.springdz06.domain.Comment;
 import ru.akozlovskiy.springdz06.domain.Genre;
 import ru.akozlovskiy.springdz06.domain.dao.AuthorDAO;
-import ru.akozlovskiy.springdz06.domain.dao.BookDAO;
 import ru.akozlovskiy.springdz06.domain.dao.GenreDAO;
+import ru.akozlovskiy.springdz06.domain.service.BookService;
 import ru.akozlovskiy.springdz06.domain.service.CommentService;
 import ru.akozlovskiy.springdz06.exception.DaoException;
 
@@ -24,7 +25,7 @@ public class LibraryApplicationShellCommands {
 	private AuthorDAO authorDAO;
 
 	@Autowired
-	private BookDAO bookDAO;
+	private BookService bookService;
 
 	@Autowired
 	private GenreDAO genreDAO;
@@ -35,7 +36,7 @@ public class LibraryApplicationShellCommands {
 	@ShellMethod(value = "Поиск всех книг", key = { "falb", "getAllBook" })
 	public String getAllBook() throws DaoException {
 
-		List<Book> bookList = bookDAO.getAll();
+		List<Book> bookList = bookService.getAll();
 
 		StringBuilder strb = new StringBuilder();
 		bookList.stream().forEach(book -> {
@@ -47,7 +48,7 @@ public class LibraryApplicationShellCommands {
 	@ShellMethod(value = "Поиск книг по автору", key = { "faba", "findAllBookByAuthor" })
 	public String findAllBookByAuthor(String auhtor) throws DaoException {
 
-		List<Book> bookList = bookDAO.findAllByAuthor(auhtor);
+		List<Book> bookList = bookService.findAllByAuthor(auhtor);
 		if (CollectionUtils.isEmpty(bookList)) {
 			return "Для автора [" + auhtor + "] книги не найдены";
 		}
@@ -63,9 +64,9 @@ public class LibraryApplicationShellCommands {
 	public String addBook(String bookname, String authorName, String genre) throws DaoException {
 
 		try {
-			long bookid = bookDAO.add(bookname, authorName, genre);
+			long bookid = bookService.add(bookname, authorName, genre);
 			return "Книга добавлена, ID = " + bookid;
-		} catch (DaoException ex) {
+		} catch (Exception ex) {
 			return ex.getMessage();
 		}
 	}
@@ -73,7 +74,7 @@ public class LibraryApplicationShellCommands {
 	@ShellMethod(value = "Поиск книги по имени", key = { "fbbn", "findBookByName" })
 	public String findBookByName(String bookname) throws DaoException {
 
-		Book book = bookDAO.findByName(bookname);
+		Book book = bookService.findByName(bookname);
 
 		if (Objects.isNull(book)) {
 			return "Книга с названием " + bookname + " не найдена";
@@ -125,9 +126,19 @@ public class LibraryApplicationShellCommands {
 		long commentid;
 		try {
 			commentid = commentService.add(comment, bookName);
-		} catch (Throwable e) {
+		} catch (Exception e) {
 			return e.getMessage();
 		}
 		return "Добавлен новый коментарий, ID = " + commentid;
+	}
+
+	@ShellMethod(value = "Найти все комментарии к книге", key = { "facb", "findAllComment" })
+	public String addComment(String bookName) {
+		List<Comment> comList = commentService.finAllByBookName(bookName);
+		StringBuilder strb = new StringBuilder();
+		comList.stream().forEach(comment -> {
+			strb.append(comment.getComment()).append("\n");
+		});
+		return strb.toString();
 	}
 }

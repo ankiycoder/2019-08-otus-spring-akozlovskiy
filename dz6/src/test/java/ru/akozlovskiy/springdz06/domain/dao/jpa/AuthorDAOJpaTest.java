@@ -16,7 +16,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.context.annotation.Import;
-import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import ru.akozlovskiy.springdz06.domain.Author;
@@ -25,7 +24,7 @@ import ru.akozlovskiy.springdz06.exception.DaoException;
 @ExtendWith(SpringExtension.class)
 @DataJpaTest
 @Import({ AuthorDAOJpa.class })
-@DisplayName("DAO севрис по работе с авторами")
+@DisplayName("DAO по работе с авторами")
 public class AuthorDAOJpaTest {
 
 	private static final String AUTHOR_BIRTH_DATE = "1891-05-15";

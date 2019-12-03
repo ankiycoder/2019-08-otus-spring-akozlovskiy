@@ -2,7 +2,8 @@ package ru.akozlovskiy.springdz06.domain.service.impl;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import javax.persistence.NoResultException;
+
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
@@ -16,21 +17,24 @@ import ru.akozlovskiy.springdz06.exception.DaoException;
 @Service
 public class CommentServiceImpl implements CommentService {
 
-	@Autowired
 	private CommentDAO commentDAO;
 
-	@Autowired
 	private BookDAO bookDAO;
+
+	public CommentServiceImpl(CommentDAO commentDAO, BookDAO bookDAO) {
+		this.commentDAO = commentDAO;
+		this.bookDAO = bookDAO;
+	}
 
 	@Override
 	public long add(String bookComment, String bookName) throws DaoException {
 		Book book;
 		try {
-			 book = bookDAO.findByName(bookName);
-		} catch (EmptyResultDataAccessException e) {
+			book = bookDAO.findByName(bookName);
+		} catch (NoResultException | EmptyResultDataAccessException e) {
 			throw new DaoException("Ошибка добавления комментария, книга не найдена");
 		}
-		
+
 		Comment comment = new Comment();
 		comment.setComment(bookComment);
 		comment.setBook(book);
