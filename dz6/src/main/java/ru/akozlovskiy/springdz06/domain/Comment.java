@@ -5,7 +5,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Comment {
@@ -16,8 +16,8 @@ public class Comment {
 
 	private String comment;
 
-	@OneToOne
-	@JoinColumn(name = "bookid", referencedColumnName = "id")
+	@ManyToOne
+	@JoinColumn(name = "bookid", referencedColumnName = "id", nullable=false)
 	private Book book;
 
 	public long getId() {

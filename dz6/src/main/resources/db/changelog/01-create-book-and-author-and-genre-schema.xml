@@ -7,7 +7,7 @@
 	<changeSet id="01" author="me">
 		<createTable tableName="AUTHOR"
 			remarks="A table to contain all books">
-			<column name="ID" type="int" autoIncrement="true">
+			<column name="ID" type="long" autoIncrement="true">
 				<constraints unique="true" primaryKey="true" />
 
 			</column>
@@ -21,7 +21,7 @@
 
 		<createTable tableName="GENRE"
 			remarks="A table to contain all the genre">
-			<column name="ID" type="int" autoIncrement="true">
+			<column name="ID" type="long" autoIncrement="true">
 				<constraints primaryKey="true" />
 			</column>
 			<column name="DESCRIPTION" type="varchar(100)">
@@ -31,7 +31,7 @@
 
 		<createTable tableName="BOOK"
 			remarks="A table to contain all the genre">
-			<column name="ID" type="int" autoIncrement="true">
+			<column name="ID" type="long" autoIncrement="true">
 				<constraints primaryKey="true" />
 			</column>
 			<column name="BOOKNAME" type="varchar(100)">

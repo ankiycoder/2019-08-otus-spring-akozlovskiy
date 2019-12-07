@@ -19,7 +19,7 @@ import ru.akozlovskiy.springdz06.domain.dao.jpa.GenreDAOJpa;
 import ru.akozlovskiy.springdz06.exception.DaoException;
 
 /**
- * В сервисе м проверякм только метод add, т.к. остальные методы проверяются в
+ * В сервисе проверяем только метод add, т.к. остальные методы проверяются в
  * BookDAOJpaTest
  */
 @ExtendWith(SpringExtension.class)

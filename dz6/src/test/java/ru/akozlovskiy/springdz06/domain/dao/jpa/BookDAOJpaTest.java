@@ -87,4 +87,12 @@ public class BookDAOJpaTest {
 
 		assertThat(findBook).isEqualToComparingFieldByField(book);
 	}
+
+	@Test
+	@DisplayName("Поиск всех книг")
+	public void testGetAll() throws DaoException {
+
+		List<Book> bookList = bookDAO.getAll();
+		assertThat(bookList).hasSize(2);
+	}
 }

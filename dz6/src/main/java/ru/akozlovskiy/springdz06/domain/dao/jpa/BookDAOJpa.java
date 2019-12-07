@@ -53,7 +53,7 @@ public class BookDAOJpa implements BookDAO {
 
 	@Override
 	public List<Book> getAll() throws DaoException {
-		TypedQuery<Book> query = em.createQuery("select b from Book b", Book.class);
+		TypedQuery<Book> query = em.createQuery("select b from Book b join fetch b.author ath join fetch b.genre g", Book.class);
 		return query.getResultList();
 	}
 }
