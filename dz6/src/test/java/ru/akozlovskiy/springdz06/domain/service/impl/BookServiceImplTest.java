@@ -5,12 +5,10 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.context.annotation.Import;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import ru.akozlovskiy.springdz06.domain.Book;
 import ru.akozlovskiy.springdz06.domain.dao.jpa.AuthorDAOJpa;
@@ -22,7 +20,7 @@ import ru.akozlovskiy.springdz06.exception.DaoException;
  * В сервисе проверяем только метод add, т.к. остальные методы проверяются в
  * BookDAOJpaTest
  */
-@ExtendWith(SpringExtension.class)
+
 @DataJpaTest
 @Import({ AuthorDAOJpa.class, GenreDAOJpa.class, BookDAOJpa.class, BookServiceImpl.class })
 @DisplayName("Сервис по работе с книгами")
