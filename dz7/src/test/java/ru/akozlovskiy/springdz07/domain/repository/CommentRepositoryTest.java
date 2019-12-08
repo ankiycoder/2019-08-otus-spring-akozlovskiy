@@ -1,4 +1,4 @@
-package ru.akozlovskiy.springdz06.domain.dao.jpa;
+package ru.akozlovskiy.springdz07.domain.repository;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -20,16 +20,17 @@ import ru.akozlovskiy.springdz07.domain.dao.jpa.CommentDAOJpa;
 import ru.akozlovskiy.springdz07.domain.dao.jpa.GenreDAOJpa;
 import ru.akozlovskiy.springdz07.exception.DaoException;
 
+
 @DataJpaTest
 @Import({ BookDAOJpa.class, CommentDAOJpa.class, AuthorDAOJpa.class, GenreDAOJpa.class })
-@DisplayName("DAO по работе с комментариями")
-public class CommentDAOJpaTest {
-
+@DisplayName("Репозиторий по работе с комментариями")
+public class CommentRepositoryTest {
+	
 	@Autowired
 	private BookDAOJpa bookDAO;
 
 	@Autowired
-	private CommentDAOJpa commentDAOJpa;
+	private CommentRepository commentRepository;
 
 	@Autowired
 	private TestEntityManager em;
@@ -61,8 +62,9 @@ public class CommentDAOJpaTest {
 		comment2.setBook(book);
 		em.persist(comment2);
 
-		List<Comment> commentList = commentDAOJpa.findAllByBookName(book.getBookName());
+		List<Comment> commentList = commentRepository.findByBookName(book.getBookName());
 		assertEquals(2, commentList.size());
 		assertThat(commentList).containsOnly(comment, comment2);
 	}
+
 }

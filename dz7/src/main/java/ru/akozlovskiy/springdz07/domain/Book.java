@@ -16,14 +16,14 @@ public class Book {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 
-	@Column(name="bookname")
+	@Column(name = "bookname")
 	private String bookName;
 
-	@ManyToOne(targetEntity = Author.class, fetch = FetchType.EAGER)
+	@ManyToOne(targetEntity = Author.class, fetch = FetchType.EAGER, optional = false)
 	@JoinColumn(nullable = false, name = "authorid")
 	private Author author;
 
-	@ManyToOne(targetEntity = Genre.class, fetch = FetchType.EAGER)
+	@ManyToOne(targetEntity = Genre.class, fetch = FetchType.EAGER, optional = false)
 	@JoinColumn(nullable = false, name = "genreid")
 	private Genre genre;
 

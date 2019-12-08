@@ -1,4 +1,4 @@
-package ru.akozlovskiy.springdz06.domain.service.impl;
+package ru.akozlovskiy.springdz07.domain.service.impl;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;

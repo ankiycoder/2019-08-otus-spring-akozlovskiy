@@ -9,5 +9,5 @@ public interface CommentService {
 
 	long add(String comment, String bookName) throws DaoException;
 
-	List<Comment> finAllByBookName(String bookName);
+	List<Comment> findAllByBookName(String bookName);
 }

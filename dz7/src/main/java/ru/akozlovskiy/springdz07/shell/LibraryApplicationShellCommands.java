@@ -134,7 +134,7 @@ public class LibraryApplicationShellCommands {
 
 	@ShellMethod(value = "Найти все комментарии к книге", key = { "facb", "findAllComment" })
 	public String addComment(String bookName) {
-		List<Comment> comList = commentService.finAllByBookName(bookName);
+		List<Comment> comList = commentService.findAllByBookName(bookName);
 		StringBuilder strb = new StringBuilder();
 		comList.stream().forEach(comment -> {
 			strb.append(comment.getComment()).append("\n");

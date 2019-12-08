@@ -10,25 +10,26 @@ import org.springframework.stereotype.Service;
 import ru.akozlovskiy.springdz07.domain.Author;
 import ru.akozlovskiy.springdz07.domain.Book;
 import ru.akozlovskiy.springdz07.domain.Genre;
-import ru.akozlovskiy.springdz07.domain.dao.AuthorDAO;
-import ru.akozlovskiy.springdz07.domain.dao.BookDAO;
-import ru.akozlovskiy.springdz07.domain.dao.GenreDAO;
+import ru.akozlovskiy.springdz07.domain.repository.AuthorRepository;
+import ru.akozlovskiy.springdz07.domain.repository.BookRepository;
+import ru.akozlovskiy.springdz07.domain.repository.GenreRepository;
 import ru.akozlovskiy.springdz07.domain.service.BookService;
 import ru.akozlovskiy.springdz07.exception.DaoException;
 
 @Service
 public class BookServiceImpl implements BookService {
 
-	private AuthorDAO authorDAO;
+	private AuthorRepository authorRepository;
 
-	private GenreDAO genreDAO;
+	private GenreRepository genreRepository;
 
-	private BookDAO bookDAO;
+	private BookRepository bookRepository;
 
-	public BookServiceImpl(AuthorDAO authorDAO, GenreDAO genreDAO, BookDAO bookDAO) {
-		this.authorDAO = authorDAO;
-		this.bookDAO = bookDAO;
-		this.genreDAO = genreDAO;
+	public BookServiceImpl(AuthorRepository authorRepository, BookRepository bookRepository,
+			GenreRepository genreRepository) {
+		this.authorRepository = authorRepository;
+		this.bookRepository = bookRepository;
+		this.genreRepository = genreRepository;
 	}
 
 	@Override
@@ -36,14 +37,14 @@ public class BookServiceImpl implements BookService {
 
 		Genre genre;
 		try {
-			genre = genreDAO.getByDescription(genreDescription);
+			genre = genreRepository.findByDescription(genreDescription);
 		} catch (NoResultException | EmptyResultDataAccessException e) {
 			throw new DaoException("Ошибка добавления книги. В базе на найден жанр: " + genreDescription);
 		}
 
 		Author author;
 		try {
-			author = authorDAO.getByName(authorName);
+			author = authorRepository.findByName(authorName);
 		} catch (NoResultException | EmptyResultDataAccessException e) {
 			throw new DaoException("Ошибка добавления книги. В базе на найден автор с именем: " + authorName);
 		}
@@ -53,22 +54,22 @@ public class BookServiceImpl implements BookService {
 		book.setBookName(bookName);
 		book.setGenre(genre);
 
-		return bookDAO.add(book);
+		return bookRepository.save(book).getId();
 	}
 
 	@Override
 	public List<Book> getAll() throws DaoException {
-		return bookDAO.getAll();
+		return bookRepository.findAll();
 	}
 
 	@Override
 	public List<Book> findAllByAuthor(String author) throws DaoException {
-		return bookDAO.findAllByAuthor(author);
+		return bookRepository.findAllByAuthor(author);
 	}
 
 	@Override
 	public Book findByName(String bookname) {
-		return bookDAO.findByName(bookname);
+		return bookRepository.findByBookName(bookname);
 	}
 
 }

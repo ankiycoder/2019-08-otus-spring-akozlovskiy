@@ -1,4 +1,4 @@
-package ru.akozlovskiy.springdz06.domain.dao.jpa;
+package ru.akozlovskiy.springdz07.domain.dao.jpa;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
