@@ -14,23 +14,21 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
-import org.springframework.context.annotation.Import;
 
 import ru.akozlovskiy.springdz07.domain.Author;
-import ru.akozlovskiy.springdz07.domain.dao.jpa.AuthorDAOJpa;
 import ru.akozlovskiy.springdz07.exception.DaoException;
 
 @DataJpaTest
-@Import({ AuthorDAOJpa.class })
+@DisplayName("Репозиторий по работе с авторами")
 public class AuthorRepositoryTest {
-	
+
 	private static final String AUTHOR_BIRTH_DATE = "1891-05-15";
 
 	private static final String TEST_AUTHOR_NAME = "Булгаков";
 
 	@Autowired
 	private AuthorRepository authorRepository;
-	
+
 	@Autowired
 	private TestEntityManager em;
 
@@ -62,7 +60,7 @@ public class AuthorRepositoryTest {
 		author.setBirthDate(LocalDate.parse(AUTHOR_BIRTH_DATE, dateFormatter));
 		author.setName(TEST_AUTHOR_NAME);
 		em.persistAndFlush(author);
-				
+
 		Author authorByName = authorRepository.findByName(TEST_AUTHOR_NAME);
 		assertThat(author).isEqualToComparingFieldByField(authorByName);
 	}

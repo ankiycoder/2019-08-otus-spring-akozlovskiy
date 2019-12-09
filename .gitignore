@@ -9,3 +9,5 @@
 /dz5/.classpath
 /dz5/.gitignore
 /.metadata
+/.sonarlint/default/.sonartmp_2267851378603378666/*.jar
+/dz6/.settings/*.prefs

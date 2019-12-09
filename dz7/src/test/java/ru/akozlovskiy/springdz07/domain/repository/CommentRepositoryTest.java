@@ -20,14 +20,13 @@ import ru.akozlovskiy.springdz07.domain.dao.jpa.CommentDAOJpa;
 import ru.akozlovskiy.springdz07.domain.dao.jpa.GenreDAOJpa;
 import ru.akozlovskiy.springdz07.exception.DaoException;
 
-
 @DataJpaTest
 @Import({ BookDAOJpa.class, CommentDAOJpa.class, AuthorDAOJpa.class, GenreDAOJpa.class })
 @DisplayName("Репозиторий по работе с комментариями")
 public class CommentRepositoryTest {
-	
+
 	@Autowired
-	private BookDAOJpa bookDAO;
+	private BookRepository bookRepository;
 
 	@Autowired
 	private CommentRepository commentRepository;
@@ -38,7 +37,7 @@ public class CommentRepositoryTest {
 	@Test
 	@DisplayName("Успешность добавления")
 	public void testAdd() throws DaoException {
-		Book book = bookDAO.getById(1);
+		Book book = bookRepository.getOne(1l);
 		Comment comment = new Comment();
 		comment.setComment("TestComment");
 		comment.setBook(book);
@@ -51,7 +50,7 @@ public class CommentRepositoryTest {
 	@Test
 	@DisplayName("Успешность поиска по имени книги")
 	public void testGetByBookName() throws DaoException {
-		Book book = bookDAO.getById(1);
+		Book book = bookRepository.getOne(1l);
 		Comment comment = new Comment();
 		comment.setComment("TestComment");
 		comment.setBook(book);
@@ -66,5 +65,4 @@ public class CommentRepositoryTest {
 		assertEquals(2, commentList.size());
 		assertThat(commentList).containsOnly(comment, comment2);
 	}
-
 }

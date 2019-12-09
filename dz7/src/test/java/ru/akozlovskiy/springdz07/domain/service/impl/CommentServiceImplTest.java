@@ -11,13 +11,10 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.context.annotation.Import;
 
 import ru.akozlovskiy.springdz07.domain.Comment;
-import ru.akozlovskiy.springdz07.domain.dao.jpa.BookDAOJpa;
-import ru.akozlovskiy.springdz07.domain.dao.jpa.CommentDAOJpa;
-import ru.akozlovskiy.springdz07.domain.service.impl.CommentServiceImpl;
 import ru.akozlovskiy.springdz07.exception.DaoException;
 
 @DataJpaTest
-@Import({ CommentDAOJpa.class, BookDAOJpa.class, CommentServiceImpl.class })
+@Import({ CommentServiceImpl.class })
 @DisplayName("Сервис по работе с комментариями")
 public class CommentServiceImplTest {
 
