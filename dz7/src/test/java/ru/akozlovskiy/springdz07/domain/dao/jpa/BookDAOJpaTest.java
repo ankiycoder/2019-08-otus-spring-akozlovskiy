@@ -16,9 +16,6 @@ import org.springframework.context.annotation.Import;
 import ru.akozlovskiy.springdz07.domain.Author;
 import ru.akozlovskiy.springdz07.domain.Book;
 import ru.akozlovskiy.springdz07.domain.Genre;
-import ru.akozlovskiy.springdz07.domain.dao.jpa.AuthorDAOJpa;
-import ru.akozlovskiy.springdz07.domain.dao.jpa.BookDAOJpa;
-import ru.akozlovskiy.springdz07.domain.dao.jpa.GenreDAOJpa;
 import ru.akozlovskiy.springdz07.exception.DaoException;
 
 @DataJpaTest

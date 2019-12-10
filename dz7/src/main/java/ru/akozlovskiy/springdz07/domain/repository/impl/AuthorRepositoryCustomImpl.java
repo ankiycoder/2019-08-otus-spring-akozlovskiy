@@ -6,11 +6,9 @@ import java.time.format.DateTimeFormatter;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import ru.akozlovskiy.springdz07.domain.Author;
-import ru.akozlovskiy.springdz07.domain.repository.AuthorRepository;
 import ru.akozlovskiy.springdz07.domain.repository.AuthorRepositoryCustom;
 import ru.akozlovskiy.springdz07.exception.DaoException;
 
@@ -20,9 +18,6 @@ public class AuthorRepositoryCustomImpl implements AuthorRepositoryCustom {
 	private static final String YYYY_MM_DD = "yyyy-MM-dd";
 
 	private final static DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(YYYY_MM_DD);
-
-	@Autowired
-	AuthorRepository authorRepository;
 
 	@PersistenceContext
 	private EntityManager em;
@@ -42,5 +37,4 @@ public class AuthorRepositoryCustomImpl implements AuthorRepositoryCustom {
 
 		return author.getId();
 	}
-
 }

@@ -10,18 +10,12 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
-import org.springframework.context.annotation.Import;
 
 import ru.akozlovskiy.springdz07.domain.Book;
 import ru.akozlovskiy.springdz07.domain.Comment;
-import ru.akozlovskiy.springdz07.domain.dao.jpa.AuthorDAOJpa;
-import ru.akozlovskiy.springdz07.domain.dao.jpa.BookDAOJpa;
-import ru.akozlovskiy.springdz07.domain.dao.jpa.CommentDAOJpa;
-import ru.akozlovskiy.springdz07.domain.dao.jpa.GenreDAOJpa;
 import ru.akozlovskiy.springdz07.exception.DaoException;
 
 @DataJpaTest
-@Import({ BookDAOJpa.class, CommentDAOJpa.class, AuthorDAOJpa.class, GenreDAOJpa.class })
 @DisplayName("Репозиторий по работе с комментариями")
 public class CommentRepositoryTest {
 

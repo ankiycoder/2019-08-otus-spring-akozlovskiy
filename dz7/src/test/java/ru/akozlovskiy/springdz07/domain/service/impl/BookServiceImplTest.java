@@ -11,7 +11,6 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.context.annotation.Import;
 
 import ru.akozlovskiy.springdz07.domain.Book;
-import ru.akozlovskiy.springdz07.domain.repository.AuthorRepository;
 import ru.akozlovskiy.springdz07.domain.repository.impl.AuthorRepositoryCustomImpl;
 import ru.akozlovskiy.springdz07.exception.DaoException;
 
@@ -21,8 +20,7 @@ import ru.akozlovskiy.springdz07.exception.DaoException;
  */
 
 @DataJpaTest
-//@Import({ AuthorDAOJpa.class, GenreDAOJpa.class, BookDAOJpa.class, BookServiceImpl.class,  AuthorRepositoryCustomImpl.class})
-@Import({ AuthorRepositoryCustomImpl.class, BookServiceImpl.class,  AuthorRepository.class})
+@Import({ BookServiceImpl.class, AuthorRepositoryCustomImpl.class })
 @DisplayName("Сервис по работе с книгами")
 public class BookServiceImplTest {
 
@@ -31,7 +29,7 @@ public class BookServiceImplTest {
 
 	@Autowired
 	private BookServiceImpl bookServiceImpl;
-	
+
 	@Autowired
 	private TestEntityManager em;
 

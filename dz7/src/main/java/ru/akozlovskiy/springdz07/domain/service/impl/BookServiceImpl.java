@@ -1,10 +1,8 @@
 package ru.akozlovskiy.springdz07.domain.service.impl;
 
 import java.util.List;
+import java.util.Objects;
 
-import javax.persistence.NoResultException;
-
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import ru.akozlovskiy.springdz07.domain.Author;
@@ -35,17 +33,14 @@ public class BookServiceImpl implements BookService {
 	@Override
 	public long add(String bookName, String authorName, String genreDescription) throws DaoException {
 
-		Genre genre;
-		try {
-			genre = genreRepository.findByDescription(genreDescription);
-		} catch (NoResultException | EmptyResultDataAccessException e) {
+		Genre genre = genreRepository.findByDescription(genreDescription);
+
+		if (Objects.isNull(genre)) {
 			throw new DaoException("Ошибка добавления книги. В базе на найден жанр: " + genreDescription);
 		}
 
-		Author author;
-		try {
-			author = authorRepository.findByName(authorName);
-		} catch (NoResultException | EmptyResultDataAccessException e) {
+		Author author = authorRepository.findByName(authorName);
+		if (Objects.isNull(author)) {
 			throw new DaoException("Ошибка добавления книги. В базе на найден автор с именем: " + authorName);
 		}
 

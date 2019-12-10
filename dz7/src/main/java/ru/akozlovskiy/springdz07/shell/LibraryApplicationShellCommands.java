@@ -12,8 +12,8 @@ import ru.akozlovskiy.springdz07.domain.Author;
 import ru.akozlovskiy.springdz07.domain.Book;
 import ru.akozlovskiy.springdz07.domain.Comment;
 import ru.akozlovskiy.springdz07.domain.Genre;
-import ru.akozlovskiy.springdz07.domain.dao.AuthorDAO;
-import ru.akozlovskiy.springdz07.domain.dao.GenreDAO;
+import ru.akozlovskiy.springdz07.domain.repository.AuthorRepository;
+import ru.akozlovskiy.springdz07.domain.repository.GenreRepository;
 import ru.akozlovskiy.springdz07.domain.service.BookService;
 import ru.akozlovskiy.springdz07.domain.service.CommentService;
 import ru.akozlovskiy.springdz07.exception.DaoException;
@@ -22,13 +22,13 @@ import ru.akozlovskiy.springdz07.exception.DaoException;
 public class LibraryApplicationShellCommands {
 
 	@Autowired
-	private AuthorDAO authorDAO;
+	private AuthorRepository authorRepository;
 
 	@Autowired
 	private BookService bookService;
 
 	@Autowired
-	private GenreDAO genreDAO;
+	private GenreRepository genreRepository;
 
 	@Autowired
 	private CommentService commentService;
@@ -85,7 +85,7 @@ public class LibraryApplicationShellCommands {
 	@ShellMethod(value = "Список всех авторов", key = { "gaat", "getAllAuthor" })
 	public String getAllAuthor() throws DaoException {
 
-		List<Author> bookid = authorDAO.getAll();
+		List<Author> bookid = authorRepository.findAll();
 		StringBuilder strb = new StringBuilder();
 		bookid.stream().forEach(book -> {
 			strb.append(book.toString()).append("\n");
@@ -97,7 +97,7 @@ public class LibraryApplicationShellCommands {
 	public String addAuthor(String name, String birthDate) {
 		long author;
 		try {
-			author = authorDAO.add(name, birthDate);
+			author = authorRepository.add(name, birthDate);
 		} catch (DaoException e) {
 			return e.getMessage();
 		}
@@ -107,7 +107,7 @@ public class LibraryApplicationShellCommands {
 	@ShellMethod(value = "Список жанров", key = { "gagr", "getAllGenre" })
 	public String getAllGenre() throws DaoException {
 
-		List<Genre> genreid = genreDAO.getAll();
+		List<Genre> genreid = genreRepository.findAll();
 		StringBuilder strb = new StringBuilder();
 		genreid.stream().forEach(genre -> {
 			strb.append(genre.toString()).append("\n");
@@ -117,7 +117,7 @@ public class LibraryApplicationShellCommands {
 
 	@ShellMethod(value = "Добавить жанр", key = { "adgr", "addGenre" })
 	public String addGenre(String description) {
-		long bookid = genreDAO.add(description);
+		long bookid = genreRepository.add(description);
 		return "Добавлен новый жанр, ID = " + bookid;
 	}
 

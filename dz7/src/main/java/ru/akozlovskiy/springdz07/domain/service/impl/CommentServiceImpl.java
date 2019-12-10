@@ -1,11 +1,8 @@
 package ru.akozlovskiy.springdz07.domain.service.impl;
 
 import java.util.List;
+import java.util.Objects;
 
-import javax.persistence.NoResultException;
-
-import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import ru.akozlovskiy.springdz07.domain.Book;
@@ -29,11 +26,11 @@ public class CommentServiceImpl implements CommentService {
 
 	@Override
 	public long add(String bookComment, String bookName) throws DaoException {
-		Book book;
-		try {
-			book = bookRepository.findByBookName(bookName);
-		} catch (NoResultException | EmptyResultDataAccessException | DataIntegrityViolationException e) {
-			throw new DaoException("Ошибка добавления комментария, книга не найдена");
+
+		Book book = bookRepository.findByBookName(bookName);
+
+		if (Objects.isNull(book)) {
+			throw new DaoException("Ошибка добавления комментария, книга не найдена: " + bookName);
 		}
 
 		Comment comment = new Comment();
