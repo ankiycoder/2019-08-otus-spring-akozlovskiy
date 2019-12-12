@@ -44,8 +44,9 @@ public class BookRepositoryTest {
 	@DisplayName("Поиск по описанию")
 	public void testFindByBookName() throws DaoException {
 
-		Book book = bookRepository.findByBookName(BOOK_NAME_BD);
-		assertEquals(book.getBookName(), BOOK_NAME_BD);
+		Optional<Book> bookOp = bookRepository.findByTitle(BOOK_NAME_BD);
+		Book book = bookOp.get();
+		assertEquals(book.getTitle(), BOOK_NAME_BD);
 		assertEquals(book.getAuthor().getName(), AUTHOR_NAME_IN_BD);
 		assertEquals(book.getGenre().getDescription(), GENRE_IN_BD);
 	}
@@ -54,11 +55,11 @@ public class BookRepositoryTest {
 	@DisplayName("Поиск по автору")
 	public void testFindByAuthor() throws DaoException {
 
-		List<Book> bookList = bookRepository.findAllByAuthor(AUTHOR_NAME_IN_BD);
+		List<Book> bookList = bookRepository.findAllByAuthorName(AUTHOR_NAME_IN_BD);
 		assertThat(bookList).isNotEmpty();
 
 		Book book = bookList.get(0);
-		assertEquals(book.getBookName(), BOOK_NAME_BD);
+		assertEquals(book.getTitle(), BOOK_NAME_BD);
 		assertEquals(book.getAuthor().getName(), AUTHOR_NAME_IN_BD);
 		assertEquals(book.getGenre().getDescription(), GENRE_IN_BD);
 	}
@@ -73,7 +74,7 @@ public class BookRepositoryTest {
 		String testBookName = "booknametest";
 
 		Book book = new Book();
-		book.setBookName(testBookName);
+		book.setTitle(testBookName);
 		book.setAuthor(author);
 		book.setGenre(genre);
 

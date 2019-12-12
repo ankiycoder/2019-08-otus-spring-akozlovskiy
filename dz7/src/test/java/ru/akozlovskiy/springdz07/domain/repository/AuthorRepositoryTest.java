@@ -2,12 +2,11 @@ package ru.akozlovskiy.springdz07.domain.repository;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Optional;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -37,20 +36,14 @@ public class AuthorRepositoryTest {
 	@Test
 	@DisplayName("Успешность добавления в случае корректных")
 	public void testAdd() throws DaoException {
-		long authorID = authorRepository.add(TEST_AUTHOR_NAME, AUTHOR_BIRTH_DATE);
-		assertNotEquals(0, authorID);
+		Author author = new Author();
+		author.setBirthDate(LocalDate.parse(AUTHOR_BIRTH_DATE, dateFormatter));
+		author.setName(TEST_AUTHOR_NAME);
+		em.persistAndFlush(author);
 
-		Author author = em.find(Author.class, authorID);
-		assertEquals(TEST_AUTHOR_NAME, author.getName());
-		assertEquals(AUTHOR_BIRTH_DATE, dateFormatter.format(author.getBirthDate()));
-	}
-
-	@Test
-	@DisplayName("Возврат ошибки при добавлении с кривой датой рождения")
-	public void testAddWithErrorBirthDate() throws DaoException {
-		assertThrows(DaoException.class, () -> {
-			authorRepository.add("name", "errorFormatBirthDate");
-		});
+		Author authorFind = em.find(Author.class, author.getId());
+		assertEquals(TEST_AUTHOR_NAME, authorFind.getName());
+		assertEquals(AUTHOR_BIRTH_DATE, dateFormatter.format(authorFind.getBirthDate()));
 	}
 
 	@Test
@@ -61,14 +54,18 @@ public class AuthorRepositoryTest {
 		author.setName(TEST_AUTHOR_NAME);
 		em.persistAndFlush(author);
 
-		Author authorByName = authorRepository.findByName(TEST_AUTHOR_NAME);
-		assertThat(author).isEqualToComparingFieldByField(authorByName);
+		Optional<Author> authorByName = authorRepository.findByName(TEST_AUTHOR_NAME);
+		assertThat(author).isEqualToComparingFieldByField(authorByName.get());
 	}
 
 	@Test
 	@DisplayName("Поиск всех")
 	public void testFindAll() throws DaoException {
-		authorRepository.add(TEST_AUTHOR_NAME, AUTHOR_BIRTH_DATE);
+		Author author = new Author();
+		author.setBirthDate(LocalDate.parse(AUTHOR_BIRTH_DATE, dateFormatter));
+		author.setName(TEST_AUTHOR_NAME);
+		em.persistAndFlush(author);
+
 		List<Author> all = authorRepository.findAll();
 		assertEquals(2, all.size());
 	}

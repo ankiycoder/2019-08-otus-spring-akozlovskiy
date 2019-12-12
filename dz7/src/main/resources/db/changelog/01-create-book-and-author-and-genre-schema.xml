@@ -34,7 +34,7 @@
 			<column name="ID" type="long" autoIncrement="true">
 				<constraints primaryKey="true" />
 			</column>
-			<column name="BOOKNAME" type="varchar(100)">
+			<column name="TITLE" type="varchar(100)">
 				<constraints nullable="false" />
 			</column>
 			<column name="AUTHORID" type="int">

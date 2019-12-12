@@ -2,6 +2,9 @@ package ru.akozlovskiy.springdz07.domain.service.impl;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
+
+import javax.persistence.EntityManager;
 
 import org.springframework.stereotype.Service;
 
@@ -22,6 +25,8 @@ public class BookServiceImpl implements BookService {
 	private GenreRepository genreRepository;
 
 	private BookRepository bookRepository;
+	
+	private EntityManager entityManager;
 
 	public BookServiceImpl(AuthorRepository authorRepository, BookRepository bookRepository,
 			GenreRepository genreRepository) {
@@ -39,14 +44,14 @@ public class BookServiceImpl implements BookService {
 			throw new DaoException("Ошибка добавления книги. В базе на найден жанр: " + genreDescription);
 		}
 
-		Author author = authorRepository.findByName(authorName);
-		if (Objects.isNull(author)) {
+		Optional<Author> author = authorRepository.findByName(authorName);
+		if (!author.isPresent()) {
 			throw new DaoException("Ошибка добавления книги. В базе на найден автор с именем: " + authorName);
 		}
 
 		Book book = new Book();
-		book.setAuthor(author);
-		book.setBookName(bookName);
+		book.setAuthor(author.get());
+		book.setTitle(bookName);
 		book.setGenre(genre);
 
 		return bookRepository.save(book).getId();
@@ -59,12 +64,12 @@ public class BookServiceImpl implements BookService {
 
 	@Override
 	public List<Book> findAllByAuthor(String author) throws DaoException {
-		return bookRepository.findAllByAuthor(author);
+		return bookRepository.findAllByAuthorName(author);
 	}
 
 	@Override
-	public Book findByName(String bookname) {
-		return bookRepository.findByBookName(bookname);
+	public Optional<Book> findByName(String bookname) {
+		return bookRepository.findByTitle(bookname);
 	}
 
 }

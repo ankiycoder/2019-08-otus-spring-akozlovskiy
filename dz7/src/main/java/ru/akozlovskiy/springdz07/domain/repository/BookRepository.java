@@ -1,20 +1,23 @@
 package ru.akozlovskiy.springdz07.domain.repository;
 
 import java.util.List;
+import java.util.Optional;
 
+import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import ru.akozlovskiy.springdz07.domain.Book;
 import ru.akozlovskiy.springdz07.exception.DaoException;
 
 @Repository
-public interface BookRepository extends JpaRepository<Book, Long>, BookRepositoryCustom {
+public interface BookRepository extends JpaRepository<Book, Long> {
 
-	Book findByBookName(String bookName);
+	Optional<Book> findByTitle(String title);
 
-	@Query("select b from Book b join fetch b.author ath join fetch b.genre g where ath.name = :authorName")
-	List<Book> findAllByAuthor(String authorName) throws DaoException;
+	@EntityGraph(value = "book-entity-graph")
+	List<Book> findAllByAuthorName(String authorName) throws DaoException;
 
+	@EntityGraph(value = "book-entity-graph")
+	List<Book> findAll();
 }

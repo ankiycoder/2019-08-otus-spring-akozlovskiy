@@ -57,7 +57,7 @@ public class BookServiceImplTest {
 
 		Book findBook = em.find(Book.class, bookid);
 
-		assertEquals(findBook.getBookName(), "bookNameTest");
+		assertEquals(findBook.getTitle(), "bookNameTest");
 		assertEquals(findBook.getAuthor().getName(), AUTHOR_NAME_IN_BD);
 		assertEquals(findBook.getGenre().getDescription(), GENRE_IN_BD);
 	}

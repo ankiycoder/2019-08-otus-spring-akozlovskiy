@@ -8,7 +8,16 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedAttributeNode;
+import javax.persistence.NamedEntityGraph;
 
+@NamedEntityGraph(
+		  name = "book-entity-graph",
+		  attributeNodes = {
+		    @NamedAttributeNode("author"),
+		    @NamedAttributeNode("genre")
+		  }
+		)
 @Entity
 public class Book {
 
@@ -16,8 +25,8 @@ public class Book {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 
-	@Column(name = "bookname")
-	private String bookName;
+	@Column(name = "title")
+	private String title;
 
 	@ManyToOne(targetEntity = Author.class, fetch = FetchType.EAGER, optional = false)
 	@JoinColumn(nullable = false, name = "authorid")
@@ -35,12 +44,12 @@ public class Book {
 		this.id = id;
 	}
 
-	public String getBookName() {
-		return bookName;
+	public String getTitle() {
+		return title;
 	}
 
-	public void setBookName(String bookName) {
-		this.bookName = bookName;
+	public void setTitle(String title) {
+		this.title = title;
 	}
 
 	public Author getAuthor() {
@@ -61,7 +70,7 @@ public class Book {
 
 	public String toString() {
 		StringBuilder strb = new StringBuilder();
-		strb.append("ID = ").append(id).append(", bookName = ").append(bookName).append(", author = ")
+		strb.append("ID = ").append(id).append(", title = ").append(title).append(", author = ")
 				.append(author.getName()).append(", genre = ").append(genre.getDescription());
 		return strb.toString();
 

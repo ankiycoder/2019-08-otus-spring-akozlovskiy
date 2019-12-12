@@ -1,21 +1,11 @@
 package ru.akozlovskiy.springdz07.domain.repository.impl;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-
 import org.springframework.stereotype.Repository;
 
-import ru.akozlovskiy.springdz07.domain.Author;
-import ru.akozlovskiy.springdz07.domain.repository.AuthorRepositoryCustom;
-import ru.akozlovskiy.springdz07.exception.DaoException;
-
 @Repository
-public class AuthorRepositoryCustomImpl implements AuthorRepositoryCustom {
+public class AuthorRepositoryCustomImpl  {
 
-	private static final String YYYY_MM_DD = "yyyy-MM-dd";
+	/*private static final String YYYY_MM_DD = "yyyy-MM-dd";
 
 	private final static DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(YYYY_MM_DD);
 
@@ -36,5 +26,5 @@ public class AuthorRepositoryCustomImpl implements AuthorRepositoryCustom {
 		em.persist(author);
 
 		return author.getId();
-	}
+	}*/
 }

@@ -55,7 +55,7 @@ public class CommentRepositoryTest {
 		comment2.setBook(book);
 		em.persist(comment2);
 
-		List<Comment> commentList = commentRepository.findByBookName(book.getBookName());
+		List<Comment> commentList = commentRepository.findByBookTitle(book.getTitle());
 		assertEquals(2, commentList.size());
 		assertThat(commentList).containsOnly(comment, comment2);
 	}

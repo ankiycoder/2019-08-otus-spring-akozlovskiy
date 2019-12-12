@@ -11,14 +11,11 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
-import org.springframework.context.annotation.Import;
 
 import ru.akozlovskiy.springdz07.domain.Genre;
-import ru.akozlovskiy.springdz07.domain.dao.jpa.AuthorDAOJpa;
 import ru.akozlovskiy.springdz07.exception.DaoException;
 
 @DataJpaTest
-@Import({ AuthorDAOJpa.class })
 public class GenreRepositoryTest {
 
 	private static final String GENRE_DESCRIPTION = "Драма";
@@ -33,9 +30,13 @@ public class GenreRepositoryTest {
 	@DisplayName("Добавление")
 	public void testAdd() throws DaoException {
 
-		long id = genreRepository.add(GENRE_DESCRIPTION);
-		Genre genre = em.find(Genre.class, id);
-		assertEquals(genre.getDescription(), GENRE_DESCRIPTION);
+		Genre genre = new Genre();
+		genre.setDescription(GENRE_DESCRIPTION);
+		genreRepository.save(genre);
+
+		long id = genre.getId();
+		Genre genreFind = em.find(Genre.class, id);
+		assertEquals(genreFind.getDescription(), GENRE_DESCRIPTION);
 	}
 
 	@Test
@@ -63,11 +64,20 @@ public class GenreRepositoryTest {
 	@Test
 	@DisplayName("Поиск всех жанров")
 	public void testGetAll() throws DaoException {
-		genreRepository.add("test1");
-		genreRepository.add("test2");
-		genreRepository.add("test3");
+
+		Genre genre = new Genre();
+		genre.setDescription("test1");
+		genreRepository.save(genre);
+
+		Genre genre2 = new Genre();
+		genre2.setDescription("test2");
+		genreRepository.save(genre2);
+
+		Genre genre3 = new Genre();
+		genre3.setDescription("test3");
+		genreRepository.save(genre3);
+
 		List<Genre> genreList = genreRepository.findAll();
 		assertEquals(4, genreList.size());
 	}
-
 }

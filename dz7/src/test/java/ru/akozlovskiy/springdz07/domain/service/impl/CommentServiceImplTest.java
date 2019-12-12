@@ -44,6 +44,6 @@ public class CommentServiceImplTest {
 		Comment commentBook = em.find(Comment.class, commentId);
 
 		assertEquals(commentBook.getComment(), bookComment);
-		assertEquals(commentBook.getBook().getBookName(), BOOK_NAME_BD);
+		assertEquals(commentBook.getBook().getTitle(), BOOK_NAME_BD);
 	}
 }

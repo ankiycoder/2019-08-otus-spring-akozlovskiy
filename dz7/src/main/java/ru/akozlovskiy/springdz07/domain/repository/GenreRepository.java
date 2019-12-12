@@ -6,7 +6,6 @@ import org.springframework.stereotype.Repository;
 import ru.akozlovskiy.springdz07.domain.Genre;
 
 @Repository
-public interface GenreRepository extends JpaRepository<Genre, Long>, GenreRepositoryCustom {
-
+public interface GenreRepository extends JpaRepository<Genre, Long> {
 	Genre findByDescription(String genreDescription);
 }

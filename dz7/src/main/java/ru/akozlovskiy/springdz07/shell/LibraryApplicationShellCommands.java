@@ -1,9 +1,10 @@
 package ru.akozlovskiy.springdz07.shell;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
-import java.util.Objects;
+import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
 import org.springframework.util.CollectionUtils;
@@ -20,18 +21,26 @@ import ru.akozlovskiy.springdz07.exception.DaoException;
 
 @ShellComponent
 public class LibraryApplicationShellCommands {
+	
+	private static final String YYYY_MM_DD = "yyyy-MM-dd";
+	
+	private final static DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(YYYY_MM_DD);
 
-	@Autowired
 	private AuthorRepository authorRepository;
 
-	@Autowired
 	private BookService bookService;
 
-	@Autowired
 	private GenreRepository genreRepository;
 
-	@Autowired
 	private CommentService commentService;
+
+	public LibraryApplicationShellCommands(AuthorRepository authorRepository, BookService bookService,
+			GenreRepository genreRepository, CommentService commentService) {
+		this.authorRepository = authorRepository;
+		this.bookService = bookService;
+		this.genreRepository = genreRepository;
+		this.commentService = commentService;
+	}
 
 	@ShellMethod(value = "Поиск всех книг", key = { "falb", "getAllBook" })
 	public String getAllBook() throws DaoException {
@@ -74,9 +83,9 @@ public class LibraryApplicationShellCommands {
 	@ShellMethod(value = "Поиск книги по имени", key = { "fbbn", "findBookByName" })
 	public String findBookByName(String bookname) throws DaoException {
 
-		Book book = bookService.findByName(bookname);
+		Optional<Book> book = bookService.findByName(bookname);
 
-		if (Objects.isNull(book)) {
+		if (!book.isPresent()) {
 			return "Книга с названием " + bookname + " не найдена";
 		}
 		return book.toString();
@@ -95,13 +104,19 @@ public class LibraryApplicationShellCommands {
 
 	@ShellMethod(value = "Добавить автора", key = { "adat", "addAuthor" })
 	public String addAuthor(String name, String birthDate) {
-		long author;
+		
+		LocalDate localDate;
 		try {
-			author = authorRepository.add(name, birthDate);
-		} catch (DaoException e) {
-			return e.getMessage();
+			localDate = LocalDate.parse(birthDate, dateFormatter);
+		} catch (Exception ex) {
+			return ("Не корректный формат даты рождения, должен быть: " + YYYY_MM_DD);
 		}
-		return "Добавлен новый автор, ID = " + author;
+		Author author = new Author();
+		author.setBirthDate(localDate);
+		author.setName(name);
+		authorRepository.save(author);
+		
+		return "Добавлен новый автор, ID = " + author.getId();
 	}
 
 	@ShellMethod(value = "Список жанров", key = { "gagr", "getAllGenre" })
@@ -117,7 +132,9 @@ public class LibraryApplicationShellCommands {
 
 	@ShellMethod(value = "Добавить жанр", key = { "adgr", "addGenre" })
 	public String addGenre(String description) {
-		long bookid = genreRepository.add(description);
+		Genre genre = new Genre();
+		genre.setDescription(description);
+		long bookid = genreRepository.save(genre).getId();
 		return "Добавлен новый жанр, ID = " + bookid;
 	}
 
