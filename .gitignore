@@ -11,3 +11,6 @@
 /.metadata
 /.sonarlint/default/.sonartmp_2267851378603378666/*.jar
 /dz6/.settings/*.prefs
+/dz7/.settings
+/.sonarlint/default/.sonartmp_1445852771096102844/*.jar
+/dz7/*.log

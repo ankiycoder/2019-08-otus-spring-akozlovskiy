@@ -4,8 +4,6 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
-import javax.persistence.EntityManager;
-
 import org.springframework.stereotype.Service;
 
 import ru.akozlovskiy.springdz07.domain.Author;
@@ -20,13 +18,11 @@ import ru.akozlovskiy.springdz07.exception.DaoException;
 @Service
 public class BookServiceImpl implements BookService {
 
-	private AuthorRepository authorRepository;
+	private final AuthorRepository authorRepository;
 
-	private GenreRepository genreRepository;
+	private final GenreRepository genreRepository;
 
-	private BookRepository bookRepository;
-	
-	private EntityManager entityManager;
+	private final BookRepository bookRepository;
 
 	public BookServiceImpl(AuthorRepository authorRepository, BookRepository bookRepository,
 			GenreRepository genreRepository) {

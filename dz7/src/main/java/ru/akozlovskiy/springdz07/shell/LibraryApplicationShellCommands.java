@@ -3,6 +3,7 @@ package ru.akozlovskiy.springdz07.shell;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 import org.springframework.shell.standard.ShellComponent;
@@ -21,18 +22,18 @@ import ru.akozlovskiy.springdz07.exception.DaoException;
 
 @ShellComponent
 public class LibraryApplicationShellCommands {
-	
+
 	private static final String YYYY_MM_DD = "yyyy-MM-dd";
-	
+
 	private final static DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(YYYY_MM_DD);
 
-	private AuthorRepository authorRepository;
+	private final AuthorRepository authorRepository;
 
-	private BookService bookService;
+	private final BookService bookService;
 
-	private GenreRepository genreRepository;
+	private final GenreRepository genreRepository;
 
-	private CommentService commentService;
+	private final CommentService commentService;
 
 	public LibraryApplicationShellCommands(AuthorRepository authorRepository, BookService bookService,
 			GenreRepository genreRepository, CommentService commentService) {
@@ -48,9 +49,7 @@ public class LibraryApplicationShellCommands {
 		List<Book> bookList = bookService.getAll();
 
 		StringBuilder strb = new StringBuilder();
-		bookList.stream().forEach(book -> {
-			strb.append(book.toString()).append("\n");
-		});
+		bookList.forEach(book -> strb.append(book.toString()).append("\n"));
 		return strb.toString();
 	}
 
@@ -62,9 +61,7 @@ public class LibraryApplicationShellCommands {
 			return "Для автора [" + auhtor + "] книги не найдены";
 		}
 		StringBuilder strb = new StringBuilder();
-		bookList.stream().forEach(book -> {
-			strb.append(book.toString()).append("\n");
-		});
+		bookList.forEach(book -> strb.append(book.toString()).append("\n"));
 
 		return strb.toString();
 	}
@@ -85,26 +82,21 @@ public class LibraryApplicationShellCommands {
 
 		Optional<Book> book = bookService.findByName(bookname);
 
-		if (!book.isPresent()) {
-			return "Книга с названием " + bookname + " не найдена";
-		}
-		return book.toString();
+		return book.map(Objects::toString).orElse(String.format("Книга с названием %s не найдена", bookname));
 	}
 
 	@ShellMethod(value = "Список всех авторов", key = { "gaat", "getAllAuthor" })
-	public String getAllAuthor() throws DaoException {
+	public String getAllAuthor() {
 
 		List<Author> bookid = authorRepository.findAll();
 		StringBuilder strb = new StringBuilder();
-		bookid.stream().forEach(book -> {
-			strb.append(book.toString()).append("\n");
-		});
+		bookid.forEach(book -> strb.append(book.toString()).append("\n"));
 		return strb.toString();
 	}
 
 	@ShellMethod(value = "Добавить автора", key = { "adat", "addAuthor" })
 	public String addAuthor(String name, String birthDate) {
-		
+
 		LocalDate localDate;
 		try {
 			localDate = LocalDate.parse(birthDate, dateFormatter);
@@ -115,18 +107,16 @@ public class LibraryApplicationShellCommands {
 		author.setBirthDate(localDate);
 		author.setName(name);
 		authorRepository.save(author);
-		
+
 		return "Добавлен новый автор, ID = " + author.getId();
 	}
 
 	@ShellMethod(value = "Список жанров", key = { "gagr", "getAllGenre" })
-	public String getAllGenre() throws DaoException {
+	public String getAllGenre() {
 
 		List<Genre> genreid = genreRepository.findAll();
 		StringBuilder strb = new StringBuilder();
-		genreid.stream().forEach(genre -> {
-			strb.append(genre.toString()).append("\n");
-		});
+		genreid.forEach(genre -> strb.append(genre.toString()).append("\n"));
 		return strb.toString();
 	}
 
@@ -153,9 +143,7 @@ public class LibraryApplicationShellCommands {
 	public String addComment(String bookName) {
 		List<Comment> comList = commentService.findAllByBookName(bookName);
 		StringBuilder strb = new StringBuilder();
-		comList.stream().forEach(comment -> {
-			strb.append(comment.getComment()).append("\n");
-		});
+		comList.forEach(comment -> strb.append(comment.getComment()).append("\n"));
 		return strb.toString();
 	}
 }
