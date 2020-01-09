@@ -32,7 +32,7 @@ public class BookServiceImpl implements BookService {
 	}
 
 	@Override
-	public long add(String bookName, String authorName, String genreDescription) throws DaoException {
+	public String add(String bookName, String authorName, String genreDescription) throws DaoException {
 
 		Genre genre = genreRepository.findByDescription(genreDescription);
 
