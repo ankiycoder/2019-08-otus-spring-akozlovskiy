@@ -10,7 +10,7 @@ import ru.akozlovskiy.springdz08.domain.Book;
 import ru.akozlovskiy.springdz08.exception.DaoException;
 
 @Repository
-public interface BookRepository extends MongoRepository<Book, String> {
+public interface BookRepository extends MongoRepository<Book, Long> {
 
 	Optional<Book> findByTitle(String title);
 

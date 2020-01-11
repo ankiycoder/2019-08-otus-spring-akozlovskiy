@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import ru.akozlovskiy.springdz08.domain.Author;
 
 @Repository
-public interface AuthorRepository extends MongoRepository<Author, String> {
+public interface AuthorRepository extends MongoRepository<Author, Long> {
 
-	Optional<Author> findByName(String name);
+	 Optional<Author> findByName(String name);
 }

@@ -6,5 +6,4 @@ spring:
       database: awesomeMongo
 logging:
   level:
-    root: ERROR
-
+    root: DEBUG
