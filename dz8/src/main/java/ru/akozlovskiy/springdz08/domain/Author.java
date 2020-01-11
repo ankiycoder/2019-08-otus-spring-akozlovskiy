@@ -2,7 +2,6 @@ package ru.akozlovskiy.springdz08.domain;
 
 import java.time.LocalDate;
 
-<<<<<<< HEAD
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -11,13 +10,6 @@ public class Author {
 
 	@Id
 	private String id;
-=======
-
-public class Author {
-
-
-	private long id;
->>>>>>> 207a043bde0d90ca0dc1ffd0239fbbf1e366848b
 
 	private String name;
 

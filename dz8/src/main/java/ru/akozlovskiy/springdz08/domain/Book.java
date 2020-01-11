@@ -1,10 +1,7 @@
 package ru.akozlovskiy.springdz08.domain;
 
 import org.springframework.data.annotation.Id;
-<<<<<<< HEAD
 import org.springframework.data.mongodb.core.mapping.DBRef;
-=======
->>>>>>> 207a043bde0d90ca0dc1ffd0239fbbf1e366848b
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document
@@ -15,14 +12,9 @@ public class Book {
 
 	private String title;
 
-<<<<<<< HEAD
 	@DBRef
 	private Author author;
-	
-=======
-	private Author author;
 
->>>>>>> 207a043bde0d90ca0dc1ffd0239fbbf1e366848b
 	private Genre genre;
 
 	public String getId() {
