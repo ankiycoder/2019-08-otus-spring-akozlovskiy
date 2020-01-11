@@ -8,7 +8,7 @@ import ru.akozlovskiy.springdz08.exception.DaoException;
 
 public interface BookService {
 
-	String add(String bookName, String authorName, String genreDescription) throws DaoException;
+	long add(String bookName, String authorName, String genreDescription) throws DaoException;
 
 	List<Book> getAll() throws DaoException;
 

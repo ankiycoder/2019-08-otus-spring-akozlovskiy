@@ -70,7 +70,7 @@ public class LibraryApplicationShellCommands {
 	public String addBook(String bookname, String authorName, String genre) throws DaoException {
 
 		try {
-			String bookid = bookService.add(bookname, authorName, genre);
+			long bookid = bookService.add(bookname, authorName, genre);
 			return "Книга добавлена, ID = " + bookid;
 		} catch (Exception ex) {
 			return ex.getMessage();

@@ -2,27 +2,32 @@ package ru.akozlovskiy.springdz08.domain;
 
 import java.time.LocalDate;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
-@Document
+@Entity
 public class Author {
 
 	@Id
-	private String id;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private long id;
 
 	private String name;
 
+	@Column(name="BIRTHDATE")
 	private LocalDate birthDate;
 
 	public Author() {
 	}
 
-	public String getId() {
+	public long getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 
@@ -37,6 +42,7 @@ public class Author {
 	public LocalDate getBirthDate() {
 		return birthDate;
 	}
+
 
 	public void setBirthDate(LocalDate birthDate) {
 		this.birthDate = birthDate;
