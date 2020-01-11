@@ -1,15 +1,9 @@
 spring:
-   h2:
-      console:
-         enabled: true
-   jpa:
-      hibernate:
-         ddl-auto: none
-   liquibase:
-      change-log: classpath:db/liquibase-changelog.xml
-     
-   datasource:
-       url: jdbc:h2:file:~/test
-       username: sa
-       password:
-       driverClassName: org.h2.Driver
+  data:
+    mongodb:
+      uri: mongodb://localhost
+      port: 27017
+      database: awesomeMongo
+logging:
+  level:
+    root: DEBUG

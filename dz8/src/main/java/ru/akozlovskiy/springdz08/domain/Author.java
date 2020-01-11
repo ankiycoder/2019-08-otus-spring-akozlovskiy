@@ -2,22 +2,14 @@ package ru.akozlovskiy.springdz08.domain;
 
 import java.time.LocalDate;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 
-@Entity
 public class Author {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+
 	private long id;
 
 	private String name;
 
-	@Column(name="BIRTHDATE")
 	private LocalDate birthDate;
 
 	public Author() {

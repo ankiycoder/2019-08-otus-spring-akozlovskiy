@@ -1,46 +1,25 @@
 package ru.akozlovskiy.springdz08.domain;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.NamedAttributeNode;
-import javax.persistence.NamedEntityGraph;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-@NamedEntityGraph(
-		  name = "book-entity-graph",
-		  attributeNodes = {
-		    @NamedAttributeNode("author"),
-		    @NamedAttributeNode("genre")
-		  }
-		)
-@Entity
+@Document
 public class Book {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
+	private String id;
 
-	@Column(name = "title")
 	private String title;
 
-	@ManyToOne(targetEntity = Author.class, fetch = FetchType.EAGER, optional = false)
-	@JoinColumn(nullable = false, name = "authorid")
 	private Author author;
 
-	@ManyToOne(targetEntity = Genre.class, fetch = FetchType.EAGER, optional = false)
-	@JoinColumn(nullable = false, name = "genreid")
 	private Genre genre;
 
-	public long getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 
