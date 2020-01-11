@@ -1,7 +1,11 @@
 package ru.akozlovskiy.springdz08.domain;
 
-public class Genre {
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
+@Document
+public class Genre {
+	@Id
 	private long id;
 
 	private String description;

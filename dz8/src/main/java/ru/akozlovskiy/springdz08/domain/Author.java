@@ -2,11 +2,14 @@ package ru.akozlovskiy.springdz08.domain;
 
 import java.time.LocalDate;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
+@Document
 public class Author {
 
-
-	private long id;
+	@Id
+	private String id;
 
 	private String name;
 
@@ -15,11 +18,11 @@ public class Author {
 	public Author() {
 	}
 
-	public long getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 
@@ -34,7 +37,6 @@ public class Author {
 	public LocalDate getBirthDate() {
 		return birthDate;
 	}
-
 
 	public void setBirthDate(LocalDate birthDate) {
 		this.birthDate = birthDate;
