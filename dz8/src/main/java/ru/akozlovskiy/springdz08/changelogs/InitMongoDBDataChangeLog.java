@@ -20,23 +20,23 @@ public class InitMongoDBDataChangeLog {
 		database.drop();
 	}
 
-	@ChangeSet(order = "003", id = "Author", author = "ak", runAlways = true)
+	@ChangeSet(order = "001", id = "initAuthor", author = "ak", runAlways = true)
 	public void initAuthor(MongoTemplate template) {
 		Author authorForSave = new Author();
-		authorForSave.setName("AuthorName");
+		authorForSave.setName("Маршак");
 		author = template.save(authorForSave);
 	}
 
-	@ChangeSet(order = "001", id = "initBook", author = "ak", runAlways = true)
-	public void initKnowledges(MongoTemplate template) {
+	@ChangeSet(order = "002", id = "initBook", author = "ak", runAlways = true)
+	public void initBook(MongoTemplate template) {
 
 		Book book = new Book();
-		book.setTitle("TestTiitle");
+		book.setTitle("Усатый полосатый");
 
 		book.setAuthor(author);
 
 		Genre genre = new Genre();
-		genre.setDescription("Genre");
+		genre.setDescription("Детский");
 		book.setGenre(genre);
 
 		template.save(book);

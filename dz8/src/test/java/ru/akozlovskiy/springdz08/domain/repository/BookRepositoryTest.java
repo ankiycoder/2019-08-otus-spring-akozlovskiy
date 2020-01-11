@@ -16,11 +16,9 @@ import ru.akozlovskiy.springdz08.exception.DaoException;
 @DisplayName("Репозиторий по работе с книгами")
 public class BookRepositoryTest extends AbstractRepositoryTest {
 
-	private static final String AUTHOR_NAME_FOR_TEST = "AuthorNameForTest";
-
-	private static final String GENRE_FOR_TEST = "GenreForTest";
-
-	private static final String TITLE_FOR_TEST = "TitleForTest";
+	private static final String BOOK_NAME_IN_BD = "Усатый полосатый";
+	private static final String AUTHOR_NAME_IN_BD = "Маршак";
+	private static final String GENRE_IN_BD = "Детский";
 
 	@Autowired
 	private BookRepository bookRepository;
@@ -29,15 +27,19 @@ public class BookRepositoryTest extends AbstractRepositoryTest {
 	@DisplayName("Добавление книги")
 	public void testAdd() throws DaoException {
 
+		String authorNameForTest = "AuthorNameForTest";
+		String genreForTest = "GenreForTest";
+		String titleForTest = "TitleForTest";
+
 		Book book = new Book();
-		book.setTitle(TITLE_FOR_TEST);
+		book.setTitle(titleForTest);
 
 		Genre genre = new Genre();
-		genre.setDescription(GENRE_FOR_TEST);
+		genre.setDescription(genreForTest);
 		book.setGenre(genre);
 
 		Author author = new Author();
-		author.setName(AUTHOR_NAME_FOR_TEST);
+		author.setName(authorNameForTest);
 		book.setAuthor(author);
 
 		Book savedBook = bookRepository.save(book);
@@ -45,9 +47,20 @@ public class BookRepositoryTest extends AbstractRepositoryTest {
 
 		Book findBook = findedBookOpt.get();
 
-		assertEquals(TITLE_FOR_TEST, findBook.getTitle());
-		assertEquals(AUTHOR_NAME_FOR_TEST, findBook.getAuthor().getName());
-		assertEquals(GENRE_FOR_TEST, findBook.getGenre().getDescription());
+		assertEquals(titleForTest, findBook.getTitle());
+		assertEquals(authorNameForTest, findBook.getAuthor().getName());
+		assertEquals(genreForTest, findBook.getGenre().getDescription());
 
+	}
+
+	@Test
+	@DisplayName("Поиск по описанию")
+	public void testFindByBookName() throws DaoException {
+
+		Optional<Book> bookOp = bookRepository.findByTitle(BOOK_NAME_IN_BD);
+		Book book = bookOp.get();
+		assertEquals(BOOK_NAME_IN_BD, book.getTitle());
+		assertEquals(AUTHOR_NAME_IN_BD, book.getAuthor().getName());
+		assertEquals(GENRE_IN_BD, book.getGenre().getDescription());
 	}
 }

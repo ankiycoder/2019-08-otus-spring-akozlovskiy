@@ -1,6 +1,7 @@
 package ru.akozlovskiy.springdz08.domain.repository;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -18,24 +19,33 @@ public class AuthorRepositoryTest extends AbstractRepositoryTest {
 
 	private static final String AUTHOR_BIRTH_DATE = "1891-05-15";
 
-	private final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+	private static final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
 	private static final String AUTHOR_NAME_FOR_TEST = "AUTHOR_NAME";
-	
+
 	@Autowired
 	private AuthorRepository authorRepository;
 
 	@Test
-	@DisplayName("Добавление книги")
+	@DisplayName("Добавление автора")
 	public void testAdd() throws DaoException {
-
 		Author author = new Author();
-		author.setName(AUTHOR_NAME_FOR_TEST);
+		author.setName("TestName");
 		author.setBirthDate(LocalDate.parse(AUTHOR_BIRTH_DATE, dateFormatter));
 
 		Author authorSaved = authorRepository.save(author);
 		Optional<Author> findedAuthorOpt = authorRepository.findById(authorSaved.getId());
-
 		assertThat(author).isEqualToComparingFieldByField(findedAuthorOpt.get());
+	}
+
+	@Test
+	@DisplayName("Поиск по имени")
+	public void testFindByName() throws DaoException {
+		Author author = new Author();
+		author.setName(AUTHOR_NAME_FOR_TEST);
+		authorRepository.save(author);
+
+		Optional<Author> findedAuthorOpt = authorRepository.findByName(AUTHOR_NAME_FOR_TEST);
+		assertEquals(AUTHOR_NAME_FOR_TEST, findedAuthorOpt.get().getName());
 	}
 }
