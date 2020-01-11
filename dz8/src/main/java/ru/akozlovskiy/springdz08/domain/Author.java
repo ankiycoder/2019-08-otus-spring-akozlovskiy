@@ -15,7 +15,8 @@ public class Author {
 
 	private LocalDate birthDate;
 
-	public Author() {
+	public Author(String name) {
+		this.name = name;
 	}
 
 	public String getId() {

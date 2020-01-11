@@ -1,7 +1,6 @@
 package ru.akozlovskiy.springdz08.domain.repository;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -29,8 +28,7 @@ public class AuthorRepositoryTest extends AbstractRepositoryTest {
 	@Test
 	@DisplayName("Добавление автора")
 	public void testAdd() throws DaoException {
-		Author author = new Author();
-		author.setName("TestName");
+		Author author = new Author("TestName");
 		author.setBirthDate(LocalDate.parse(AUTHOR_BIRTH_DATE, dateFormatter));
 
 		Author authorSaved = authorRepository.save(author);
@@ -41,11 +39,9 @@ public class AuthorRepositoryTest extends AbstractRepositoryTest {
 	@Test
 	@DisplayName("Поиск по имени")
 	public void testFindByName() throws DaoException {
-		Author author = new Author();
-		author.setName(AUTHOR_NAME_FOR_TEST);
-		authorRepository.save(author);
-
+		Author author = new Author(AUTHOR_NAME_FOR_TEST);
+		Author savedAuthor = authorRepository.save(author);
 		Optional<Author> findedAuthorOpt = authorRepository.findByName(AUTHOR_NAME_FOR_TEST);
-		assertEquals(AUTHOR_NAME_FOR_TEST, findedAuthorOpt.get().getName());
+		assertThat(savedAuthor).isEqualToComparingFieldByField(findedAuthorOpt.get());
 	}
 }

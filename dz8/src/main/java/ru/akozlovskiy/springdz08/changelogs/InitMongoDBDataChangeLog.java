@@ -22,8 +22,7 @@ public class InitMongoDBDataChangeLog {
 
 	@ChangeSet(order = "001", id = "initAuthor", author = "ak", runAlways = true)
 	public void initAuthor(MongoTemplate template) {
-		Author authorForSave = new Author();
-		authorForSave.setName("Маршак");
+		Author authorForSave = new Author("Маршак");
 		author = template.save(authorForSave);
 	}
 
@@ -32,12 +31,8 @@ public class InitMongoDBDataChangeLog {
 
 		Book book = new Book();
 		book.setTitle("Усатый полосатый");
-
 		book.setAuthor(author);
-
-		Genre genre = new Genre();
-		genre.setDescription("Детский");
-		book.setGenre(genre);
+		book.setGenre(new Genre("Детский"));
 
 		template.save(book);
 	}

@@ -1,7 +1,9 @@
 package ru.akozlovskiy.springdz08.domain.repository;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.junit.jupiter.api.DisplayName;
@@ -25,7 +27,7 @@ public class BookRepositoryTest extends AbstractRepositoryTest {
 
 	@Test
 	@DisplayName("Добавление книги")
-	public void testAdd() throws DaoException {
+	public void testSave() throws DaoException {
 
 		String authorNameForTest = "AuthorNameForTest";
 		String genreForTest = "GenreForTest";
@@ -34,12 +36,11 @@ public class BookRepositoryTest extends AbstractRepositoryTest {
 		Book book = new Book();
 		book.setTitle(titleForTest);
 
-		Genre genre = new Genre();
+		Genre genre = new Genre(genreForTest);
 		genre.setDescription(genreForTest);
 		book.setGenre(genre);
 
-		Author author = new Author();
-		author.setName(authorNameForTest);
+		Author author = new Author(authorNameForTest);
 		book.setAuthor(author);
 
 		Book savedBook = bookRepository.save(book);
@@ -50,17 +51,45 @@ public class BookRepositoryTest extends AbstractRepositoryTest {
 		assertEquals(titleForTest, findBook.getTitle());
 		assertEquals(authorNameForTest, findBook.getAuthor().getName());
 		assertEquals(genreForTest, findBook.getGenre().getDescription());
-
+		
+		assertThat(savedBook).usingRecursiveComparison()
+        .isEqualTo(findBook);
 	}
 
 	@Test
 	@DisplayName("Поиск по описанию")
-	public void testFindByBookName() throws DaoException {
+	public void testFindByTitle() throws DaoException {
 
 		Optional<Book> bookOp = bookRepository.findByTitle(BOOK_NAME_IN_BD);
 		Book book = bookOp.get();
 		assertEquals(BOOK_NAME_IN_BD, book.getTitle());
 		assertEquals(AUTHOR_NAME_IN_BD, book.getAuthor().getName());
 		assertEquals(GENRE_IN_BD, book.getGenre().getDescription());
+	}
+
+	@Test
+	@DisplayName("Поиск по автору")
+	public void testFindByAuthorID() throws DaoException {
+
+		Author author = new Author(AUTHOR_NAME_IN_BD);
+
+		Genre genre = new Genre(GENRE_IN_BD);
+
+		Book book1 = new Book();
+		book1.setTitle("Title1");
+		book1.setAuthor(author);
+		book1.setGenre(genre);
+
+		Book savedBook = bookRepository.save(book1);
+
+		Book book2 = new Book();
+		book2.setTitle("Title2");
+		book2.setAuthor(author);
+		book2.setGenre(genre);
+
+		bookRepository.save(book2);
+
+		List<Book> bookList = bookRepository.findAllByAuthorId(savedBook.getAuthor().getId());
+		assertThat(bookList).hasSize(2);
 	}
 }

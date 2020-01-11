@@ -1,7 +1,6 @@
 package ru.akozlovskiy.springdz08.domain.service.impl;
 
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
@@ -11,7 +10,6 @@ import ru.akozlovskiy.springdz08.domain.Book;
 import ru.akozlovskiy.springdz08.domain.Genre;
 import ru.akozlovskiy.springdz08.domain.repository.AuthorRepository;
 import ru.akozlovskiy.springdz08.domain.repository.BookRepository;
-import ru.akozlovskiy.springdz08.domain.repository.GenreRepository;
 import ru.akozlovskiy.springdz08.domain.service.BookService;
 import ru.akozlovskiy.springdz08.exception.DaoException;
 
@@ -20,35 +18,19 @@ public class BookServiceImpl implements BookService {
 
 	private final AuthorRepository authorRepository;
 
-	private final GenreRepository genreRepository;
-
 	private final BookRepository bookRepository;
 
-	public BookServiceImpl(AuthorRepository authorRepository, BookRepository bookRepository,
-			GenreRepository genreRepository) {
+	public BookServiceImpl(AuthorRepository authorRepository, BookRepository bookRepository) {
 		this.authorRepository = authorRepository;
 		this.bookRepository = bookRepository;
-		this.genreRepository = genreRepository;
 	}
 
 	@Override
 	public String add(String bookName, String authorName, String genreDescription) throws DaoException {
-
-		Genre genre = genreRepository.findByDescription(genreDescription);
-
-		if (Objects.isNull(genre)) {
-			throw new DaoException("Ошибка добавления книги. В базе на найден жанр: " + genreDescription);
-		}
-
-		Optional<Author> author = authorRepository.findByName(authorName);
-		if (!author.isPresent()) {
-			throw new DaoException("Ошибка добавления книги. В базе на найден автор с именем: " + authorName);
-		}
-
 		Book book = new Book();
-		book.setAuthor(author.get());
+		book.setAuthor(new Author(authorName) );
 		book.setTitle(bookName);
-		book.setGenre(genre);
+		book.setGenre(new Genre(genreDescription));
 
 		return bookRepository.save(book).getId();
 	}
@@ -60,12 +42,15 @@ public class BookServiceImpl implements BookService {
 
 	@Override
 	public List<Book> findAllByAuthor(String author) throws DaoException {
+		Optional<Author> findAuthor = authorRepository.findByName(author);
+		if (findAuthor.isPresent()) {
+			return bookRepository.findAllByAuthorId(findAuthor.get().getId());
+		}
 		return bookRepository.findAllByAuthorName(author);
 	}
 
 	@Override
-	public Optional<Book> findByName(String bookname) {
+	public Optional<Book> findByTitle(String bookname) {
 		return bookRepository.findByTitle(bookname);
 	}
-
 }

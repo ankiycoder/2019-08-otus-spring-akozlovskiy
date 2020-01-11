@@ -5,10 +5,16 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document
 public class Genre {
+	
 	@Id
 	private long id;
 
 	private String description;
+
+	public Genre(String description) {
+		super();
+		this.description = description;
+	}
 
 	public long getId() {
 		return id;

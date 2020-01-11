@@ -80,7 +80,7 @@ public class LibraryApplicationShellCommands {
 	@ShellMethod(value = "Поиск книги по имени", key = { "fbbn", "findBookByName" })
 	public String findBookByName(String bookname) throws DaoException {
 
-		Optional<Book> book = bookService.findByName(bookname);
+		Optional<Book> book = bookService.findByTitle(bookname);
 
 		return book.map(Objects::toString).orElse(String.format("Книга с названием %s не найдена", bookname));
 	}
