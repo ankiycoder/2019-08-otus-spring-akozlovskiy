@@ -20,7 +20,7 @@ import ru.akozlovskiy.springdz09.domain.service.BookService;
 import ru.akozlovskiy.springdz09.domain.service.CommentService;
 import ru.akozlovskiy.springdz09.exception.DaoException;
 
-@ShellComponent
+//@ShellComponent
 public class LibraryApplicationShellCommands {
 
 	private static final String YYYY_MM_DD = "yyyy-MM-dd";
