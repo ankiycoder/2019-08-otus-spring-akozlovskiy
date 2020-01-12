@@ -14,3 +14,8 @@
 /dz7/.settings
 /.sonarlint/default/.sonartmp_1445852771096102844/*.jar
 /dz7/*.log
+/dz9/.classpath
+/dz9/.project
+/dz9/.settings
+/dz9/target
+/.sonarlint
