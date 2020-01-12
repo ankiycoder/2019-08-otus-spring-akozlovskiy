@@ -57,7 +57,7 @@ public class BookRepositoryTest extends AbstractRepositoryTest {
 	}
 
 	@Test
-	@DisplayName("Поиск по описанию")
+	@DisplayName("Поиск по названию")
 	public void testFindByTitle() throws DaoException {
 
 		Optional<Book> bookOp = bookRepository.findByTitle(BOOK_NAME_IN_BD);
@@ -68,7 +68,7 @@ public class BookRepositoryTest extends AbstractRepositoryTest {
 	}
 
 	@Test
-	@DisplayName("Поиск по автору")
+	@DisplayName("Поиск по ID автора")
 	public void testFindByAuthorID() throws DaoException {
 
 		Author author = new Author(AUTHOR_NAME_IN_BD);

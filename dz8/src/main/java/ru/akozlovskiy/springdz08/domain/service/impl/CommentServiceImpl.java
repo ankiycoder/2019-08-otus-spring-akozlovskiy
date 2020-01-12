@@ -1,5 +1,6 @@
 package ru.akozlovskiy.springdz08.domain.service.impl;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,7 +26,7 @@ public class CommentServiceImpl implements CommentService {
 	}
 
 	@Override
-	public long add(String bookComment, String title) throws DaoException {
+	public Comment add(String bookComment, String title) throws DaoException {
 
 		Optional<Book> book = bookRepository.findByTitle(title);
 
@@ -34,13 +35,17 @@ public class CommentServiceImpl implements CommentService {
 		}
 
 		Comment comment = new Comment();
-		comment.setComment(bookComment);
+		comment.setText(bookComment);
 		comment.setBook(book.get());
-		return commentRepository.save(comment).getId();
+		return commentRepository.save(comment);
 	}
 
 	@Override
 	public List<Comment> findAllByBookName(String bookName) {
-		return commentRepository.findByBookTitle(bookName);
+		Optional<Book> book = bookRepository.findByTitle(bookName);
+		if (book.isPresent()) {
+			return commentRepository.findAllByBookId(book.get().getId());
+		}
+		return Collections.emptyList();
 	}
 }

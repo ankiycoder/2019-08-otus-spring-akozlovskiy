@@ -13,9 +13,7 @@ import org.springframework.util.CollectionUtils;
 import ru.akozlovskiy.springdz08.domain.Author;
 import ru.akozlovskiy.springdz08.domain.Book;
 import ru.akozlovskiy.springdz08.domain.Comment;
-import ru.akozlovskiy.springdz08.domain.Genre;
 import ru.akozlovskiy.springdz08.domain.repository.AuthorRepository;
-import ru.akozlovskiy.springdz08.domain.repository.GenreRepository;
 import ru.akozlovskiy.springdz08.domain.service.BookService;
 import ru.akozlovskiy.springdz08.domain.service.CommentService;
 import ru.akozlovskiy.springdz08.exception.DaoException;
@@ -31,15 +29,12 @@ public class LibraryApplicationShellCommands {
 
 	private final BookService bookService;
 
-	private final GenreRepository genreRepository;
-
 	private final CommentService commentService;
 
 	public LibraryApplicationShellCommands(AuthorRepository authorRepository, BookService bookService,
-			GenreRepository genreRepository, CommentService commentService) {
+			CommentService commentService) {
 		this.authorRepository = authorRepository;
 		this.bookService = bookService;
-		this.genreRepository = genreRepository;
 		this.commentService = commentService;
 	}
 
@@ -103,47 +98,29 @@ public class LibraryApplicationShellCommands {
 		} catch (Exception ex) {
 			return ("Не корректный формат даты рождения, должен быть: " + YYYY_MM_DD);
 		}
-		Author author = new Author();
+		Author author = new Author(name);
 		author.setBirthDate(localDate);
-		author.setName(name);
 		authorRepository.save(author);
 
 		return "Добавлен новый автор, ID = " + author.getId();
 	}
 
-	@ShellMethod(value = "Список жанров", key = { "gagr", "getAllGenre" })
-	public String getAllGenre() {
-
-		List<Genre> genreid = genreRepository.findAll();
-		StringBuilder strb = new StringBuilder();
-		genreid.forEach(genre -> strb.append(genre.toString()).append("\n"));
-		return strb.toString();
-	}
-
-	@ShellMethod(value = "Добавить жанр", key = { "adgr", "addGenre" })
-	public String addGenre(String description) {
-		Genre genre = new Genre();
-		genre.setDescription(description);
-		long bookid = genreRepository.save(genre).getId();
-		return "Добавлен новый жанр, ID = " + bookid;
-	}
-
 	@ShellMethod(value = "Добавить комментарий к книге", key = { "adcm", "addComment" })
-	public String addComment(String comment, String bookName) {
-		long commentid;
+	public String addComment(String commentText, String bookName) {
+		Comment addComment = null;
 		try {
-			commentid = commentService.add(comment, bookName);
+			addComment = commentService.add(commentText, bookName);
 		} catch (Exception e) {
 			return e.getMessage();
 		}
-		return "Добавлен новый коментарий, ID = " + commentid;
+		return "Добавлен новый коментарий, ID = " + addComment.getId();
 	}
 
 	@ShellMethod(value = "Найти все комментарии к книге", key = { "facb", "findAllComment" })
 	public String addComment(String bookName) {
 		List<Comment> comList = commentService.findAllByBookName(bookName);
 		StringBuilder strb = new StringBuilder();
-		comList.forEach(comment -> strb.append(comment.getComment()).append("\n"));
+		comList.forEach(comment -> strb.append(comment.getText()).append("\n"));
 		return strb.toString();
 	}
 }

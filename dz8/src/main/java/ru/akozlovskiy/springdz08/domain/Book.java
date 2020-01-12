@@ -49,11 +49,17 @@ public class Book {
 		this.genre = genre;
 	}
 
-	/*public String toString() {
+	public String toString() {
 		StringBuilder strb = new StringBuilder();
-		strb.append("ID = ").append(id).append(", title = ").append(title).append(", author = ")
-				.append(author.getName()).append(", genre = ").append(genre.getDescription());
-		return strb.toString();
+		strb.append("ID = ").append(id).append(", title = ").append(title);
 
-	}*/
+		if (author != null) {
+			strb.append(", author = ").append(author.getName());
+		}
+		if (genre != null) {
+			strb.append(", genre = ").append(genre.getDescription());
+		}
+
+		return strb.toString();
+	}
 }

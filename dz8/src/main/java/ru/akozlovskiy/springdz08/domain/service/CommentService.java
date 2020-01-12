@@ -7,7 +7,7 @@ import ru.akozlovskiy.springdz08.exception.DaoException;
 
 public interface CommentService {
 
-	long add(String comment, String bookName) throws DaoException;
+	Comment add(String comment, String bookName) throws DaoException;
 
 	List<Comment> findAllByBookName(String bookName);
 }

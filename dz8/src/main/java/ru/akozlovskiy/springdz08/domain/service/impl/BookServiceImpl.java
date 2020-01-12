@@ -1,5 +1,6 @@
 package ru.akozlovskiy.springdz08.domain.service.impl;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,7 +29,7 @@ public class BookServiceImpl implements BookService {
 	@Override
 	public String add(String bookName, String authorName, String genreDescription) throws DaoException {
 		Book book = new Book();
-		book.setAuthor(new Author(authorName) );
+		book.setAuthor(new Author(authorName));
 		book.setTitle(bookName);
 		book.setGenre(new Genre(genreDescription));
 
@@ -46,7 +47,7 @@ public class BookServiceImpl implements BookService {
 		if (findAuthor.isPresent()) {
 			return bookRepository.findAllByAuthorId(findAuthor.get().getId());
 		}
-		return bookRepository.findAllByAuthorName(author);
+		return Collections.emptyList();
 	}
 
 	@Override

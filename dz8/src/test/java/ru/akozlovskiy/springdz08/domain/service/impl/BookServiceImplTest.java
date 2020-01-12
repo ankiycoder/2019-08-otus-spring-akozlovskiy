@@ -19,7 +19,7 @@ import ru.akozlovskiy.springdz08.exception.DaoException;
 @DisplayName("Сервис по работе с книгами")
 public class BookServiceImplTest extends AbstractRepositoryTest {
 
-	private static final String КОМЕДИЯ = "Комедия";
+	private static final String GENRE_COMEDY = "Комедия";
 	private static final String AUTHOR_NAME_FOR_TEST = "AuthorNameTest";
 	private static final String BOOK_NAME_TEST = "bookNameTest";
 
@@ -30,16 +30,16 @@ public class BookServiceImplTest extends AbstractRepositoryTest {
 	private AuthorRepository authorRepository;
 
 	@Test
-	@DisplayName("Добавление")
+	@DisplayName("Добавление книги и автора")
 	public void testAdd() throws DaoException {
 
-		bookService.add(BOOK_NAME_TEST, AUTHOR_NAME_FOR_TEST, КОМЕДИЯ);
+		bookService.add(BOOK_NAME_TEST, AUTHOR_NAME_FOR_TEST, GENRE_COMEDY);
 
 		Optional<Book> findedBookOp = bookService.findByTitle(BOOK_NAME_TEST);
 		Book book = findedBookOp.get();
 		assertEquals(BOOK_NAME_TEST, book.getTitle());
 		assertEquals(AUTHOR_NAME_FOR_TEST, book.getAuthor().getName());
-		assertEquals(КОМЕДИЯ, book.getGenre().getDescription());
+		assertEquals(GENRE_COMEDY, book.getGenre().getDescription());
 
 		Optional<Author> author = authorRepository.findByName(AUTHOR_NAME_FOR_TEST);
 		assertThat(author.get()).isEqualToComparingFieldByField(book.getAuthor());
