@@ -7,20 +7,18 @@
     
    </head>
    <body>
-      <h1>Book List</h1>
+      <h1>Список авторов</h1>
       <a href="addBook">Add Book</a>
       <br/><br/>
       <div>
          <table border="1">
             <tr>
-               <th>Название</th>
                <th>Автор</th>
-               <th>Жанр</th>
+               <th>Дата рождения</th>
             </tr>
-            <tr th:each ="book : ${bookDTOList}">
-               <td th:utext="${book.title}">...</td>
-               <td th:utext="${book.authorName}">...</td>
-               <td th:utext="${book.genre}">...</td>
+            <tr th:each ="author : ${authors}">
+               <td th:utext="${author.name}">...</td>
+               <td th:utext="${author.birthDate}">...</td>
             </tr>
          </table>
       </div>
