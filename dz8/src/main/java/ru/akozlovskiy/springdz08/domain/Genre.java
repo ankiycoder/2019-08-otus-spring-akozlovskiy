@@ -1,27 +1,12 @@
 package ru.akozlovskiy.springdz08.domain;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
-
-@Document
 public class Genre {
-	
-	@Id
-	private long id;
 
 	private String description;
 
 	public Genre(String description) {
 		super();
 		this.description = description;
-	}
-
-	public long getId() {
-		return id;
-	}
-
-	public void setId(long id) {
-		this.id = id;
 	}
 
 	public String getDescription() {
@@ -34,7 +19,7 @@ public class Genre {
 
 	public String toString() {
 		StringBuilder strb = new StringBuilder();
-		strb.append("ID = ").append(id).append(", description = ").append(description);
+		strb.append("description = ").append(description);
 		return strb.toString();
 	}
 }

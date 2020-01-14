@@ -15,4 +15,6 @@ public interface BookService {
 	List<Book> findAllByAuthor(String author) throws DaoException;
 
 	Optional<Book> findByTitle(String bookname);
+	
+	void removeByTitle(String title);
 }

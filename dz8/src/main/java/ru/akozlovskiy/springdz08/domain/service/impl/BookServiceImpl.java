@@ -54,4 +54,9 @@ public class BookServiceImpl implements BookService {
 	public Optional<Book> findByTitle(String bookname) {
 		return bookRepository.findByTitle(bookname);
 	}
+
+	@Override
+	public void removeByTitle(String title) {
+		bookRepository.removeByTitle(title);
+	}
 }

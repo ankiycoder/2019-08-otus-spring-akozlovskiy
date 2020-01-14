@@ -25,7 +25,7 @@ public class CommentRepositoryTest extends AbstractRepositoryTest {
 	private CommentRepository commentRepository;
 
 	@Test
-	@DisplayName("Успешность добавления и поиска")
+	@DisplayName("Успешность добавления и поиска и удаления")
 	public void testSaveAndFindAllByBookId() throws DaoException {
 		Optional<Book> book = bookRepository.findByTitle(BOOK_NAME_IN_BD);
 
@@ -41,5 +41,11 @@ public class CommentRepositoryTest extends AbstractRepositoryTest {
 		List<Comment> commentList = commentRepository.findAllByBookId(book.get().getId());
 
 		assertThat(commentList.get(0)).usingRecursiveComparison().isEqualTo(savedComment);
+		
+		commentRepository.removeByBookId(book.get().getId());
+		
+		List<Comment> commentListAfterDelete = commentRepository.findAllByBookId(book.get().getId());
+		
+		assertThat(commentListAfterDelete).isEmpty();
 	}
 }

@@ -22,6 +22,7 @@ public class BookServiceImplTest extends AbstractRepositoryTest {
 	private static final String GENRE_COMEDY = "Комедия";
 	private static final String AUTHOR_NAME_FOR_TEST = "AuthorNameTest";
 	private static final String BOOK_NAME_TEST = "bookNameTest";
+	private static final String BOOK_NAME_TEST2 = "bookNameTest2";
 
 	@Autowired
 	private BookService bookService;
@@ -43,5 +44,19 @@ public class BookServiceImplTest extends AbstractRepositoryTest {
 
 		Optional<Author> author = authorRepository.findByName(AUTHOR_NAME_FOR_TEST);
 		assertThat(author.get()).isEqualToComparingFieldByField(book.getAuthor());
+	}
+
+	@Test
+	@DisplayName("Удаление")
+	public void testRemove() throws DaoException {
+
+		bookService.add(BOOK_NAME_TEST2, AUTHOR_NAME_FOR_TEST, GENRE_COMEDY);
+
+		Optional<Book> findedBookOp = bookService.findByTitle(BOOK_NAME_TEST2);
+		assertThat(findedBookOp).isPresent();
+
+		bookService.removeByTitle(BOOK_NAME_TEST2);
+		Optional<Book> findedBookOpAfterDel = bookService.findByTitle(BOOK_NAME_TEST2);
+		assertThat(findedBookOpAfterDel).isNotPresent();
 	}
 }

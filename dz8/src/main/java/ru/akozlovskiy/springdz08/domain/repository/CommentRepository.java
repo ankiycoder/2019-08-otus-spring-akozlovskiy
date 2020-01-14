@@ -8,6 +8,7 @@ import ru.akozlovskiy.springdz08.domain.Comment;
 
 public interface CommentRepository extends MongoRepository<Comment, String> {
 
-	public List<Comment> findAllByBookId(String id);
+	 List<Comment> findAllByBookId(String id);
 
+	 void removeByBookId(String id);
 }

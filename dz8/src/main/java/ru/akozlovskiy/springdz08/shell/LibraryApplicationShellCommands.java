@@ -71,6 +71,11 @@ public class LibraryApplicationShellCommands {
 			return ex.getMessage();
 		}
 	}
+	
+	@ShellMethod(value = "Удаление книги", key = { "dlbk", "removeBook" })
+	public void removeBook(String title) throws DaoException {
+		bookService.removeByTitle(title);
+	}
 
 	@ShellMethod(value = "Поиск книги по имени", key = { "fbbn", "findBookByName" })
 	public String findBookByName(String bookname) throws DaoException {
