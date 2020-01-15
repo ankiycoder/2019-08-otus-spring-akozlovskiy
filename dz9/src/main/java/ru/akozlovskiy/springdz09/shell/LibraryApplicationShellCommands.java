@@ -43,7 +43,7 @@ public class LibraryApplicationShellCommands {
 		this.commentService = commentService;
 	}
 
-	@ShellMethod(value = "Поиск всех книг", key = { "falb", "getAllBook" })
+	//@ShellMethod(value = "Поиск всех книг", key = { "falb", "getAllBook" })
 	public String getAllBook() throws DaoException {
 
 		List<Book> bookList = bookService.getAll();
@@ -53,7 +53,7 @@ public class LibraryApplicationShellCommands {
 		return strb.toString();
 	}
 
-	@ShellMethod(value = "Поиск книг по автору", key = { "faba", "findAllBookByAuthor" })
+	//@ShellMethod(value = "Поиск книг по автору", key = { "faba", "findAllBookByAuthor" })
 	public String findAllBookByAuthor(String auhtor) throws DaoException {
 
 		List<Book> bookList = bookService.findAllByAuthor(auhtor);
@@ -66,7 +66,7 @@ public class LibraryApplicationShellCommands {
 		return strb.toString();
 	}
 
-	@ShellMethod(value = "Добавление новой книги", key = { "adbk", "addBook" })
+	//@ShellMethod(value = "Добавление новой книги", key = { "adbk", "addBook" })
 	public String addBook(String bookname, String authorName, String genre) throws DaoException {
 
 		try {
@@ -77,7 +77,7 @@ public class LibraryApplicationShellCommands {
 		}
 	}
 
-	@ShellMethod(value = "Поиск книги по имени", key = { "fbbn", "findBookByName" })
+	//@ShellMethod(value = "Поиск книги по имени", key = { "fbbn", "findBookByName" })
 	public String findBookByName(String bookname) throws DaoException {
 
 		Optional<Book> book = bookService.findByName(bookname);
@@ -85,7 +85,7 @@ public class LibraryApplicationShellCommands {
 		return book.map(Objects::toString).orElse(String.format("Книга с названием %s не найдена", bookname));
 	}
 
-	@ShellMethod(value = "Список всех авторов", key = { "gaat", "getAllAuthor" })
+	//@ShellMethod(value = "Список всех авторов", key = { "gaat", "getAllAuthor" })
 	public String getAllAuthor() {
 
 		List<Author> bookid = authorRepository.findAll();
@@ -94,7 +94,7 @@ public class LibraryApplicationShellCommands {
 		return strb.toString();
 	}
 
-	@ShellMethod(value = "Добавить автора", key = { "adat", "addAuthor" })
+	//@ShellMethod(value = "Добавить автора", key = { "adat", "addAuthor" })
 	public String addAuthor(String name, String birthDate) {
 
 		LocalDate localDate;
@@ -111,7 +111,7 @@ public class LibraryApplicationShellCommands {
 		return "Добавлен новый автор, ID = " + author.getId();
 	}
 
-	@ShellMethod(value = "Список жанров", key = { "gagr", "getAllGenre" })
+	//@ShellMethod(value = "Список жанров", key = { "gagr", "getAllGenre" })
 	public String getAllGenre() {
 
 		List<Genre> genreid = genreRepository.findAll();
@@ -120,7 +120,7 @@ public class LibraryApplicationShellCommands {
 		return strb.toString();
 	}
 
-	@ShellMethod(value = "Добавить жанр", key = { "adgr", "addGenre" })
+//	@ShellMethod(value = "Добавить жанр", key = { "adgr", "addGenre" })
 	public String addGenre(String description) {
 		Genre genre = new Genre();
 		genre.setDescription(description);
@@ -128,7 +128,7 @@ public class LibraryApplicationShellCommands {
 		return "Добавлен новый жанр, ID = " + bookid;
 	}
 
-	@ShellMethod(value = "Добавить комментарий к книге", key = { "adcm", "addComment" })
+	//@ShellMethod(value = "Добавить комментарий к книге", key = { "adcm", "addComment" })
 	public String addComment(String comment, String bookName) {
 		long commentid;
 		try {
@@ -139,7 +139,7 @@ public class LibraryApplicationShellCommands {
 		return "Добавлен новый коментарий, ID = " + commentid;
 	}
 
-	@ShellMethod(value = "Найти все комментарии к книге", key = { "facb", "findAllComment" })
+	//@ShellMethod(value = "Найти все комментарии к книге", key = { "facb", "findAllComment" })
 	public String addComment(String bookName) {
 		List<Comment> comList = commentService.findAllByBookName(bookName);
 		StringBuilder strb = new StringBuilder();
