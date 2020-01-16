@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,6 +17,10 @@ import ru.akozlovskiy.springdz09.domain.Author;
 import ru.akozlovskiy.springdz09.domain.Book;
 import ru.akozlovskiy.springdz09.domain.Genre;
 import ru.akozlovskiy.springdz09.domain.dto.BookDTO;
+import ru.akozlovskiy.springdz09.domain.repository.AuthorRepository;
+import ru.akozlovskiy.springdz09.domain.repository.GenreRepository;
+import ru.akozlovskiy.springdz09.domain.service.BookService;
+import ru.akozlovskiy.springdz09.exception.DaoException;
 
 @Controller
 public class MainController {
@@ -23,6 +28,15 @@ public class MainController {
 	private static List<Book> books = new ArrayList<>();
 	private static List<Author> authors = new ArrayList<>();
 	private static List<Genre> genres = new ArrayList<>();
+	
+	@Autowired
+	private BookService bookService;
+	
+	@Autowired
+	private GenreRepository genreRepository;
+	
+	@Autowired
+	private AuthorRepository authorRepository;
 
 	static {
 		Book book1 = new Book();
@@ -44,20 +58,18 @@ public class MainController {
 		genres.add(g);
 	}
 
-	// ​​​​​​​
-	// Вводится (inject) из application.properties.
-	@Value("${welcome.message}")
-	private String message;
-
 	@Value("${error.message}")
 	private String errorMessage;
 
 	@GetMapping(value = { "/", "/index" })
-	public String index(Model model) {
+	public String index(Model model) throws DaoException {
+		
+		List<Book> books = bookService.getAll();
+		List<BookDTO> bookDTOList = books.stream().map(BookDTO::new).collect(Collectors.toList());
+		model.addAttribute("bookDTOList", bookDTOList);
 
-		model.addAttribute("message", message);
-		model.addAttribute("genres", genres);
-		model.addAttribute("authors", authors);
+		model.addAttribute("genres", genreRepository.findAll());
+		model.addAttribute("authors", authorRepository.findAll());
 		return "index";
 	}
 
@@ -100,7 +112,7 @@ public class MainController {
 	@GetMapping(value = { "/updateGenre/{id}" })
 	public String updateGenre(@PathVariable("id") Long id, Model model) {
 		System.out.println("DELETE for ID = " + id);
-		model.addAttribute("message", message);
+
 		model.addAttribute("genres", genres);
 		model.addAttribute("authors", authors);
 		return "index";
@@ -109,7 +121,7 @@ public class MainController {
 	@GetMapping(value = { "/deleteGenre/{id}" })
 	public String deleteGenre(@PathVariable("id") Long id, Model model) {
 		System.out.println("DELETE for ID = " + id);
-		model.addAttribute("message", message);
+
 		model.addAttribute("genres", genres);
 		model.addAttribute("authors", authors);
 		return "index";

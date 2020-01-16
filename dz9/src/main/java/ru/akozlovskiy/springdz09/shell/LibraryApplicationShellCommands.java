@@ -6,8 +6,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
-import org.springframework.shell.standard.ShellComponent;
-import org.springframework.shell.standard.ShellMethod;
+
 import org.springframework.util.CollectionUtils;
 
 import ru.akozlovskiy.springdz09.domain.Author;

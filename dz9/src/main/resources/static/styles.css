@@ -1,0 +1,31 @@
+h1 {
+    color:#0000FF;
+}
+ 
+h2 {
+    color:#FF0000;
+}
+ 
+table {
+    border-collapse: collapse;
+}
+ 
+table th, table td {
+    padding: 5px;
+}
+
+.b-delete {
+	background: red; /* Синий цвет фона */
+	color: white; /* Белые буквы */
+}
+.b-update {
+	background: blue; /* Синий цвет фона */
+	color: white; /* Белые буквы */
+}
+.b-add {
+	background: green; /* Синий цвет фона */
+	color: white; /* Белые буквы */
+}
+p {
+  color: red;
+}
