@@ -1,47 +1,76 @@
 package ru.akozlovskiy.springdz08.domain.service.impl;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.when;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.annotation.Import;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import ru.akozlovskiy.springdz08.domain.Book;
 import ru.akozlovskiy.springdz08.domain.Comment;
-import ru.akozlovskiy.springdz08.domain.repository.AbstractRepositoryTest;
-import ru.akozlovskiy.springdz08.domain.service.BookService;
+import ru.akozlovskiy.springdz08.domain.repository.BookRepository;
+import ru.akozlovskiy.springdz08.domain.repository.CommentRepository;
 import ru.akozlovskiy.springdz08.domain.service.CommentService;
 import ru.akozlovskiy.springdz08.exception.DaoException;
 
 @DisplayName("Сервис по работе с комментариями")
-public class CommentServiceImplTest extends AbstractRepositoryTest {
+@ExtendWith(SpringExtension.class)
+@Import(CommentServiceImpl.class)
+public class CommentServiceImplTest {
 
+	private static final String ID = "ID";
 	private static final String TEST_BOOK_NAME = "bookName";
 	private static final String BOOK_COMMENT = "Тествый комментарий";
 
 	@Autowired
 	private CommentService сommentService;
 
-	@Autowired
-	private BookService bookService;
+	@MockBean
+	private CommentRepository commentRepository;
 
-	@Test
-	@DisplayName("Возврат ошибки при добавлении для не найденной книги")
-	public void tesAddWithWrongBookName() throws DaoException {
-		assertThrows(DaoException.class, () -> {
-			сommentService.add("bookComment", "WrongBookName");
-		});
+	@MockBean
+	private BookRepository bookRepository;
+
+	private Comment comment;
+
+	@BeforeEach
+	public void initMock() {
+		Book bookForTest = new Book();
+		bookForTest.setId(ID);
+		bookForTest.setTitle(TEST_BOOK_NAME);
+
+		comment = new Comment();
+		comment.setBook(bookForTest);
+		comment.setText("text");
+		when(bookRepository.findByTitle(any())).thenReturn(Optional.of(bookForTest));
+
+		when(commentRepository.save(any(Comment.class))).thenReturn(comment);
+		when(commentRepository.findAllByBookId(any())).thenReturn(Collections.singletonList(comment));
 	}
 
 	@Test
 	@DisplayName("Добавление")
 	public void tesAdd() throws DaoException {
-		bookService.add(TEST_BOOK_NAME, "authorName", BOOK_COMMENT);
-		сommentService.add(BOOK_COMMENT, TEST_BOOK_NAME);
-		List<Comment> commentList = сommentService.findAllByBookName(TEST_BOOK_NAME);
+		Comment result = сommentService.add(BOOK_COMMENT, TEST_BOOK_NAME);
+		assertEquals(comment, result);
+	}
 
-		assertEquals(BOOK_COMMENT, commentList.get(0).getText());
+	@Test
+	@DisplayName("Поиск по имени книги")
+	public void testFindAllByBookName() throws DaoException {
+		List<Comment> result = сommentService.findAllByBookName(TEST_BOOK_NAME);
+		assertThat(result).contains(comment);
 	}
 }
