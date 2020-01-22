@@ -7,20 +7,19 @@ public class BookDTO {
 	private String title;
 	private String authorName;
 	private String genre;
-	
+
 	public BookDTO(Book book) {
-		
+
 		this.title = book.getTitle();
-		
+
 		if (book.getAuthor() != null) {
 			this.authorName = book.getAuthor().getName();
 		}
-		
+
 		if (book.getGenre() != null) {
 			this.genre = book.getGenre().getDescription();
 		}
 	}
-	
 
 	public BookDTO() {
 	}

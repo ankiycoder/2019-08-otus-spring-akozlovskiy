@@ -1,30 +1,61 @@
 <!DOCTYPE HTML>
 
 <html xmlns:th="http://www.thymeleaf.org">
-   <head>
-      <meta charset="UTF-8" />
-      <title>Add Book</title>
-      <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
-   </head>
-   <body>
-   <div class="container my-5">
-      <h1 class="mb-5">Create a book:</h1>
-          
-      <form th:action="@{/addBook}"
-         th:object="${bookDto}" method="POST">
-         Название:
-         <input type="text" th:field="*{title}" />    
-         <br/>
-         Автор:
-         <input type="text" th:field="*{authorName}" />     
-         <br/>
-         <input type="submit" value="Create" />
-      </form>
-      <br/>
-      <div th:if="${errorMessage}" th:utext="${errorMessage}"
-         style="color:red;font-style:italic;">
-         ...
-      </div>
-       
-   </body>
+<head>
+<meta charset="UTF-8" />
+<title>Add Book</title>
+<link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
+</head>
+<body>
+	<form action="#" th:action="@{/addBook}" th:object="${bookDto}"
+		method="post">
+		<h2>Добавление книги</h2>
+		<div class="row">
+			<div>
+				<label for="title">Название</label> <input type="text"
+					th:field="*{title}" id="title"> <span
+					th:if="${#fields.hasErrors('title')}" th:errors="*{title}"
+					class="text-danger"></span>
+			</div>
+			
+			<div>
+				<label for="name">Автор</label> 				
+								
+				  <select th:field="*{authorName}">
+                         <option th:each="author : ${authors}"
+                            th:value="${author.name}"
+                            th:utext="${author.name}"/>
+                  </select>
+                  
+                 <input type="text" th:field="*{authorName}" id="authorName"> 	
+				
+				<span th:if="${#fields.hasErrors('authorName')}"
+					th:errors="*{authorName}"></span>
+			</div>			
+			
+			
+			<div >
+				<label for="Genre">Жанр</label> 				
+								
+				  <select th:field="*{genre}">
+                         <option th:each="genre : ${genres}"
+                            th:value="${genre.description}"
+                            th:utext="${genre.description}"/>
+                  </select>
+				
+				<span th:if="${#fields.hasErrors('authorName')}"
+					th:errors="*{authorName}"></span>
+			</div>
+		</div>
+		<div class="row">
+			<div>
+				<input type="submit" value="Добавить книгу">
+			</div>
+		</div>
+	</form>
+
+	<br />
+	<div th:if="${errorMessage}" th:utext="${errorMessage}"
+		style="color: red; font-style: italic;">...</div>
+</body>
 </html>

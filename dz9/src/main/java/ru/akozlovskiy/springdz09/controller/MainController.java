@@ -96,7 +96,8 @@ public class MainController {
 
 		BookDTO bookDTO = new BookDTO();
 		model.addAttribute("bookDto", bookDTO);
-
+		model.addAttribute("genres", genreRepository.findAll());
+		model.addAttribute("authors", authorRepository.findAll());
 		return "addBook";
 	}
 
@@ -129,22 +130,9 @@ public class MainController {
 
 	@PostMapping(value = { "/addBook" })
 	public String saveBook(Model model, //
-			@ModelAttribute("bookDto") BookDTO bookDTO) {
-
-		Book book = new Book();
-		book.setTitle(bookDTO.getTitle());
-
-		Author author = new Author();
-		author.setName(bookDTO.getAuthorName());
-		book.setAuthor(author);
-
-		Genre genre = new Genre();
-		genre.setDescription(bookDTO.getGenre());
-		book.setGenre(genre);
-
-		books.add(book);
-
-		return "redirect:/bookList";
+			@ModelAttribute("bookDto") BookDTO bookDTO) throws DaoException {
+		bookService.add(bookDTO.getTitle(), bookDTO.getAuthorName(), bookDTO.getGenre());
+		return "redirect:/index";
 	}
 
 	// model.addAttribute("errorMessage", errorMessage);
