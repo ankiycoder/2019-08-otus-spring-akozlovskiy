@@ -26,8 +26,6 @@
                             th:value="${author.name}"
                             th:utext="${author.name}"/>
                   </select>
-                  
-                 <input type="text" th:field="*{authorName}" id="authorName"> 	
 				
 				<span th:if="${#fields.hasErrors('authorName')}"
 					th:errors="*{authorName}"></span>
