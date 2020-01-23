@@ -1,0 +1,32 @@
+<!DOCTYPE HTML>
+
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<title>Add Genre</title>
+<link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
+</head>
+<body>
+	<form action="#" th:action="@{/addGenre}" th:object="${genre}"
+		method="post">
+		<h2>Добавление жанра</h2>
+		<div class="row">
+			<div>
+				<label for="name">Название</label> <input type="text"
+					th:field="*{description}" id="description"> <span
+					th:if="${#fields.hasErrors('description')}" th:errors="*{description}"
+					class="text-danger"></span>
+			</div>
+			<div class="row">
+				<div>
+					<input type="submit" value="Добавить жанр">
+				</div>
+			</div>
+		</div>
+	</form>
+
+	<br />
+	<div th:if="${errorMessage}" th:utext="${errorMessage}"
+		style="color: red; font-style: italic;">...</div>
+</body>
+</html>

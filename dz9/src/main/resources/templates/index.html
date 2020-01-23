@@ -43,7 +43,7 @@
 
 			<h1>Авторы</h1>
 			<hr>
-			<form action="/addBook">
+			<form action="/addAuthor">
 				<button type="submit" class="b-add">Добавить автора</button>
 			</form>
 			<div class="scroll-table">
@@ -72,7 +72,7 @@
 
 			<h1>Жанры</h1>
 			<hr>
-			<form action="/addBook">
+			<form action="/addGenre">
 				<button type="submit" class="b-add">Добавить жанр</button>
 			</form>
 			<div class="scroll-table">
@@ -96,33 +96,5 @@
 			</div>
 		</div>
 	</div>
-	<br>
-	<br>
-	<br>
-
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
-	<table border="1">
-		<caption>Доступные жанры</caption>
-		<tr>
-			<th>ID</th>
-			<th>Название</th>
-			<th>Изменить</th>
-			<th>Удалить</th>
-		</tr>
-		<tr th:each="genre : ${genres}">
-			<td th:utext="${genre.id}">...</td>
-			<td th:utext="${genre.description}">...</td>
-			<td><a th:href="@{/updateGenre/{id}(id=${genre.id})}">Изменить</a></td>
-			<td>
-				<button type="button" class="btn btn-warning btn-sm">Update</button>
-				<button type="button" class="btn btn-danger btn-sm">Delete</button>
-			</td>
-		</tr>
-	</table>
-	<a th:href="@{/addGenre}">Добавить</a>
 </body>
 </html>
