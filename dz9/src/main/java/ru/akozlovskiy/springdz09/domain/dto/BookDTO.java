@@ -4,11 +4,16 @@ import ru.akozlovskiy.springdz09.domain.Book;
 
 public class BookDTO {
 
+	private Long id;
 	private String title;
 	private String authorName;
+	private Long authorId;
 	private String genre;
+	private Long genreId;
 
 	public BookDTO(Book book) {
+
+		this.id = book.getId();
 
 		this.title = book.getTitle();
 
@@ -46,6 +51,30 @@ public class BookDTO {
 
 	public void setGenre(String genre) {
 		this.genre = genre;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public Long getAuthorId() {
+		return authorId;
+	}
+
+	public void setAuthorId(Long authorId) {
+		this.authorId = authorId;
+	}
+
+	public Long getGenreId() {
+		return genreId;
+	}
+
+	public void setGenreId(Long genreId) {
+		this.genreId = genreId;
 	}
 
 }

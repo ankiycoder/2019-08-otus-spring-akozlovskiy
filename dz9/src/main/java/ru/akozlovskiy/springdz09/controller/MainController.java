@@ -3,7 +3,6 @@ package ru.akozlovskiy.springdz09.controller;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,14 +23,17 @@ import ru.akozlovskiy.springdz09.exception.DaoException;
 @Controller
 public class MainController {
 
-	@Autowired
-	private BookService bookService;
+	private final BookService bookService;
 
-	@Autowired
-	private GenreRepository genreRepository;
+	private final GenreRepository genreRepository;
 
-	@Autowired
-	private AuthorRepository authorRepository;
+	private final AuthorRepository authorRepository;
+
+	public MainController(BookService bookService, GenreRepository genreRepository, AuthorRepository authorRepository) {
+		this.bookService = bookService;
+		this.genreRepository = genreRepository;
+		this.authorRepository = authorRepository;
+	}
 
 	@Value("${error.message}")
 	private String errorMessage;
@@ -58,42 +60,32 @@ public class MainController {
 		return "addBook";
 	}
 
+	@PostMapping(value = { "/addBook" })
+	public String saveBook(Model model, @ModelAttribute("bookDto") BookDTO bookDTO) throws DaoException {
+		bookService.add(bookDTO.getTitle(), bookDTO.getAuthorName(), bookDTO.getGenre());
+		return "redirect:/index";
+	}
+
+	@GetMapping("/updateBook/{id}")
+	public String showUpdateBookPage(@PathVariable("id") long id, Model model) {
+		Book book = bookService.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid Book Id:" + id));
+		model.addAttribute("book", new BookDTO(book));
+		model.addAttribute("genres", genreRepository.findAll());
+		model.addAttribute("authors", authorRepository.findAll());
+		return "updateBook";
+	}
+
+	@PostMapping(value = { "/updateBook/{id}" })
+	public String updateBook(@PathVariable("id") Long id, BookDTO bookDTO, Model model) throws DaoException {
+		bookService.update(id, bookDTO.getTitle(), bookDTO.getAuthorId(), bookDTO.getGenreId());
+		return "redirect:/index";
+	}
+
 	@GetMapping(value = { "/addAuthor" })
 	public String showAddAuthor(Model model) {
 		Author author = new Author();
 		model.addAttribute("author", author);
 		return "addAuthor";
-	}
-	
-	@GetMapping(value = { "/addGenre" })
-	public String showAddGenre(Model model) {
-		Genre genre = new Genre();
-		model.addAttribute("genre", genre);
-		return "addGenre";
-	}
-	
-	@GetMapping(value = { "/updateGenre/{id}" })
-	public String updateGenre(@PathVariable("id") Long id, Model model) {
-		System.out.println("DELETE for ID = " + id);
-
-		//model.addAttribute("genres", genres);
-		///model.addAttribute("authors", authors);
-		return "index";
-	}
-
-	@GetMapping(value = { "/deleteGenre/{id}" })
-	public String deleteGenre(@PathVariable("id") Long id, Model model) {
-		System.out.println("DELETE for ID = " + id);
-
-		//model.addAttribute("genres", genres);
-		//model.addAttribute("authors", authors);
-		return "index";
-	}
-
-	@PostMapping(value = { "/addBook" })
-	public String saveBook(Model model, @ModelAttribute("bookDto") BookDTO bookDTO) throws DaoException {
-		bookService.add(bookDTO.getTitle(), bookDTO.getAuthorName(), bookDTO.getGenre());
-		return "redirect:/index";
 	}
 
 	@PostMapping(value = { "/addAuthor" })
@@ -101,14 +93,45 @@ public class MainController {
 		authorRepository.save(author);
 		return "redirect:/index";
 	}
-	
+
+	@GetMapping("/updateAuthor/{id}")
+	public String showUpdateAuthorPage(@PathVariable("id") long id, Model model) {
+		Author author = authorRepository.findById(id)
+				.orElseThrow(() -> new IllegalArgumentException("Invalid Author Id:" + id));
+		model.addAttribute("author", author);
+		return "updateAuthor";
+	}
+
+	@PostMapping(value = { "/updateAuthor/{id}" })
+	public String updateAuthor(@PathVariable("id") Long id, Author author, Model model) {
+		authorRepository.save(author);
+		return "redirect:/index";
+	}
+
+	@GetMapping(value = { "/addGenre" })
+	public String showAddGenre(Model model) {
+		Genre genre = new Genre();
+		model.addAttribute("genre", genre);
+		return "addGenre";
+	}
+
 	@PostMapping(value = { "/addGenre" })
 	public String saveGenre(Model model, @ModelAttribute("genre") Genre genre) throws DaoException {
 		genreRepository.save(genre);
 		return "redirect:/index";
 	}
 
-	// model.addAttribute("errorMessage", errorMessage);
-	// return "addBook";
+	@GetMapping("/updateGenre/{id}")
+	public String showUpdateGenrePage(@PathVariable("id") long id, Model model) {
+		Genre genre = genreRepository.findById(id)
+				.orElseThrow(() -> new IllegalArgumentException("Invalid Genre Id:" + id));
+		model.addAttribute("genre", genre);
+		return "updateGenre";
+	}
 
+	@PostMapping(value = { "/updateGenre/{id}" })
+	public String updateGenre(Genre genre, Model model) {
+		genreRepository.save(genre);
+		return "redirect:/index";
+	}
 }

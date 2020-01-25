@@ -3,22 +3,21 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8" />
-<title>Add Genre</title>
+<title>Update Genre</title>
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 </head>
 <body>
 	<div class="container">
-		<h2>Добавление жанра</h2>
-		<form action="#" th:action="@{/addGenre}" th:object="${genre}"
+		<h2>Изменение жанра</h2>
+		<form action="#" th:action="@{/updateGenre/{id}(id=${genre.id})}" th:object="${genre}"
 			method="post">
 			<div class="form-group">
 				<label for="title">Название</label> <input type="text"
 					th:field="*{description}" class="form-control" id="description"
 					placeholder="Введите название" name="description">
 			</div>
-
-			<button type="submit" class="btn btn-success">Добавить жанр</button>
+			<button type="submit" class="btn btn-success">Изменить жанр</button>
 		</form>
 	</div>
 </body>

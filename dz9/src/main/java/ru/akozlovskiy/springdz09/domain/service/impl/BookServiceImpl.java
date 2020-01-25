@@ -54,6 +54,28 @@ public class BookServiceImpl implements BookService {
 	}
 
 	@Override
+	public void update(long bookId, String bookName, long authorId, long genreId) throws DaoException {
+
+		Book book = bookRepository.getOne(bookId);
+
+		Optional<Genre> genre = genreRepository.findById(authorId);
+
+		if (!genre.isPresent()) {
+			throw new DaoException("Ошибка добавления книги. В базе на найден жанр: " + genreId);
+		}
+
+		Optional<Author> author = authorRepository.findById(genreId);
+		if (!author.isPresent()) {
+			throw new DaoException("Ошибка добавления книги. В базе на найден автор с именем: " + genreId);
+		}
+		book.setAuthor(author.get());
+		book.setTitle(bookName);
+		book.setGenre(genre.get());
+
+		bookRepository.save(book);
+	}
+
+	@Override
 	public List<Book> getAll() throws DaoException {
 		return bookRepository.findAll();
 	}
@@ -68,4 +90,13 @@ public class BookServiceImpl implements BookService {
 		return bookRepository.findByTitle(bookname);
 	}
 
+	@Override
+	public Optional<Book> findById(long id) {
+		return bookRepository.findById(id);
+	}
+
+	@Override
+	public void save(Book book) {
+		bookRepository.save(book);
+	}
 }

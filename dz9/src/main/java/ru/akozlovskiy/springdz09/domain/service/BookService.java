@@ -15,4 +15,10 @@ public interface BookService {
 	List<Book> findAllByAuthor(String author) throws DaoException;
 
 	Optional<Book> findByName(String bookname);
+
+	Optional<Book> findById(long id);
+
+	void save(Book book);
+
+	void update(long bookId, String bookName, long authorId, long genreId) throws DaoException;
 }
