@@ -1,31 +1,49 @@
 h1 {
-    color:#0000FF;
+	color: #0000FF;
 }
- 
+
 h2 {
-    color:#FF0000;
+	color: #FF0000;
 }
- 
+
 table {
-    border-collapse: collapse;
+	border-collapse: collapse;
 }
- 
-table th, table td {
-    padding: 5px;
+
+.t-add {cellpadding =4;
+	width: 100%; /* Ширина таблицы */
+	cellspacing
+	=0;
+}
+
+TH, TD {
+	border: 1px solid black; /* Параметры рамки */
+	text-align: center; /* Выравнивание по центру */
+	padding: 4px; /* Поля вокруг текста */
+}
+
+TH {
+	background: #fc0; /* Цвет фона ячейки */
+	height: 40px; /* Высота ячеек */
+	vertical-align: bottom; /* Выравнивание по нижнему краю */
+	padding: 0; /* Убираем поля вокруг текста */
 }
 
 .b-delete {
 	background: red; /* Синий цвет фона */
 	color: white; /* Белые буквы */
 }
+
 .b-update {
 	background: blue; /* Синий цвет фона */
 	color: white; /* Белые буквы */
 }
+
 .b-add {
 	background: green; /* Синий цвет фона */
 	color: white; /* Белые буквы */
 }
+
 p {
-  color: red;
+	color: red;
 }

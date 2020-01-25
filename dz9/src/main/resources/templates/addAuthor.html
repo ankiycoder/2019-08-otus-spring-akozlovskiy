@@ -4,40 +4,27 @@
 <head>
 <meta charset="UTF-8" />
 <title>Add Author</title>
-<link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 </head>
 <body>
-	<form action="#" th:action="@{/addAuthor}" th:object="${author}"
-		method="post">
+	<div class="container">
 		<h2>Добавление автора</h2>
-		<div class="row">
-			<div>
-				<label for="name">Имя</label> <input type="text"
-					th:field="*{name}" id="name"> <span
-					th:if="${#fields.hasErrors('name')}" th:errors="*{name}"
-					class="text-danger"></span>
+		<form action="#" th:action="@{/addAuthor}" th:object="${author}"
+			method="post">
+			<div class="form-group">
+				<label for="title">Имя</label> <input type="text" th:field="*{name}"
+					class="form-control" id="name" placeholder="Введите имя"
+					name="name">
 			</div>
-			
-			<div>
-			
-			<div>
-				<label for="name">Дата рождения</label> 
-				<input type="text"
-					th:field="*{{birthDate}}" id="birthDate"> <span
-					th:if="${#fields.hasErrors('birthDate')}" th:errors="*{birthDate}"
-					class="text-danger"></span>
-			</div>			
-		
-		</div>
-		<div class="row">
-			<div>
-				<input type="submit" value="Добавить книгу">
+			<div class="form-group">
+				<label for="pwd">Дата рождения</label> <input type="text"
+					th:field="*{{birthDate}}" class="form-control" id="birthDate"
+					placeholder="Введите имя" name="birthDate">
 			</div>
-		</div>
-	</form>
-
-	<br />
-	<div th:if="${errorMessage}" th:utext="${errorMessage}"
-		style="color: red; font-style: italic;">...</div>
+			<button type="submit" class="btn btn-primary">Добавить
+				автора</button>
+		</form>
+	</div>
 </body>
 </html>

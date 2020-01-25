@@ -8,6 +8,8 @@ spring:
    liquibase:
       change-log: classpath:db/liquibase-changelog.xml
    thymeleaf: cache=false
+   resources:
+      add-mappings: true
 welcome:
    message: Hello Thymeleaf
 error:
