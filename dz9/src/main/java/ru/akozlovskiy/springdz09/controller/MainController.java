@@ -3,9 +3,11 @@ package ru.akozlovskiy.springdz09.controller;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.springframework.beans.factory.annotation.Value;
+import javax.validation.Valid;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -35,9 +37,6 @@ public class MainController {
 		this.authorRepository = authorRepository;
 	}
 
-	@Value("${error.message}")
-	private String errorMessage;
-
 	@GetMapping(value = { "/", "/index" })
 	public String index(Model model) throws DaoException {
 
@@ -61,7 +60,14 @@ public class MainController {
 	}
 
 	@PostMapping(value = { "/addBook" })
-	public String saveBook(Model model, @ModelAttribute("bookDto") BookDTO bookDTO) throws DaoException {
+	public String saveBook(Model model, @ModelAttribute("bookDto") @Valid BookDTO bookDTO,  BindingResult result) throws DaoException {
+	    if (result.hasErrors()) {
+			model.addAttribute("genres", genreRepository.findAll());
+			model.addAttribute("authors", authorRepository.findAll());
+			model.addAttribute("bookDto", bookDTO);
+            return "addBook";
+        }
+	    
 		bookService.add(bookDTO.getTitle(), bookDTO.getAuthorName(), bookDTO.getGenre());
 		return "redirect:/index";
 	}
@@ -69,14 +75,20 @@ public class MainController {
 	@GetMapping("/updateBook/{id}")
 	public String showUpdateBookPage(@PathVariable("id") long id, Model model) {
 		Book book = bookService.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid Book Id:" + id));
-		model.addAttribute("book", new BookDTO(book));
+		model.addAttribute("bookDto", new BookDTO(book));
 		model.addAttribute("genres", genreRepository.findAll());
 		model.addAttribute("authors", authorRepository.findAll());
 		return "updateBook";
 	}
 
 	@PostMapping(value = { "/updateBook/{id}" })
-	public String updateBook(@PathVariable("id") Long id, BookDTO bookDTO, Model model) throws DaoException {
+	public String updateBook(Model model,  @ModelAttribute("bookDto") @Valid BookDTO bookDTO, BindingResult result,  @PathVariable("id") Long id) throws DaoException {
+	    if (result.hasErrors()) {
+	    	model.addAttribute("bookDto", bookDTO);
+			model.addAttribute("genres", genreRepository.findAll());
+			model.addAttribute("authors", authorRepository.findAll());
+			return "updateBook";
+        }
 		bookService.update(id, bookDTO.getTitle(), bookDTO.getAuthorId(), bookDTO.getGenreId());
 		return "redirect:/index";
 	}
@@ -89,7 +101,12 @@ public class MainController {
 	}
 
 	@PostMapping(value = { "/addAuthor" })
-	public String saveAuthor(Model model, @ModelAttribute("author") Author author) throws DaoException {
+	public String saveAuthor(Model model, @ModelAttribute("author") @Valid Author author, BindingResult result) throws DaoException {
+		if (result.hasErrors()) {
+			model.addAttribute("author", author);
+            return "addAuthor";
+        }
+		
 		authorRepository.save(author);
 		return "redirect:/index";
 	}
@@ -103,7 +120,11 @@ public class MainController {
 	}
 
 	@PostMapping(value = { "/updateAuthor/{id}" })
-	public String updateAuthor(@PathVariable("id") Long id, Author author, Model model) {
+	public String updateAuthor(Model model,  @PathVariable("id") Long id, @Valid Author author, BindingResult result) {
+		if (result.hasErrors()) {
+			model.addAttribute("author", author);
+            return "updateAuthor";
+        }
 		authorRepository.save(author);
 		return "redirect:/index";
 	}
@@ -116,7 +137,11 @@ public class MainController {
 	}
 
 	@PostMapping(value = { "/addGenre" })
-	public String saveGenre(Model model, @ModelAttribute("genre") Genre genre) throws DaoException {
+	public String saveGenre(Model model, @ModelAttribute("genre") @Valid Genre genre, BindingResult result) throws DaoException {
+		if (result.hasErrors()) {
+			model.addAttribute("genre", genre);
+            return "addGenre";
+        }
 		genreRepository.save(genre);
 		return "redirect:/index";
 	}
@@ -130,7 +155,11 @@ public class MainController {
 	}
 
 	@PostMapping(value = { "/updateGenre/{id}" })
-	public String updateGenre(Genre genre, Model model) {
+	public String updateGenre(Model model, @PathVariable("id") long id, @Valid Genre genre,  BindingResult result) {
+		if (result.hasErrors()) {
+			model.addAttribute("genre", genre);
+            return "updateGenre";
+        }
 		genreRepository.save(genre);
 		return "redirect:/index";
 	}

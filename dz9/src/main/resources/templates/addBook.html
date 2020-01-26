@@ -7,9 +7,7 @@
 
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-<link rel="stylesheet" href="../static/styles.css">
 </head>
-
 
 <body>
 	<div class="container">
@@ -17,10 +15,9 @@
 		<form action="#" th:action="@{/addBook}" th:object="${bookDto}"
 			method="post">
 			<div class="form-group">
-				<label for="title">Имя</label> <input type="text"
-					th:field="*{title}" class="form-control" id="title"
-					placeholder="Введите имя" name="title">
-
+				<label for="title">Название</label> 
+				<input type="text" th:field="*{title}" class="form-control" id="title" placeholder="Введите название" name="title">
+				<span th:if="${#fields.hasErrors('title')}" th:errors="*{title}" class="text-danger"></span>
 			</div>
 			<div class="form-group">
 				<label for="pwd">Автор</label> <select th:field="*{authorName}"

@@ -10,12 +10,12 @@
 <body>
 	<div class="container">
 		<h2>Изменение книги</h2>
-		<form action="#" th:action="@{/updateBook/{id}(id=${book.id})}"
-			th:object="${book}" method="post">
+		<form action="#" th:action="@{/updateBook/{id}(id=${bookDto.id})}"
+			th:object="${bookDto}" method="post">
 			<div class="form-group">
-				<label for="title">Название</label> <input type="text"
-					th:field="*{title}" class="form-control" id="name"
-					placeholder="title" name="name">
+				<label for="title">Название</label> 
+				<input type="text" th:field="*{title}" class="form-control" id="title" placeholder="Введите название" name="title">
+				<span th:if="${#fields.hasErrors('title')}" th:errors="*{title}" class="text-danger"></span>
 			</div>
 			<div class="form-group">
 				<label for="pwd">Автор</label> <select th:field="*{authorId}"

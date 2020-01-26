@@ -1,10 +1,14 @@
 package ru.akozlovskiy.springdz09.domain.dto;
 
+import javax.validation.constraints.NotBlank;
+
 import ru.akozlovskiy.springdz09.domain.Book;
 
 public class BookDTO {
 
 	private Long id;
+
+	@NotBlank (message = "Поле Название обязательное") 
 	private String title;
 	private String authorName;
 	private Long authorId;

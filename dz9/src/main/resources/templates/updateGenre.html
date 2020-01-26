@@ -16,6 +16,7 @@
 				<label for="title">Название</label> <input type="text"
 					th:field="*{description}" class="form-control" id="description"
 					placeholder="Введите название" name="description">
+						<span th:if="${#fields.hasErrors('description')}" th:errors="*{description}" class="text-danger"></span>
 			</div>
 			<button type="submit" class="btn btn-success">Изменить жанр</button>
 		</form>

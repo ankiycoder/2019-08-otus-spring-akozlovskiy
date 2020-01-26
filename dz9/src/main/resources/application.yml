@@ -10,7 +10,6 @@ spring:
    thymeleaf: cache=false
    resources:
       add-mappings: true
-welcome:
-   message: Hello Thymeleaf
-error:
-   message: First Name & Last Name is required!
+server:
+   error:
+      include-stacktrace: always
