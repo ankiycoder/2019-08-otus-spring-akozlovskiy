@@ -22,6 +22,7 @@
 				<label for="pwd">Дата рождения</label> <input type="text"
 					th:field="*{{birthDate}}" class="form-control" id="birthDate"
 					placeholder="Введите дату (yyyy-mm-dd)" name="birthDate">
+				<span th:if="${#fields.hasErrors('birthDate')}" th:errors="*{birthDate}" class="text-danger"></span>
 			</div>
 			<button type="submit" class="btn btn-success">Изменить
 				автора</button>

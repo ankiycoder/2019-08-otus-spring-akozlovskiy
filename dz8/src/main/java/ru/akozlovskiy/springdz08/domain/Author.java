@@ -1,38 +1,29 @@
-package ru.akozlovskiy.springdz09.domain;
+package ru.akozlovskiy.springdz08.domain;
 
 import java.time.LocalDate;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.validation.constraints.NotBlank;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-import org.springframework.format.annotation.DateTimeFormat;
-
-@Entity
+@Document
 public class Author {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
+	private String id;
 
-	@NotBlank(message = "Поле имя обязательное")
 	private String name;
 
-	@Column(name="BIRTHDATE")
-	@DateTimeFormat(pattern = "yyyy-MM-dd")	
 	private LocalDate birthDate;
 
-	public Author() {
+	public Author(String name) {
+		this.name = name;
 	}
 
-	public long getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 
@@ -47,7 +38,6 @@ public class Author {
 	public LocalDate getBirthDate() {
 		return birthDate;
 	}
-
 
 	public void setBirthDate(LocalDate birthDate) {
 		this.birthDate = birthDate;

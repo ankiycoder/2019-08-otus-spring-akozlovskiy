@@ -13,14 +13,12 @@ table {
 
 TH, TD {
 	border: 1px solid black; /* Параметры рамки */
-
 	padding: 4px; /* Поля вокруг текста */
 }
 
 TH {
 	background: #fc0; /* Цвет фона ячейки */
 	height: 40px; /* Высота ячеек */
-
 	padding: 0; /* Убираем поля вокруг текста */
 }
 
