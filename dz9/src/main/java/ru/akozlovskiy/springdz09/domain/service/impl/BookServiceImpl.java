@@ -58,15 +58,15 @@ public class BookServiceImpl implements BookService {
 
 		Book book = bookRepository.getOne(bookId);
 
-		Optional<Genre> genre = genreRepository.findById(authorId);
+		Optional<Genre> genre = genreRepository.findById(genreId);
 
 		if (!genre.isPresent()) {
 			throw new DaoException("Ошибка добавления книги. В базе на найден жанр: " + genreId);
 		}
 
-		Optional<Author> author = authorRepository.findById(genreId);
+		Optional<Author> author = authorRepository.findById(authorId);
 		if (!author.isPresent()) {
-			throw new DaoException("Ошибка добавления книги. В базе на найден автор с именем: " + genreId);
+			throw new DaoException("Ошибка добавления книги. В базе на найден автор с именем: " + authorId);
 		}
 		book.setAuthor(author.get());
 		book.setTitle(bookName);
