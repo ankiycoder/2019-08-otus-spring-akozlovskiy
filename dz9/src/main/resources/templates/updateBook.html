@@ -18,15 +18,15 @@
 				<span th:if="${#fields.hasErrors('title')}" th:errors="*{title}" class="text-danger"></span>
 			</div>
 			<div class="form-group">
-				<label for="pwd">Автор</label> <select th:field="*{authorId}"
-					class="form-control">
+				<label for="author">Автор</label> <select th:field="*{authorId}"
+					class="form-control" id="author">
 					<option th:each="author : ${authors}" th:value="${author.id}"
 						th:utext="${author.name}" />
 				</select>
 			</div>
 			<div class="form-group">
-				<label for="pwd">Жанр</label> <select th:field="*{genreId}"
-					class="form-control">
+				<label for="genre">Жанр</label> <select th:field="*{genreId}"
+					class="form-control" id="genre">
 					<option th:each="genre : ${genres}" th:value="${genre.id}"
 						th:utext="${genre.description}" />
 				</select>

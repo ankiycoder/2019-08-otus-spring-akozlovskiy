@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import ru.akozlovskiy.springdz09.domain.Author;
 import ru.akozlovskiy.springdz09.domain.repository.AuthorRepository;
-import ru.akozlovskiy.springdz09.exception.DaoException;
 
 @Controller
 public class AuthorController {
@@ -31,11 +30,10 @@ public class AuthorController {
 	}
 
 	@PostMapping(value = { "/addAuthor" })
-	public String saveAuthor(Model model, @ModelAttribute("author") @Valid Author author, BindingResult result)
-			throws DaoException {
+	public String saveAuthor(Model model, @ModelAttribute("author") @Valid Author author, BindingResult result) {
 		if (result.hasErrors()) {
 			model.addAttribute("author", author);
-			//return "addAuthor";
+			return "addAuthor";
 		}
 
 		authorRepository.save(author);
