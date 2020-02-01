@@ -68,6 +68,6 @@ public class AuthorRepositoryTest {
 		em.persistAndFlush(author);
 
 		List<Author> all = authorRepository.findAll();
-		assertEquals(2, all.size());
+		assertEquals(3, all.size());
 	}
 }

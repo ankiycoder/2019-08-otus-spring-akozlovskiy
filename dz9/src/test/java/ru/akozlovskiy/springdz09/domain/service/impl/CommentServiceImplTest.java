@@ -19,7 +19,7 @@ import ru.akozlovskiy.springdz09.exception.DaoException;
 @DisplayName("Сервис по работе с комментариями")
 public class CommentServiceImplTest {
 
-	private static final String BOOK_NAME_BD = "BOOK_NAME1";
+	private static final String BOOK_NAME_BD = "Кошкин Дом";
 
 	@Autowired
 	private CommentServiceImpl сommentServiceImpl;

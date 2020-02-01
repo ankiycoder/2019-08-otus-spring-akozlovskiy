@@ -23,9 +23,9 @@ import ru.akozlovskiy.springdz09.exception.DaoException;
 @DisplayName("Репозиторий по работе с книгами")
 public class BookRepositoryTest {
 
-	private static final String BOOK_NAME_BD = "BOOK_NAME1";
-	private static final String AUTHOR_NAME_IN_BD = "AUTHOR_NAME";
-	private static final String GENRE_IN_BD = "GENRE_TEST";
+	private static final String BOOK_NAME_BD = "Кошкин Дом";
+	private static final String AUTHOR_NAME_IN_BD = "Самуил Яковлевич Маршак";
+	private static final String GENRE_IN_BD = "Детский";
 
 	@Autowired
 	private BookRepository bookRepository;
@@ -92,6 +92,6 @@ public class BookRepositoryTest {
 	public void testGetAll() throws DaoException {
 
 		List<Book> bookList = bookRepository.findAll();
-		assertThat(bookList).hasSize(2);
+		assertThat(bookList).hasSize(4);
 	}
 }
