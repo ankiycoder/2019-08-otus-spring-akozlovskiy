@@ -13,19 +13,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 
+import ru.akozlovskiy.springdz10.exception.DaoException;
 import ru.akozlovskiy.springdz10.domain.Author;
 import ru.akozlovskiy.springdz10.domain.Book;
 import ru.akozlovskiy.springdz10.domain.Genre;
 import ru.akozlovskiy.springdz10.domain.repository.BookRepository;
-import ru.akozlovskiy.springdz10.exception.DaoException;
 
 @DataJpaTest
 @DisplayName("Репозиторий по работе с книгами")
 public class BookRepositoryTest {
 
-	private static final String BOOK_NAME_BD = "BOOK_NAME1";
-	private static final String AUTHOR_NAME_IN_BD = "AUTHOR_NAME";
-	private static final String GENRE_IN_BD = "GENRE_TEST";
+	private static final String BOOK_NAME_BD = "Кошкин Дом";
+	private static final String AUTHOR_NAME_IN_BD = "Самуил Яковлевич Маршак";
+	private static final String GENRE_IN_BD = "Детский";
 
 	@Autowired
 	private BookRepository bookRepository;
@@ -92,6 +92,6 @@ public class BookRepositoryTest {
 	public void testGetAll() throws DaoException {
 
 		List<Book> bookList = bookRepository.findAll();
-		assertThat(bookList).hasSize(2);
+		assertThat(bookList).hasSize(4);
 	}
 }

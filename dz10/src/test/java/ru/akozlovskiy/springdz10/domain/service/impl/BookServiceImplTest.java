@@ -10,9 +10,9 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.context.annotation.Import;
 
+import ru.akozlovskiy.springdz09.exception.DaoException;
 import ru.akozlovskiy.springdz10.domain.Book;
 import ru.akozlovskiy.springdz10.domain.service.impl.BookServiceImpl;
-import ru.akozlovskiy.springdz10.exception.DaoException;
 
 /**
  * В сервисе проверяем только метод add, т.к. остальные методы проверяются в
@@ -24,8 +24,8 @@ import ru.akozlovskiy.springdz10.exception.DaoException;
 @DisplayName("Сервис по работе с книгами")
 public class BookServiceImplTest {
 
-	private static final String AUTHOR_NAME_IN_BD = "AUTHOR_NAME";
-	private static final String GENRE_IN_BD = "GENRE_TEST";
+	private static final String AUTHOR_NAME_IN_BD = "Самуил Яковлевич Маршак";
+	private static final String GENRE_IN_BD = "Детский";
 
 	@Autowired
 	private BookServiceImpl bookServiceImpl;

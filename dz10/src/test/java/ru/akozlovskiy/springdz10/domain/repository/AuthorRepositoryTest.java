@@ -16,7 +16,6 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 
 import ru.akozlovskiy.springdz10.domain.Author;
 import ru.akozlovskiy.springdz10.domain.repository.AuthorRepository;
-import ru.akozlovskiy.springdz10.exception.DaoException;
 
 @DataJpaTest
 @DisplayName("Репозиторий по работе с авторами")
@@ -36,7 +35,7 @@ public class AuthorRepositoryTest {
 
 	@Test
 	@DisplayName("Успешность добавления в случае корректных")
-	public void testAdd() throws DaoException {
+	public void testAdd() {
 		Author author = new Author();
 		author.setBirthDate(LocalDate.parse(AUTHOR_BIRTH_DATE, dateFormatter));
 		author.setName(TEST_AUTHOR_NAME);
@@ -68,6 +67,6 @@ public class AuthorRepositoryTest {
 		em.persistAndFlush(author);
 
 		List<Author> all = authorRepository.findAll();
-		assertEquals(2, all.size());
+		assertEquals(3, all.size());
 	}
 }

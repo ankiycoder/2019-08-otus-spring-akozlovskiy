@@ -11,11 +11,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 
+import ru.akozlovskiy.springdz10.exception.DaoException;
 import ru.akozlovskiy.springdz10.domain.Book;
 import ru.akozlovskiy.springdz10.domain.Comment;
 import ru.akozlovskiy.springdz10.domain.repository.BookRepository;
 import ru.akozlovskiy.springdz10.domain.repository.CommentRepository;
-import ru.akozlovskiy.springdz10.exception.DaoException;
 
 @DataJpaTest
 @DisplayName("Репозиторий по работе с комментариями")

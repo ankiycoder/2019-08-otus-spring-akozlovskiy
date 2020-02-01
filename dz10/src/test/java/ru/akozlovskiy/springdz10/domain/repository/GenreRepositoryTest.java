@@ -12,9 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 
+import ru.akozlovskiy.springdz10.exception.DaoException;
 import ru.akozlovskiy.springdz10.domain.Genre;
 import ru.akozlovskiy.springdz10.domain.repository.GenreRepository;
-import ru.akozlovskiy.springdz10.exception.DaoException;
 
 @DataJpaTest
 public class GenreRepositoryTest {
@@ -79,6 +79,6 @@ public class GenreRepositoryTest {
 		genreRepository.save(genre3);
 
 		List<Genre> genreList = genreRepository.findAll();
-		assertEquals(4, genreList.size());
+		assertEquals(5, genreList.size());
 	}
 }

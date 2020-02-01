@@ -10,16 +10,16 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.context.annotation.Import;
 
+import ru.akozlovskiy.springdz09.exception.DaoException;
 import ru.akozlovskiy.springdz10.domain.Comment;
 import ru.akozlovskiy.springdz10.domain.service.impl.CommentServiceImpl;
-import ru.akozlovskiy.springdz10.exception.DaoException;
 
 @DataJpaTest
 @Import({ CommentServiceImpl.class })
 @DisplayName("Сервис по работе с комментариями")
 public class CommentServiceImplTest {
 
-	private static final String BOOK_NAME_BD = "BOOK_NAME1";
+	private static final String BOOK_NAME_BD = "Кошкин Дом";
 
 	@Autowired
 	private CommentServiceImpl сommentServiceImpl;
