@@ -24,8 +24,8 @@ import ru.akozlovskiy.springdz09.exception.DaoException;
 @DisplayName("Сервис по работе с книгами")
 public class BookServiceImplTest {
 
-	private static final String AUTHOR_NAME_IN_BD = "AUTHOR_NAME";
-	private static final String GENRE_IN_BD = "GENRE_TEST";
+	private static final String AUTHOR_NAME_IN_BD = "Самуил Яковлевич Маршак";
+	private static final String GENRE_IN_BD = "Детский";
 
 	@Autowired
 	private BookServiceImpl bookServiceImpl;

@@ -79,6 +79,6 @@ public class GenreRepositoryTest {
 		genreRepository.save(genre3);
 
 		List<Genre> genreList = genreRepository.findAll();
-		assertEquals(4, genreList.size());
+		assertEquals(5, genreList.size());
 	}
 }
