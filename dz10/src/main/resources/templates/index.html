@@ -6,14 +6,19 @@
 <link rel="stylesheet" href="styles.css">
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script src="webjars/jquery/3.3.1/jquery.min.js"></script>
+<script type="text/javascript" th:src="@{/js/main.js}"></script>
 </head>
 <body>
 	<h1>Добро пожаловать в библиотеку</h1>
-	<div id="container" style="margin-left: 50px;" >
-		<div>
+	
+	<p id="demo"></p>
+	
+	<div id="container" style="margin-left: 50px;">
+		<div id="bookDiv">
 			<h1>Книги</h1>
 			<hr>
-			<table>
+			<table id="bookTable">
 				<thead>
 					<tr>
 						<th style="width: 400px;">Название</th>
@@ -22,22 +27,19 @@
 						<th></th>
 					</tr>
 				</thead>
+
 				<tbody>
-					<tr th:each="book : ${bookDTOList}">
-						<td th:utext="${book.title}">...</td>
-						<td th:utext="${book.authorName}">...</td>
-						<td th:utext="${book.genre}" align="center">...</td>
-						<td width='0*'>
-								<a th:href="@{/updateBook/{id}(id=${book.id})}"
-							class="btn btn-info">Изменить</a>
-						</td>
-					</tr>
+
 				</tbody>
+
 			</table>
+
+
 			<form action="/addBook">
 				<button type="submit" class="btn btn-success">Добавить
 					книгу</button>
 			</form>
+
 		</div>
 		<br>
 		<div>
@@ -55,10 +57,8 @@
 					<tr th:each="author : ${authors}">
 						<td th:utext="${author.name}">...</td>
 						<td th:utext="${author.birthDate}">...</td>
-						<td>
-							<a th:href="@{/updateAuthor/{id}(id=${author.id})}"
-							class="btn btn-info">Изменить</a>
-						</td>
+						<td><a th:href="@{/updateAuthor/{id}(id=${author.id})}"
+							class="btn btn-info">Изменить</a></td>
 					</tr>
 				</tbody>
 			</table>
@@ -91,5 +91,8 @@
 			</form>
 		</div>
 	</div>
+
+
 </body>
+
 </html>
