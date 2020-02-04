@@ -72,8 +72,8 @@ public class BookController {
 	}
 
 	@GetMapping("/updateBook/{id}")
-	public String showUpdateBookPage(@PathVariable("id") long id, Model model) {
-		Book book = bookService.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid Book Id:" + id));
+	public String showUpdateBookPage(@PathVariable("id") String id, Model model) {
+		Book book = bookService.findById(Long.valueOf(id)).orElseThrow(() -> new IllegalArgumentException("Invalid Book Id:" + id));
 		model.addAttribute("bookDto", new BookDTO(book));
 		model.addAttribute("genres", genreRepository.findAll());
 		model.addAttribute("authors", authorRepository.findAll());
