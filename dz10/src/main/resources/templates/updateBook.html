@@ -4,18 +4,30 @@
 <head>
 <meta charset="UTF-8" />
 <title>Update Book</title>
+
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+<script src="/webjars/jquery/3.1.1/jquery.min.js"></script>
+<script>
+	$(document).ready(function() {
+		alert('Ваша версия jQuery ' + jQuery.fn.jquery);
+	});
+</script>
+
 </head>
+
 <body>
 	<div class="container">
 		<h2>Изменение книги</h2>
-		<form action="#" th:action="@{/updateBook/{id}(id=${bookDto.id})}"
-			th:object="${bookDto}" method="post">
+		<form id="updateBookForm" action="#" th:object="${bookDto}"
+			method="post">
 			<div class="form-group">
-				<label for="title">Название</label> 
-				<input type="text" th:field="*{title}" class="form-control" id="title" placeholder="Введите название" name="title">
-				<span th:if="${#fields.hasErrors('title')}" th:errors="*{title}" class="text-danger"></span>
+				<label for="title">Название</label> <input type="text"
+					th:field="*{title}" class="form-control" id="title"
+					placeholder="Введите название" name="title"> <span
+					th:if="${#fields.hasErrors('title')}" th:errors="*{title}"
+					class="text-danger"></span>
 			</div>
 			<div class="form-group">
 				<label for="pwd">Автор</label> <select th:field="*{authorId}"
@@ -32,8 +44,12 @@
 				</select>
 			</div>
 
-			<button type="submit" class="btn btn-success">Изменить книгу</button>
 		</form>
+		<button id="updateBookButton" type="submit" class="btn btn-success">Изменить
+			книгу</button>
+
+
+
 	</div>
 </body>
 </html>

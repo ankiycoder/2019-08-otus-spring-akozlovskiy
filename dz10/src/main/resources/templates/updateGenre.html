@@ -4,22 +4,26 @@
 <head>
 <meta charset="UTF-8" />
 <title>Update Genre</title>
+<link rel="stylesheet" href="styles.css">
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script src="webjars/jquery/3.3.1/jquery.min.js"></script>
+<script type="text/javascript" th:src="@{/js/main.js}"></script>
 </head>
+
 <body>
 	<div class="container">
 		<h2>Изменение жанра</h2>
-		<form action="#" th:action="@{/updateGenre/{id}(id=${genre.id})}" th:object="${genre}"
-			method="post">
+		<form id="updateGenreForm" action="#" th:object="${genre}" method="post">
 			<div class="form-group">
 				<label for="title">Название</label> <input type="text"
 					th:field="*{description}" class="form-control" id="description"
-					placeholder="Введите название" name="description">
-						<span th:if="${#fields.hasErrors('description')}" th:errors="*{description}" class="text-danger"></span>
+					placeholder="Введите название" name="description"> <span
+					th:if="${#fields.hasErrors('description')}"
+					th:errors="*{description}" class="text-danger"></span>
 			</div>
-			<button type="submit" class="btn btn-success">Изменить жанр</button>
 		</form>
+		<button id="updateGenreButton" type="submit" class="btn btn-success">Изменить жанр</button>
 	</div>
 </body>
 </html>

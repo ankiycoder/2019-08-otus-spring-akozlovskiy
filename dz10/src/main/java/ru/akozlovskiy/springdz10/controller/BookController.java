@@ -57,7 +57,7 @@ public class BookController {
 		return "addBook";
 	}
 
-	@PostMapping(value = { "/addBook" })
+	//@PostMapping(value = { "/addBook" })
 	public String saveBook(Model model, @ModelAttribute("bookDto") @Valid BookDTO bookDTO, BindingResult result)
 			throws DaoException {
 		if (result.hasErrors()) {
@@ -80,7 +80,7 @@ public class BookController {
 		return "updateBook";
 	}
 
-	@PostMapping(value = { "/updateBook/{id}" })
+	//@PostMapping(value = { "/updateBook/{id}" })
 	public String updateBook(Model model, @ModelAttribute("bookDto") @Valid BookDTO bookDTO, BindingResult result,
 			@PathVariable("id") Long id) throws DaoException {
 		if (result.hasErrors()) {
