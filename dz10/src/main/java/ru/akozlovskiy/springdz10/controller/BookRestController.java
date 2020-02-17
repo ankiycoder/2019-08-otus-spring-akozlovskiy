@@ -53,15 +53,16 @@ public class BookRestController {
     }
 	
 	@PostMapping("/book/update")
-	public ResponseEntity<Void>updateBook(BookDTO bookDTO) throws DaoException {
-		System.out.print("*********************** update");
+	public ResponseEntity<Void>updateBook(@RequestBody BookDTO bookDTO) throws DaoException {
+		System.out.println("*********************** update");
+		  System.out.println(bookDTO);
 		/*if (result.hasErrors()) {
 			model.addAttribute("bookDto", bookDTO);
 			model.addAttribute("genres", genreRepository.findAll());
 			model.addAttribute("authors", authorRepository.findAll());
 			return "updateBook";
 		}*/
-		bookService.update(1l, bookDTO.getTitle(), bookDTO.getAuthorId(), bookDTO.getGenreId());
+		//bookService.update(1l, bookDTO.getTitle(), bookDTO.getAuthorId(), bookDTO.getGenreId());
 		//return "redirect:/index";
 		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
