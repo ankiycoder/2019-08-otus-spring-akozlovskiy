@@ -7,7 +7,6 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import ru.akozlovskiy.springdz10.domain.Author;
@@ -23,7 +22,7 @@ public class AuthorController {
 	}
 
 	@GetMapping(value = { "/addAuthor" })
-	public String showAddAuthor(Model model) {
+	public String showAddAuthorWindow(Model model) {
 		Author author = new Author();
 		model.addAttribute("author", author);
 		return "addAuthor";
@@ -40,21 +39,4 @@ public class AuthorController {
 		return "redirect:/index";
 	}
 
-	@GetMapping("/updateAuthor/{id}")
-	public String showUpdateAuthorPage(@PathVariable("id") long id, Model model) {
-		Author author = authorRepository.findById(id)
-				.orElseThrow(() -> new IllegalArgumentException("Invalid Author Id:" + id));
-		model.addAttribute("author", author);
-		return "updateAuthor";
-	}
-
-	@PostMapping(value = { "/updateAuthor/{id}" })
-	public String updateAuthor(Model model, @PathVariable("id") Long id, @Valid Author author, BindingResult result) {
-		if (result.hasErrors()) {
-			model.addAttribute("author", author);
-			return "updateAuthor";
-		}
-		authorRepository.save(author);
-		return "redirect:/index";
-	}
 }

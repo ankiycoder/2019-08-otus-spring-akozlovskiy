@@ -7,14 +7,12 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
 
 import ru.akozlovskiy.springdz10.domain.Genre;
 import ru.akozlovskiy.springdz10.domain.repository.GenreRepository;
 
-//@RestController("/genre")
+@Controller
 public class GenreController {
 
 	private final GenreRepository genreRepository;
@@ -24,7 +22,7 @@ public class GenreController {
 	}
 
 	@GetMapping(value = { "/addGenre" })
-	public String showAddGenre(Model model) {
+	public String showAddGenreWindow(Model model) {
 		Genre genre = new Genre();
 		model.addAttribute("genre", genre);
 		return "addGenre";
@@ -35,24 +33,6 @@ public class GenreController {
 		if (result.hasErrors()) {
 			model.addAttribute("genre", genre);
 			return "addGenre";
-		}
-		genreRepository.save(genre);
-		return "redirect:/index";
-	}
-
-	@GetMapping("/updateGenre/{id}")
-	public String showUpdateGenrePage(@PathVariable("id") long id, Model model) {
-		Genre genre = genreRepository.findById(id)
-				.orElseThrow(() -> new IllegalArgumentException("Invalid Genre Id:" + id));
-		model.addAttribute("genre", genre);
-		return "updateGenre";
-	}
-
-	@PostMapping(value = { "/updateGenre/{id}" })
-	public String updateGenre(Model model, @PathVariable("id") long id, @Valid Genre genre, BindingResult result) {
-		if (result.hasErrors()) {
-			model.addAttribute("genre", genre);
-			return "updateGenre";
 		}
 		genreRepository.save(genre);
 		return "redirect:/index";

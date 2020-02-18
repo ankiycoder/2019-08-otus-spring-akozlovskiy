@@ -33,33 +33,25 @@
 				<tbody>
 				</tbody>
 			</table>
-
-
 			<form action="/addBook">
 				<button type="submit" class="btn btn-success">Добавить
 					книгу</button>
 			</form>
-
 		</div>
 		<br>
 		<div>
 			<h1>Авторы</h1>
 			<hr>
-			<table>
+			<table id="authorTable">
 				<thead>
 					<tr>
+						<th style="width: 30px;">ID</th>
 						<th style="width: 400px;">Автор</th>
-						<th>Дата рождения</th>
+						<th style="width: 100px;">Дата рождения</th>
 						<th></th>
 					</tr>
 				</thead>
 				<tbody>
-					<tr th:each="author : ${authors}">
-						<td th:utext="${author.name}">...</td>
-						<td th:utext="${author.birthDate}">...</td>
-						<td><a th:href="@{/updateAuthor/{id}(id=${author.id})}"
-							class="btn btn-info">Изменить</a></td>
-					</tr>
 				</tbody>
 			</table>
 			<form action="/addAuthor">
@@ -71,19 +63,15 @@
 		<div>
 			<h1>Жанры</h1>
 			<hr>
-			<table>
+			<table id="genreTable">
 				<thead>
 					<tr>
+						<th style="width: 30px;">ID</th>
 						<th style="width: 400px;">Название</th>
 						<th></th>
 					</tr>
 				</thead>
-				<tbody>
-					<tr th:each="genre : ${genres}">
-						<td th:utext="${genre.description}">...</td>
-						<td><a th:href="@{/updateGenre/{id}(id=${genre.id})}"
-							class="btn btn-info">Изменить</a></td>
-					</tr>
+				<tbody>		
 				</tbody>
 			</table>
 			<form action="/addGenre">
@@ -91,8 +79,5 @@
 			</form>
 		</div>
 	</div>
-
-
 </body>
-
 </html>

@@ -8,14 +8,6 @@
 <link rel="stylesheet" href="styles.css">
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-<script src="webjars/jquery/3.3.1/jquery.min.js"></script>
-<script type="text/javascript" th:src="@{/js/main.js}"></script>
-
-<script>
-	$(document).ready(function() {
-		alert('Ваша версия jQuery ' + jQuery.fn.jquery);
-	});
-</script>
 
 </head>
 
@@ -42,8 +34,8 @@
 						th:utext="${genre.description}" />
 				</select>
 			</div>
-		</form>			
-		<button id="addBookButton" type="submit" class="btn btn-success">Добавить книгу</button>
+			<button id="addBookButton" type="submit" class="btn btn-success">Добавить книгу</button>
+		</form>					
 	</div>
 </body>
 </html>
