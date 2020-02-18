@@ -10,9 +10,9 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.context.annotation.Import;
 
-import ru.akozlovskiy.springdz09.exception.DaoException;
 import ru.akozlovskiy.springdz10.domain.Comment;
 import ru.akozlovskiy.springdz10.domain.service.impl.CommentServiceImpl;
+import ru.akozlovskiy.springdz10.exception.DaoException;
 
 @DataJpaTest
 @Import({ CommentServiceImpl.class })
@@ -28,16 +28,8 @@ public class CommentServiceImplTest {
 	private TestEntityManager em;
 
 	@Test
-	@DisplayName("Возврат ошибки при добавлении для не найденной книги")
-	public void tesAddWithWrongBookName() throws DaoException {
-		assertThrows(DaoException.class, () -> {
-			сommentServiceImpl.add("bookComment", "WrongBookName");
-		});
-	}
-
-	@Test
 	@DisplayName("Добавление")
-	public void tesAdd() throws DaoException {
+	public void tesAdd() throws DaoException  {
 
 		String bookComment = "bookComment";
 		long commentId = сommentServiceImpl.add(bookComment, BOOK_NAME_BD);

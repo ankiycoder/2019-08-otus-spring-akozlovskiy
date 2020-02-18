@@ -99,4 +99,9 @@ public class BookServiceImpl implements BookService {
 	public void save(Book book) {
 		bookRepository.save(book);
 	}
+
+	@Override
+	public void delete(long bookId) throws DaoException {
+		bookRepository.deleteById(bookId);		
+	}
 }

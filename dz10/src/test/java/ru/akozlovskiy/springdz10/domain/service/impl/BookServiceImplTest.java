@@ -10,9 +10,9 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.context.annotation.Import;
 
-import ru.akozlovskiy.springdz09.exception.DaoException;
 import ru.akozlovskiy.springdz10.domain.Book;
 import ru.akozlovskiy.springdz10.domain.service.impl.BookServiceImpl;
+import ru.akozlovskiy.springdz10.exception.DaoException;
 
 /**
  * В сервисе проверяем только метод add, т.к. остальные методы проверяются в

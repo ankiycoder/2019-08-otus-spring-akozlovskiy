@@ -21,4 +21,6 @@ public interface BookService {
 	void save(Book book);
 
 	void update(long bookId, String bookName, long authorId, long genreId) throws DaoException;
+	
+	void delete(long bookId) throws DaoException;
 }
