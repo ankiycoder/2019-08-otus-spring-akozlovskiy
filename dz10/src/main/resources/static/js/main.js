@@ -92,13 +92,12 @@ $(document).delegate('#saveBookButton', 'click', function() {
 	        contentType: "application/json",
 	        url: "/book/update",
 	        data: JSON.stringify(data),
-            dataType: 'json',
-            success: function(res){
-                console.log(res);
-            },
-            error:function(error){
-            	console.log(error);
-            	}
+	        success: function(res){
+	          	alert( "Success");
+			  },
+            error: function(xhr, ajaxOptions, thrownError) {
+                alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+            }
 		});	
 
 	genre.html($("#genreSelect option:selected" ).text());
@@ -121,10 +120,12 @@ $(document).delegate('#deleteBookButton', 'click', function() {
 	        contentType: "application/json",
 	        url: "/book/delete",
 	        data: JSON.stringify(data),
-            dataType: 'json',
-		  success: function(data){
-		    alert( "Прибыли данные: " + data );
-		  }
+	        success: function(res){
+	          	alert( "Success");
+			  },
+            error: function(xhr, ajaxOptions, thrownError) {
+                alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+            }
 		});
 	
 	   $(parent).fadeOut('slow', function(){
@@ -163,10 +164,12 @@ $(document).delegate('#saveAuthorButton', 'click', function() {
 	        contentType: "application/json",
 	        url: "/author/update",
 	        data: JSON.stringify(data),
-            dataType: 'json',
-		  success: function(data){
-		    alert( "Прибыли данные: " + data );
-		  }
+	        success: function(res){
+	          	alert( "Success");
+			  },
+            error: function(xhr, ajaxOptions, thrownError) {
+                alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+            }
 		});
 	
 	name.html(name.children("input[type=text]").val());
@@ -187,10 +190,12 @@ $(document).delegate('#deleteAuthorButton', 'click', function() {
 	        contentType: "application/json",
 	        url: "/author/delete",
 	        data: JSON.stringify(data),
-            dataType: 'json',
-		  success: function(data){
-		    alert( "Прибыли данные: " + data );
-		  }
+	        success: function(res){
+	          	alert( "Success");
+			  },
+            error: function(xhr, ajaxOptions, thrownError) {
+                alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+            }
 		});
 	
 	   $(parent).fadeOut('slow', function(){
@@ -226,10 +231,12 @@ $(document).delegate('#saveGenreButton', 'click', function() {
 	        contentType: "application/json",
 	        url: "/genre/update",
 	        data: JSON.stringify(data),
-            dataType: 'json',
-		  success: function(data){
-		    alert( "Прибыли данные: " + data );
-		  }
+	        success: function(res){
+	          	alert( "Success");
+			  },
+            error: function(xhr, ajaxOptions, thrownError) {
+                alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+            }
 		});
 	
 	description.html(description.children("input[type=text]").val());
@@ -249,10 +256,12 @@ $(document).delegate('#deleteGenreButton', 'click', function() {
 	        contentType: "application/json",
 	        url: "/genre/delete",
 	        data: JSON.stringify(data),
-            dataType: 'json',
-		  success: function(data){
-		    alert( "Прибыли данные: " + data );
-		  }
+	        success: function(res){
+	          	alert( "Success");
+			  },
+            error: function(xhr, ajaxOptions, thrownError) {
+                alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+            }
 		});
 	
 	   $(parent).fadeOut('slow', function(){
