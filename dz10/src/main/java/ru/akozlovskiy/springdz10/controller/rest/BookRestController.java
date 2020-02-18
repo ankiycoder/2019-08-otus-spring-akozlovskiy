@@ -38,7 +38,7 @@ public class BookRestController {
 	}
 
 	@DeleteMapping("/book/delete")
-	public ResponseEntity<Void> saveBook(@RequestBody BookDTO bookDTO) throws DaoException {
+	public ResponseEntity<Void> deleteBook(@RequestBody BookDTO bookDTO) throws DaoException {
 		logger.debug("***Call delete for BookID = {}", bookDTO.getId());
 		bookService.delete(bookDTO.getId());
 		return new ResponseEntity<Void>(HttpStatus.OK);

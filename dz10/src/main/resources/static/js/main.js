@@ -94,10 +94,12 @@ $(document).delegate('#saveBookButton', 'click', function() {
 	        data: JSON.stringify(data),
             dataType: 'json',
             success: function(res){
-            	alert( "Прибыли данные: " + res);
-            }
-		});
-	
+                console.log(res);
+            },
+            error:function(error){
+            	console.log(error);
+            	}
+		});	
 
 	genre.html($("#genreSelect option:selected" ).text());
 	author.html($("#authorSelect option:selected" ).text());
