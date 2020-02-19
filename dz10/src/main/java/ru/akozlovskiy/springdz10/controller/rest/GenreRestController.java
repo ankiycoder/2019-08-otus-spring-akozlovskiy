@@ -7,14 +7,14 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import ru.akozlovskiy.springdz10.domain.Genre;
 import ru.akozlovskiy.springdz10.domain.repository.GenreRepository;
-import ru.akozlovskiy.springdz10.exception.DaoException;
 
 @RestController
 public class GenreRestController {
@@ -28,22 +28,22 @@ public class GenreRestController {
 	}
 
 	@GetMapping("/genre")
-	public List<Genre> getAllGenre() throws DaoException {
+	public List<Genre> getAllGenre() {
 		logger.debug("***Call getAllGenre");
 		return genreRepository.findAll();
 	}
 
-	@PostMapping("/genre/update")
+	@PutMapping("/genre")
 	@ResponseStatus(value = HttpStatus.OK)
-	public void updateGenre(@RequestBody Genre genre) throws DaoException {
+	public void updateGenre(@RequestBody Genre genre) {
 		logger.debug("***Call updateGenre for GenrerID = {}", genre.getId());
 		genreRepository.save(genre);
 	}
 
-	@DeleteMapping("/genre/delete")
+	@DeleteMapping("/genre/{id}")
 	@ResponseStatus(value = HttpStatus.OK)
-	public void deleteGenre(@RequestBody Genre genre) throws DaoException {
-		logger.debug("***Call delete for GenreID = {}", genre.getId());
-		genreRepository.deleteById(genre.getId());
+	public void deleteGenre(@PathVariable("id") long id) {
+		logger.debug("***Call delete for GenreID = {}", id);
+		genreRepository.deleteById(id);
 	}
 }

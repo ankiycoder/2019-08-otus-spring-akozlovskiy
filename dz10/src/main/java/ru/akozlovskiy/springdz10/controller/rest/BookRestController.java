@@ -8,7 +8,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
@@ -34,14 +35,14 @@ public class BookRestController {
 		return bookService.getAll().stream().map(BookDTO::new).collect(Collectors.toList());
 	}
 
-	@DeleteMapping("/book/delete")
+	@DeleteMapping("/book/{id}")
 	@ResponseStatus(value = HttpStatus.OK)
-	public void deleteBook(@RequestBody BookDTO bookDTO) throws DaoException {
-		logger.debug("***Call delete for BookID = {}", bookDTO.getId());
-		bookService.delete(bookDTO.getId());
+	public void deleteBook(@PathVariable("id") long id) throws DaoException {
+		logger.debug("***Call delete for BookID = {}", id);
+		bookService.delete(id);
 	}
 
-	@PostMapping("/book/update")
+	@PutMapping("/book")
 	@ResponseStatus(value = HttpStatus.OK)
 	public void updateBook(@RequestBody BookDTO bookDTO) throws DaoException {
 		logger.debug("***Call updateBook for BookID = {}", bookDTO.getId());

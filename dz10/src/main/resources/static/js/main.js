@@ -88,9 +88,9 @@ $(document).delegate('#saveBookButton', 'click', function() {
 	data["authorId"] = $('#authorSelect option:selected').val();	
 	
 	$.ajax({
-		 	type: "POST",
+		 	type: "PUT",
 	        contentType: "application/json",
-	        url: "/book/update",
+	        url: "/book",
 	        data: JSON.stringify(data),
 	        success: function(res){
 	          	alert( "Success");
@@ -108,24 +108,16 @@ $(document).delegate('#saveBookButton', 'click', function() {
 
 
 $(document).delegate('#deleteBookButton', 'click', function() {
-	var parent = $(this).parent().parent();
-		
+	var parent = $(this).parent().parent();		
 	var id = parent.children("td:nth-child(1)");	
-	
-	var data = {}
-	data["id"] = id.html();	
 	
 	$.ajax({
 		 	type: "DELETE",
 	        contentType: "application/json",
-	        url: "/book/delete",
-	        data: JSON.stringify(data),
-	        success: function(res){
-	          	alert( "Success");
-			  },
+	        url: "/book/" + id.html(),
             error: function(xhr, ajaxOptions, thrownError) {
                 alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
-            }
+            }			  
 		});
 	
 	   $(parent).fadeOut('slow', function(){
@@ -160,13 +152,10 @@ $(document).delegate('#saveAuthorButton', 'click', function() {
 	data["birthDate"] = birthDate.children("input[type=text]").val();
 		
 	$.ajax({
-		 	type: "POST",
+		 	type: "PUT",
 	        contentType: "application/json",
-	        url: "/author/update",
+	        url: "/author",
 	        data: JSON.stringify(data),
-	        success: function(res){
-	          	alert( "Success");
-			  },
             error: function(xhr, ajaxOptions, thrownError) {
                 alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
             }
@@ -178,21 +167,12 @@ $(document).delegate('#saveAuthorButton', 'click', function() {
 });
 
 $(document).delegate('#deleteAuthorButton', 'click', function() {
-	var parent = $(this).parent().parent();
-		
-	var id = parent.children("td:nth-child(1)");	
-	
-	var data = {}
-	data["id"] = id.html();	
-	
+	var parent = $(this).parent().parent();		
+	var id = parent.children("td:nth-child(1)");		
 	$.ajax({
 		 	type: "DELETE",
 	        contentType: "application/json",
-	        url: "/author/delete",
-	        data: JSON.stringify(data),
-	        success: function(res){
-	          	alert( "Success");
-			  },
+	        url: "/author/"+id.html(),
             error: function(xhr, ajaxOptions, thrownError) {
                 alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
             }
@@ -227,13 +207,10 @@ $(document).delegate('#saveGenreButton', 'click', function() {
 	data["description"] = description.children("input[type=text]").val();
 		
 	$.ajax({
-		 	type: "POST",
+		 	type: "PUT",
 	        contentType: "application/json",
-	        url: "/genre/update",
+	        url: "/genre",
 	        data: JSON.stringify(data),
-	        success: function(res){
-	          	alert( "Success");
-			  },
             error: function(xhr, ajaxOptions, thrownError) {
                 alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
             }
@@ -248,17 +225,10 @@ $(document).delegate('#deleteGenreButton', 'click', function() {
 		
 	var id = parent.children("td:nth-child(1)");	
 	
-	var data = {}
-	data["id"] = id.html();	
-	
 	$.ajax({
 		 	type: "DELETE",
 	        contentType: "application/json",
-	        url: "/genre/delete",
-	        data: JSON.stringify(data),
-	        success: function(res){
-	          	alert( "Success");
-			  },
+	        url: "/genre/" + id.html(),
             error: function(xhr, ajaxOptions, thrownError) {
                 alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
             }
