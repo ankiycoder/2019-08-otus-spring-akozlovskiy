@@ -26,6 +26,13 @@ public class Author {
 	private LocalDate birthDate;
 
 	public Author() {
+	}		
+
+	public Author(long id, @NotBlank(message = "Поле имя обязательное") String name, LocalDate birthDate) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.birthDate = birthDate;
 	}
 
 	public long getId() {

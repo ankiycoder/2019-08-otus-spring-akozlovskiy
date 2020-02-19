@@ -15,6 +15,15 @@ public class Genre {
 
 	@NotBlank(message = "Поле название обязательное")
 	private String description;
+	
+	public Genre() {		
+	}
+
+	public Genre(long id, @NotBlank(message = "Поле название обязательное") String description) {
+		super();
+		this.id = id;
+		this.description = description;
+	}
 
 	public long getId() {
 		return id;
