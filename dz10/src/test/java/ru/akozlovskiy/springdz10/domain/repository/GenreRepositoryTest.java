@@ -17,6 +17,7 @@ import ru.akozlovskiy.springdz10.domain.Genre;
 import ru.akozlovskiy.springdz10.domain.repository.GenreRepository;
 
 @DataJpaTest
+@DisplayName("Репозиторий по работе с жанрами")
 public class GenreRepositoryTest {
 
 	private static final String GENRE_DESCRIPTION = "Драма";

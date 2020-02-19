@@ -48,7 +48,7 @@ public class AuthorRepositoryTest {
 
 	@Test
 	@DisplayName("Поиск по имени")
-	public void testFindByName() throws DaoException {
+	public void testFindByName() {
 		Author author = new Author();
 		author.setBirthDate(LocalDate.parse(AUTHOR_BIRTH_DATE, dateFormatter));
 		author.setName(TEST_AUTHOR_NAME);
@@ -60,7 +60,7 @@ public class AuthorRepositoryTest {
 
 	@Test
 	@DisplayName("Поиск всех")
-	public void testFindAll() throws DaoException {
+	public void testFindAll()  {
 		Author author = new Author();
 		author.setBirthDate(LocalDate.parse(AUTHOR_BIRTH_DATE, dateFormatter));
 		author.setName(TEST_AUTHOR_NAME);

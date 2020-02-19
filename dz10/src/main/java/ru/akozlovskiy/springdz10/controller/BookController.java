@@ -30,9 +30,8 @@ public class BookController {
 		this.authorRepository = authorRepository;
 	}
 
-
 	@GetMapping(value = { "/addBook" })
-	public String showAddBookWindow(Model model) {
+	public String showAddBookPage(Model model) {
 
 		BookDTO bookDTO = new BookDTO();
 		model.addAttribute("bookDto", bookDTO);
