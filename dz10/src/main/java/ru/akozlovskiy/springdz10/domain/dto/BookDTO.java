@@ -17,16 +17,17 @@ public class BookDTO {
 
 	public BookDTO(Book book) {
 
-		this.id = book.getId();
-
+		this.id = book.getId();	
 		this.title = book.getTitle();
 
 		if (book.getAuthor() != null) {
 			this.authorName = book.getAuthor().getName();
+			this.authorId = book.getAuthor().getId();
 		}
 
 		if (book.getGenre() != null) {
 			this.genre = book.getGenre().getDescription();
+			this.genreId = book.getGenre().getId();
 		}
 	}
 

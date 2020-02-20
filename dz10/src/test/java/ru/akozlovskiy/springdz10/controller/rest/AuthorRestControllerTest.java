@@ -45,7 +45,7 @@ public class AuthorRestControllerTest {
 		List<Author> authorList = Arrays.asList(author, author2);
 		when(authorRepository.findAll()).thenReturn(authorList);
 
-		this.mockMvc.perform(get("/author")).andExpect(status().isOk())
+		this.mockMvc.perform(get("/api/author")).andExpect(status().isOk())
 				.andExpect(content().json(JsonUtil.mapToJson(authorList)));
 	}
 
@@ -54,14 +54,14 @@ public class AuthorRestControllerTest {
 	public void updateGenre() throws Exception {
 		Author author = new Author(1l, "name", null);
 		this.mockMvc.perform(
-				put("/author").content(JsonUtil.mapToJson(author)).contentType(MediaType.APPLICATION_JSON_VALUE))
+				put("/api/author").content(JsonUtil.mapToJson(author)).contentType(MediaType.APPLICATION_JSON_VALUE))
 				.andExpect(status().isOk());
 	}
 
 	@Test
 	@DisplayName("Удаление автора")
 	public void deleteGenre() throws Exception {
-		this.mockMvc.perform(MockMvcRequestBuilders.delete("/author/{id}", "1").contentType(MediaType.APPLICATION_JSON)
+		this.mockMvc.perform(MockMvcRequestBuilders.delete("/api/author/{id}", "1").contentType(MediaType.APPLICATION_JSON)
 				.accept(MediaType.APPLICATION_JSON)).andExpect(status().isOk());
 	}
 

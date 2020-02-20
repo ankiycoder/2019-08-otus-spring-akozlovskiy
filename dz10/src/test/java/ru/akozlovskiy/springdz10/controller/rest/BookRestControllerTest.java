@@ -70,15 +70,18 @@ public class BookRestControllerTest {
 		List<BookDTO> bookList = Arrays.asList(testBookDTO);
 		when(bookService.getAll()).thenReturn(Arrays.asList(testBook));
 
-		this.mockMvc.perform(get("/book")).andExpect(status().isOk())
+		this.mockMvc.perform(get("/api/book")).andExpect(status().isOk())
 				.andExpect(content().json(JsonUtil.mapToJson(bookList)));
 	}
 
 	@Test
 	@DisplayName("Изменение книги")
 	public void updateBook() throws Exception {
-		this.mockMvc
-				.perform(put("/book").content(JsonUtil.mapToJson(testBookDTO)).contentType(MediaType.APPLICATION_JSON_VALUE))
+
+		when(bookService.getAll()).thenReturn(Arrays.asList(testBook));
+
+		this.mockMvc.perform(
+				put("/api/book").content(JsonUtil.mapToJson(testBookDTO)).contentType(MediaType.APPLICATION_JSON_VALUE))
 				.andExpect(status().isOk());
 	}
 }

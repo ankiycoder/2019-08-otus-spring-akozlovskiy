@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import ru.akozlovskiy.springdz10.domain.Book;
 import ru.akozlovskiy.springdz10.domain.dto.BookDTO;
 import ru.akozlovskiy.springdz10.domain.service.BookService;
 import ru.akozlovskiy.springdz10.exception.DaoException;
@@ -44,8 +45,9 @@ public class BookRestController {
 
 	@PutMapping("/api/book")
 	@ResponseStatus(value = HttpStatus.OK)
-	public void updateBook(@RequestBody BookDTO bookDTO) throws DaoException {
-		logger.debug("***Call updateBook for BookID = {}", bookDTO.getId());
-		bookService.update(bookDTO.getId(), bookDTO.getTitle(), bookDTO.getAuthorId(), bookDTO.getGenreId());
+	public Book updateBook(@RequestBody BookDTO bookDTO) throws DaoException {
+		Long id = bookDTO.getId();
+		logger.debug("***Call updateBook for BookID = {}", id);
+		return bookService.update(id, bookDTO.getTitle(), bookDTO.getAuthorId(), bookDTO.getGenreId());
 	}
 }

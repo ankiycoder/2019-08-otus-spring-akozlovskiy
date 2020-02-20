@@ -54,7 +54,7 @@ public class BookServiceImpl implements BookService {
 	}
 
 	@Override
-	public void update(long bookId, String bookName, long authorId, long genreId) throws DaoException {
+	public Book update(long bookId, String bookName, long authorId, long genreId) throws DaoException {
 
 		Book book = bookRepository.getOne(bookId);
 
@@ -72,7 +72,7 @@ public class BookServiceImpl implements BookService {
 		book.setTitle(bookName);
 		book.setGenre(genre.get());
 
-		bookRepository.save(book);
+		return bookRepository.save(book);
 	}
 
 	@Override

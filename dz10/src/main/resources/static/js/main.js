@@ -93,17 +93,16 @@ $(document).delegate('#saveBookButton', 'click', function() {
 	        url: "/api/book",
 	        data: JSON.stringify(data),
 	        success: function(res){
+	        	genre.html($("#genreSelect option:selected" ).text());
+	        	author.html($("#authorSelect option:selected" ).text());
+	        	title.html(title.children("input[type=text]").val());
+	        	buttons.html("<button id='updateBookButton' type='submit' class='btn btn-success'>Изменить книгу</button>") 
 	          	alert( "Success");
 			  },
             error: function(xhr, ajaxOptions, thrownError) {
                 alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
             }
 		});	
-
-	genre.html($("#genreSelect option:selected" ).text());
-	author.html($("#authorSelect option:selected" ).text());
-	title.html(title.children("input[type=text]").val());
-	buttons.html("<button id='updateBookButton' type='submit' class='btn btn-success'>Изменить книгу</button>")  
 });
 
 
@@ -115,14 +114,17 @@ $(document).delegate('#deleteBookButton', 'click', function() {
 		 	type: "DELETE",
 	        contentType: "application/json",
 	        url: "/api/book/" + id.html(),
+	        success: function(res){
+	     	   $(parent).fadeOut('slow', function(){
+	               $(parent).remove();
+	           }); 
+			  },
             error: function(xhr, ajaxOptions, thrownError) {
                 alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
             }			  
 		});
 	
-	   $(parent).fadeOut('slow', function(){
-           $(parent).remove();
-       }); 
+
 });
 
 
@@ -156,14 +158,17 @@ $(document).delegate('#saveAuthorButton', 'click', function() {
 	        contentType: "application/json",
 	        url: "/api/author",
 	        data: JSON.stringify(data),
+	        success: function(res){
+	        	name.html(name.children("input[type=text]").val());
+	        	birthDate.html(birthDate.children("input[type=text]").val());
+	        	buttons.html("<button id='updateAuthorButton' type='submit' class='btn btn-success'>Изменить автора</button>")  
+	        	},
             error: function(xhr, ajaxOptions, thrownError) {
                 alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
             }
 		});
 	
-	name.html(name.children("input[type=text]").val());
-	birthDate.html(birthDate.children("input[type=text]").val());
-	buttons.html("<button id='updateAuthorButton' type='submit' class='btn btn-success'>Изменить автора</button>")  
+
 });
 
 $(document).delegate('#deleteAuthorButton', 'click', function() {
@@ -173,14 +178,15 @@ $(document).delegate('#deleteAuthorButton', 'click', function() {
 		 	type: "DELETE",
 	        contentType: "application/json",
 	        url: "/api/author/"+id.html(),
+	        success: function(res){
+		     	   $(parent).fadeOut('slow', function(){
+		               $(parent).remove();
+		           }); 
+				  },
             error: function(xhr, ajaxOptions, thrownError) {
                 alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
             }
 		});
-	
-	   $(parent).fadeOut('slow', function(){
-           $(parent).remove();
-       }); 
 });
 
 $(document).delegate('#updateGenreButton', 'click', function() {
@@ -211,13 +217,14 @@ $(document).delegate('#saveGenreButton', 'click', function() {
 	        contentType: "application/json",
 	        url: "/api/genre",
 	        data: JSON.stringify(data),
+	        success: function(res){
+	        	description.html(description.children("input[type=text]").val());
+	        	buttons.html("<button id='updateGenreButton' type='submit' class='btn btn-success'>Изменить жанр</button>")
+				  },
             error: function(xhr, ajaxOptions, thrownError) {
                 alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
             }
-		});
-	
-	description.html(description.children("input[type=text]").val());
-	buttons.html("<button id='updateGenreButton' type='submit' class='btn btn-success'>Изменить жанр</button>")  
+		});  
 });
 
 $(document).delegate('#deleteGenreButton', 'click', function() {
@@ -229,12 +236,13 @@ $(document).delegate('#deleteGenreButton', 'click', function() {
 		 	type: "DELETE",
 	        contentType: "application/json",
 	        url: "/api/genre/" + id.html(),
+	        success: function(res){
+		     	   $(parent).fadeOut('slow', function(){
+		               $(parent).remove();
+		           }); 
+				  },
             error: function(xhr, ajaxOptions, thrownError) {
                 alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
             }
 		});
-	
-	   $(parent).fadeOut('slow', function(){
-           $(parent).remove();
-       }); 
 });

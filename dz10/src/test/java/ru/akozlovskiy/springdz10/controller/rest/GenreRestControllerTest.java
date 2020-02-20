@@ -45,7 +45,7 @@ public class GenreRestControllerTest {
 		List<Genre> genreList = Arrays.asList(genre1, genre2);
 		when(genreRepository.findAll()).thenReturn(genreList);
 
-		this.mockMvc.perform(get("/genre")).andExpect(status().isOk())
+		this.mockMvc.perform(get("/api/genre")).andExpect(status().isOk())
 				.andExpect(content().json(JsonUtil.mapToJson(genreList)));
 	}
 
@@ -54,14 +54,14 @@ public class GenreRestControllerTest {
 	public void updateGenre() throws Exception {
 		Genre genre = new Genre();
 		this.mockMvc
-				.perform(put("/genre").content(JsonUtil.mapToJson(genre)).contentType(MediaType.APPLICATION_JSON_VALUE))
+				.perform(put("/api/genre").content(JsonUtil.mapToJson(genre)).contentType(MediaType.APPLICATION_JSON_VALUE))
 				.andExpect(status().isOk());
 	}
 
 	@Test
 	@DisplayName("Удаление жанра")
 	public void deleteGenre() throws Exception {
-		this.mockMvc.perform(MockMvcRequestBuilders.delete("/genre/{id}", "1").contentType(MediaType.APPLICATION_JSON)
+		this.mockMvc.perform(MockMvcRequestBuilders.delete("/api/genre/{id}", "1").contentType(MediaType.APPLICATION_JSON)
 				.accept(MediaType.APPLICATION_JSON)).andExpect(status().isOk());
 	}
 

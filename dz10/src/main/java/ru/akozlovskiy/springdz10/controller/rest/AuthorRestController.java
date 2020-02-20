@@ -42,8 +42,8 @@ public class AuthorRestController {
 
 	@PutMapping("/api/author")
 	@ResponseStatus(value = HttpStatus.OK)
-	public void updateAuthor(@RequestBody Author author) {
+	public Author updateAuthor(@RequestBody Author author) {
 		logger.debug("***Call updateAuthor for authorID = {}", author.getId());
-		authorRepository.save(author);
+		return authorRepository.save(author);
 	}
 }
