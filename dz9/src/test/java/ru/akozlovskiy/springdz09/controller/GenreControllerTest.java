@@ -76,8 +76,7 @@ public class GenreControllerTest {
 
 		RequestBuilder request = MockMvcRequestBuilders.get("/updateGenre/{id}", id);
 
-		mvc.perform(request).andExpect(status().isOk())
-				.andExpect(view().name("updateGenre"))
+		mvc.perform(request).andExpect(status().isOk()).andExpect(view().name("updateGenre"))
 				.andExpect(model().attribute("genre", hasProperty("id", equalTo(testGenre.getId()))))
 				.andExpect(model().attribute("genre", hasProperty("description", equalTo(testGenre.getDescription()))));
 

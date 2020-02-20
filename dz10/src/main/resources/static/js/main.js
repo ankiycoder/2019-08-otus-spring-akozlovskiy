@@ -1,5 +1,5 @@
 $(function() {
-	$.get('/book').done(function (books) {
+	$.get('/api/book').done(function (books) {
        	books.forEach(function (book) {
        		 $("table#bookTable").append(`
                    <tr id="${book.id}">
@@ -14,7 +14,7 @@ $(function() {
                `) 
            }); 
        })
-       	$.get('/author').done(function (authors) {
+       	$.get('/api/author').done(function (authors) {
        		authors.forEach(function (author) {
        		 $("table#authorTable").append(`
                    <tr id="${author.id}">
@@ -29,7 +29,7 @@ $(function() {
            }); 
        })
        
-      $.get('/genre').done(function (genres) {
+      $.get('/api/genre').done(function (genres) {
     	  genres.forEach(function (genre) {
        		 $("table#genreTable").append(`
                    <tr id="${genre.id}">
@@ -53,7 +53,7 @@ $(document).delegate('#updateBookButton', 'click', function() {
 	var buttons = parent.children("td:nth-child(5)");
 	
 	var genreSelect = $('<select name="options" id="genreSelect">test</select>');	 	 
-		$.get('/genre').done(function (genres) {
+		$.get('/api/genre').done(function (genres) {
 			genres.forEach(function (genre) {	       		
 				genreSelect.append(`<option value="${genre.id}">${genre.description}</option>`);
 	           }); 
@@ -61,7 +61,7 @@ $(document).delegate('#updateBookButton', 'click', function() {
 	genre.html(genreSelect);
 		
 	var authorSelect = $('<select name="options" id="authorSelect">test</select>');	 	 
-		$.get('/author').done(function (authors) {
+		$.get('/api/author').done(function (authors) {
 			authors.forEach(function (author) {	       		
 				authorSelect.append(`<option value="${author.id}">${author.name}</option>`);
 	           }); 
@@ -90,7 +90,7 @@ $(document).delegate('#saveBookButton', 'click', function() {
 	$.ajax({
 		 	type: "PUT",
 	        contentType: "application/json",
-	        url: "/book",
+	        url: "/api/book",
 	        data: JSON.stringify(data),
 	        success: function(res){
 	          	alert( "Success");
@@ -114,7 +114,7 @@ $(document).delegate('#deleteBookButton', 'click', function() {
 	$.ajax({
 		 	type: "DELETE",
 	        contentType: "application/json",
-	        url: "/book/" + id.html(),
+	        url: "/api/book/" + id.html(),
             error: function(xhr, ajaxOptions, thrownError) {
                 alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
             }			  
@@ -154,7 +154,7 @@ $(document).delegate('#saveAuthorButton', 'click', function() {
 	$.ajax({
 		 	type: "PUT",
 	        contentType: "application/json",
-	        url: "/author",
+	        url: "/api/author",
 	        data: JSON.stringify(data),
             error: function(xhr, ajaxOptions, thrownError) {
                 alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
@@ -172,7 +172,7 @@ $(document).delegate('#deleteAuthorButton', 'click', function() {
 	$.ajax({
 		 	type: "DELETE",
 	        contentType: "application/json",
-	        url: "/author/"+id.html(),
+	        url: "/api/author/"+id.html(),
             error: function(xhr, ajaxOptions, thrownError) {
                 alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
             }
@@ -209,7 +209,7 @@ $(document).delegate('#saveGenreButton', 'click', function() {
 	$.ajax({
 		 	type: "PUT",
 	        contentType: "application/json",
-	        url: "/genre",
+	        url: "/api/genre",
 	        data: JSON.stringify(data),
             error: function(xhr, ajaxOptions, thrownError) {
                 alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
@@ -228,7 +228,7 @@ $(document).delegate('#deleteGenreButton', 'click', function() {
 	$.ajax({
 		 	type: "DELETE",
 	        contentType: "application/json",
-	        url: "/genre/" + id.html(),
+	        url: "/api/genre/" + id.html(),
             error: function(xhr, ajaxOptions, thrownError) {
                 alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
             }

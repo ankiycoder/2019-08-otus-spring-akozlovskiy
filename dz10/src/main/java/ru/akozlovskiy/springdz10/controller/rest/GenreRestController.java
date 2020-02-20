@@ -27,20 +27,20 @@ public class GenreRestController {
 		this.genreRepository = genreRepository;
 	}
 
-	@GetMapping("/genre")
+	@GetMapping("/api/genre")
 	public List<Genre> getAllGenre() {
 		logger.debug("***Call getAllGenre");
 		return genreRepository.findAll();
 	}
 
-	@PutMapping("/genre")
+	@PutMapping("/api/genre")
 	@ResponseStatus(value = HttpStatus.OK)
 	public void updateGenre(@RequestBody Genre genre) {
 		logger.debug("***Call updateGenre for GenrerID = {}", genre.getId());
 		genreRepository.save(genre);
 	}
 
-	@DeleteMapping("/genre/{id}")
+	@DeleteMapping("/api/genre/{id}")
 	@ResponseStatus(value = HttpStatus.OK)
 	public void deleteGenre(@PathVariable("id") long id) {
 		logger.debug("***Call delete for GenreID = {}", id);

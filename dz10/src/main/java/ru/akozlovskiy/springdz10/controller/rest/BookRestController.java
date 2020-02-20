@@ -29,20 +29,20 @@ public class BookRestController {
 		this.bookService = bookService;
 	}
 
-	@GetMapping("/book")
+	@GetMapping("/api/book")
 	public List<BookDTO> getAllBook() throws DaoException {
 		logger.debug("***Call getAllBook");
 		return bookService.getAll().stream().map(BookDTO::new).collect(Collectors.toList());
 	}
 
-	@DeleteMapping("/book/{id}")
+	@DeleteMapping("/api/book/{id}")
 	@ResponseStatus(value = HttpStatus.OK)
 	public void deleteBook(@PathVariable("id") long id) throws DaoException {
 		logger.debug("***Call delete for BookID = {}", id);
 		bookService.delete(id);
 	}
 
-	@PutMapping("/book")
+	@PutMapping("/api/book")
 	@ResponseStatus(value = HttpStatus.OK)
 	public void updateBook(@RequestBody BookDTO bookDTO) throws DaoException {
 		logger.debug("***Call updateBook for BookID = {}", bookDTO.getId());

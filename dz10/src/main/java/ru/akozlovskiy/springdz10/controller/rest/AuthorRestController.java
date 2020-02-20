@@ -27,20 +27,20 @@ public class AuthorRestController {
 		this.authorRepository = authorRepository;
 	}
 
-	@GetMapping("/author")
+	@GetMapping("/api/author")
 	public List<Author> getAllAuthor() {
 		logger.debug("***Call getAllAuthor");
 		return authorRepository.findAll();
 	}
 
-	@DeleteMapping("/author/{id}")
+	@DeleteMapping("/api/author/{id}")
 	@ResponseStatus(value = HttpStatus.OK)
 	public void deleteAuthor(@PathVariable("id") long id) {
 		logger.debug("***Call delete for AuthorID = {}", id);
 		authorRepository.deleteById(id);
 	}
 
-	@PutMapping("/author")
+	@PutMapping("/api/author")
 	@ResponseStatus(value = HttpStatus.OK)
 	public void updateAuthor(@RequestBody Author author) {
 		logger.debug("***Call updateAuthor for authorID = {}", author.getId());
