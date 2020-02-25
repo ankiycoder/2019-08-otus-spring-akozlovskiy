@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
+import reactor.core.publisher.Mono;
 import ru.akozlovskiy.springdz11.domain.Author;
 import ru.akozlovskiy.springdz11.domain.Book;
 import ru.akozlovskiy.springdz11.domain.Genre;
@@ -64,11 +65,12 @@ public class BookServiceImpl implements BookService {
 			throw new DaoException("Ошибка добавления книги. В базе на найден жанр: " + genreId);
 		}
 
-		Optional<Author> author = authorRepository.findById(authorId);
+		/*Mono<Author> author = authorRepository.findById(authorId);
+		//author.
 		if (!author.isPresent()) {
 			throw new DaoException("Ошибка добавления книги. В базе на найден автор с именем: " + authorId);
-		}
-		book.setAuthor(author.get());
+		}*/
+		//book.setAuthor(author.get());
 		book.setTitle(bookName);
 		book.setGenre(genre.get());
 
