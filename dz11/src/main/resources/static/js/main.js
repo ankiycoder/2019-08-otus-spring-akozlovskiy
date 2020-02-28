@@ -2,8 +2,7 @@ $(function() {
 	$.get('/api/book').done(function (books) {
        	books.forEach(function (book) {
        		 $("table#bookTable").append(`
-                   <tr id="${book.id}">
-       				   <td>${book.id}</td>
+                   <tr id="${book.id}">       				   
                        <td>${book.title}</td>
                        <td>${book.authorName}</td>
                        <td>${book.genre}</td>
@@ -14,7 +13,7 @@ $(function() {
                `) 
            }); 
        })
-       	$.get('/api/author').done(function (authors) {
+       	/*$.get('/api/author').done(function (authors) {
        		authors.forEach(function (author) {
        		 $("table#authorTable").append(`
                    <tr id="${author.id}">
@@ -41,33 +40,34 @@ $(function() {
                    </tr>
                `) 
            }); 
-       })
+       })*/
    });
 
 $(document).delegate('#updateBookButton', 'click', function() {
 	var parent = $(this).parent().parent();
 	
-	var title = parent.children("td:nth-child(2)");
-	var author = parent.children("td:nth-child(3)");
-	var genre = parent.children("td:nth-child(4)");
-	var buttons = parent.children("td:nth-child(5)");
+	var title = parent.children("td:nth-child(1)");
+	var author = parent.children("td:nth-child(2)");
+	var genre = parent.children("td:nth-child(3)");
+	var buttons = parent.children("td:nth-child(4)");
 	
-	var genreSelect = $('<select name="options" id="genreSelect">test</select>');	 	 
+	/*var genreSelect = $('<select name="options" id="genreSelect">test</select>');	 	 
 		$.get('/api/genre').done(function (genres) {
 			genres.forEach(function (genre) {	       		
 				genreSelect.append(`<option value="${genre.id}">${genre.description}</option>`);
 	           }); 
 	       })	       
-	genre.html(genreSelect);
+	genre.html(genreSelect);*/
 		
-	var authorSelect = $('<select name="options" id="authorSelect">test</select>');	 	 
+	/*var authorSelect = $('<select name="options" id="authorSelect">test</select>');	 	 
 		$.get('/api/author').done(function (authors) {
 			authors.forEach(function (author) {	       		
 				authorSelect.append(`<option value="${author.id}">${author.name}</option>`);
 	           }); 
 	       })	       
-	author.html(authorSelect);		
+	author.html(authorSelect);*/		
 	title.html("<input type='text' id='title' value='" + title.html() + "'/>");	
+	genre.html("<input type='text' id='genre' value='" + genre.html() + "'/>");
 	buttons.html("<button id='saveBookButton' type='submit' class='btn btn-success'>Save</button>&nbsp;&nbsp;<button class='btn btn-danger' id='deleteBookButton'>Delete</button>");
 });
 

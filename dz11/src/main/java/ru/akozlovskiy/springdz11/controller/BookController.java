@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import ru.akozlovskiy.springdz11.domain.dto.BookDTO;
 import ru.akozlovskiy.springdz11.domain.repository.AuthorRepository;
-import ru.akozlovskiy.springdz11.domain.repository.GenreRepository;
+
 import ru.akozlovskiy.springdz11.domain.service.BookService;
 import ru.akozlovskiy.springdz11.exception.DaoException;
 
@@ -20,13 +20,10 @@ public class BookController {
 
 	private final BookService bookService;
 
-	private final GenreRepository genreRepository;
-
 	private final AuthorRepository authorRepository;
 
-	public BookController(BookService bookService, GenreRepository genreRepository, AuthorRepository authorRepository) {
+	public BookController(BookService bookService, AuthorRepository authorRepository) {
 		this.bookService = bookService;
-		this.genreRepository = genreRepository;
 		this.authorRepository = authorRepository;
 	}
 
@@ -35,7 +32,7 @@ public class BookController {
 
 		BookDTO bookDTO = new BookDTO();
 		model.addAttribute("bookDto", bookDTO);
-		model.addAttribute("genres", genreRepository.findAll());
+		//model.addAttribute("genres", genreRepository.findAll());
 		model.addAttribute("authors", authorRepository.findAll());
 		return "addBook";
 	}
@@ -44,7 +41,7 @@ public class BookController {
 	public String saveBook(Model model, @ModelAttribute("bookDto") @Valid BookDTO bookDTO, BindingResult result)
 			throws DaoException {
 		if (result.hasErrors()) {
-			model.addAttribute("genres", genreRepository.findAll());
+			//model.addAttribute("genres", genreRepository.findAll());
 			model.addAttribute("authors", authorRepository.findAll());
 			model.addAttribute("bookDto", bookDTO);
 			return "addBook";

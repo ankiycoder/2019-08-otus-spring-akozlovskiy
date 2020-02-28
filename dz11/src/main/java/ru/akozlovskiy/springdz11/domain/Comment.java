@@ -1,39 +1,34 @@
 package ru.akozlovskiy.springdz11.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-@Entity
+@Document
 public class Comment {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
+	private String id;
 
-	private String comment;
+	private String text;
 
-	@ManyToOne
-	@JoinColumn(name = "bookid", referencedColumnName = "id", nullable=false)
+	@DBRef
 	private Book book;
 
-	public long getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 
-	public String getComment() {
-		return comment;
+	public String getText() {
+		return text;
 	}
 
-	public void setComment(String comment) {
-		this.comment = comment;
+	public void setText(String text) {
+		this.text = text;
 	}
 
 	public Book getBook() {

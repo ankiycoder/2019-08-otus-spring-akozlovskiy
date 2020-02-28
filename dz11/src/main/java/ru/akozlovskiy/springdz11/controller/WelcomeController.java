@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import ru.akozlovskiy.springdz11.domain.Book;
 import ru.akozlovskiy.springdz11.domain.dto.BookDTO;
 import ru.akozlovskiy.springdz11.domain.repository.AuthorRepository;
-import ru.akozlovskiy.springdz11.domain.repository.GenreRepository;
 import ru.akozlovskiy.springdz11.domain.service.BookService;
 import ru.akozlovskiy.springdz11.exception.DaoException;
 
@@ -19,14 +18,12 @@ public class WelcomeController {
 
 	private final BookService bookService;
 
-	private final GenreRepository genreRepository;
-
 	private final AuthorRepository authorRepository;
 
-	public WelcomeController(BookService bookService, GenreRepository genreRepository,
+	public WelcomeController(BookService bookService,
 			AuthorRepository authorRepository) {
 		this.bookService = bookService;
-		this.genreRepository = genreRepository;
+
 		this.authorRepository = authorRepository;
 	}
 
@@ -37,7 +34,7 @@ public class WelcomeController {
 		List<BookDTO> bookDTOList = books.stream().map(BookDTO::new).collect(Collectors.toList());
 		model.addAttribute("bookDTOList", bookDTOList);
 
-		model.addAttribute("genres", genreRepository.findAll());
+//		model.addAttribute("genres", genreRepository.findAll());
 		model.addAttribute("authors", authorRepository.findAll());
 		return "index";
 	}

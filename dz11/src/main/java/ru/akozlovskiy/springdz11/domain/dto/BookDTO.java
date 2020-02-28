@@ -6,14 +6,14 @@ import ru.akozlovskiy.springdz11.domain.Book;
 
 public class BookDTO {
 
-	private Long id;
+	private String id;
 
 	@NotBlank (message = "Поле Название обязательное") 
 	private String title;
 	private String authorName;
-	private Long authorId;
+	private String authorId;
 	private String genre;
-	private Long genreId;
+	private String genreId;
 
 	public BookDTO(Book book) {
 
@@ -27,7 +27,7 @@ public class BookDTO {
 
 		if (book.getGenre() != null) {
 			this.genre = book.getGenre().getDescription();
-			this.genreId = book.getGenre().getId();
+			//this.genreId = book.getGenre().getId();
 		}
 	}
 
@@ -58,27 +58,27 @@ public class BookDTO {
 		this.genre = genre;
 	}
 
-	public Long getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 
-	public Long getAuthorId() {
+	public String getAuthorId() {
 		return authorId;
 	}
 
-	public void setAuthorId(Long authorId) {
+	public void setAuthorId(String authorId) {
 		this.authorId = authorId;
 	}
 
-	public Long getGenreId() {
+	public String getGenreId() {
 		return genreId;
 	}
 
-	public void setGenreId(Long genreId) {
+	public void setGenreId(String genreId) {
 		this.genreId = genreId;
 	}
 

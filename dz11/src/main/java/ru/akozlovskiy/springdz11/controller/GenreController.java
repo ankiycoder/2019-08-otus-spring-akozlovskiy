@@ -10,12 +10,12 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import ru.akozlovskiy.springdz11.domain.Genre;
-import ru.akozlovskiy.springdz11.domain.repository.GenreRepository;
 
-@Controller
+
+//@Controller
 public class GenreController {
 
-	private final GenreRepository genreRepository;
+	/*private final GenreRepository genreRepository;
 
 	public GenreController(GenreRepository genreRepository) {
 		this.genreRepository = genreRepository;
@@ -36,5 +36,5 @@ public class GenreController {
 		}
 		genreRepository.save(genre);
 		return "redirect:/index";
-	}
+	}*/
 }

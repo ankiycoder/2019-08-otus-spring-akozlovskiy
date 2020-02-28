@@ -40,14 +40,15 @@ public class BookRestController {
 	@ResponseStatus(value = HttpStatus.OK)
 	public void deleteBook(@PathVariable("id") long id) throws DaoException {
 		logger.debug("***Call delete for BookID = {}", id);
-		bookService.delete(id);
+		//bookService.delete(id);
 	}
 
 	@PutMapping("/api/book")
 	@ResponseStatus(value = HttpStatus.OK)
 	public Book updateBook(@RequestBody BookDTO bookDTO) throws DaoException {
-		Long id = bookDTO.getId();
+		String id = bookDTO.getId();
 		logger.debug("***Call updateBook for BookID = {}", id);
-		return bookService.update(id, bookDTO.getTitle(), bookDTO.getAuthorId(), bookDTO.getGenreId());
+		//return bookService.update(id, bookDTO.getTitle(), bookDTO.getAuthorId(), bookDTO.getGenreId());
+		return null;
 	}
 }

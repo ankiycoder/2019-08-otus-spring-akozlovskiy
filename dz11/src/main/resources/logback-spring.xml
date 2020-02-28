@@ -14,7 +14,7 @@
 	<root level="info">
 		<appender-ref ref="Console" />
 	</root>
-	<logger name="ru.akozlovskiy" level="debug"
+	<logger name="ru.akozlovskiy.springdz10" level="debug"
 		additivity="false">
 		<appender-ref ref="Console" />
 	</logger>
