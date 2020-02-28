@@ -20,4 +20,5 @@ public interface BookRepository extends MongoRepository<Book, String> {
 	List<Book> findAllByAuthorId(String id);
 
 	void removeByTitle(String title);
+		
 }

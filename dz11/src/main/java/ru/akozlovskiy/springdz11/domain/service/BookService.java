@@ -16,5 +16,7 @@ public interface BookService {
 
 	Optional<Book> findByTitle(String bookname);
 	
-	void removeByTitle(String title);
+	void removeByTitle(String title);	
+
+	void update(String id, String title, String genre);
 }

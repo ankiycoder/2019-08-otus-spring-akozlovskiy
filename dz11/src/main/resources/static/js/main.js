@@ -13,7 +13,7 @@ $(function() {
                `) 
            }); 
        })
-       	/*$.get('/api/author').done(function (authors) {
+       	$.get('/api/author').done(function (authors) {
        		authors.forEach(function (author) {
        		 $("table#authorTable").append(`
                    <tr id="${author.id}">
@@ -27,20 +27,6 @@ $(function() {
                `) 
            }); 
        })
-       
-      $.get('/api/genre').done(function (genres) {
-    	  genres.forEach(function (genre) {
-       		 $("table#genreTable").append(`
-                   <tr id="${genre.id}">
-       				   <td>${genre.id}</td>
-                       <td>${genre.description}</td>                   
-                       <td width='0*'>                       				 		
-       				 	 	<button id="updateGenreButton" type="submit" class="btn btn-success">Изменить жанр</button>                        
-       				 	</td>
-                   </tr>
-               `) 
-           }); 
-       })*/
    });
 
 $(document).delegate('#updateBookButton', 'click', function() {
@@ -50,22 +36,15 @@ $(document).delegate('#updateBookButton', 'click', function() {
 	var author = parent.children("td:nth-child(2)");
 	var genre = parent.children("td:nth-child(3)");
 	var buttons = parent.children("td:nth-child(4)");
-	
-	/*var genreSelect = $('<select name="options" id="genreSelect">test</select>');	 	 
-		$.get('/api/genre').done(function (genres) {
-			genres.forEach(function (genre) {	       		
-				genreSelect.append(`<option value="${genre.id}">${genre.description}</option>`);
-	           }); 
-	       })	       
-	genre.html(genreSelect);*/
+
 		
-	/*var authorSelect = $('<select name="options" id="authorSelect">test</select>');	 	 
+	var authorSelect = $('<select name="options" id="authorSelect">test</select>');	 	 
 		$.get('/api/author').done(function (authors) {
 			authors.forEach(function (author) {	       		
 				authorSelect.append(`<option value="${author.id}">${author.name}</option>`);
 	           }); 
 	       })	       
-	author.html(authorSelect);*/		
+	author.html(authorSelect);		
 	title.html("<input type='text' id='title' value='" + title.html() + "'/>");	
 	genre.html("<input type='text' id='genre' value='" + genre.html() + "'/>");
 	buttons.html("<button id='saveBookButton' type='submit' class='btn btn-success'>Save</button>&nbsp;&nbsp;<button class='btn btn-danger' id='deleteBookButton'>Delete</button>");
@@ -74,17 +53,18 @@ $(document).delegate('#updateBookButton', 'click', function() {
 
 $(document).delegate('#saveBookButton', 'click', function() {
 	var parent = $(this).parent().parent();
-		
-	var id = parent.children("td:nth-child(1)");
-	var title = parent.children("td:nth-child(2)");
+	
+	var id = parent.attr('id');
+	
+	var title = parent.children("td:nth-child(1)");
 	var author = parent.children("td:nth-child(3)");
-	var genre = parent.children("td:nth-child(4)");
-	var buttons = parent.children("td:nth-child(5)");	
+	var genre = parent.children("td:nth-child(3)");
+	var buttons = parent.children("td:nth-child(4)");	
 	
 	var data = {}
-	data["id"] = id.html();
+	data["id"] = id;
 	data["title"] = title.children("input[type=text]").val();
-	data["genreId"] = $('#genreSelect option:selected').val();
+	data["genre"] = genre.children("input[type=text]").val();
 	data["authorId"] = $('#authorSelect option:selected').val();	
 	
 	$.ajax({
@@ -93,9 +73,9 @@ $(document).delegate('#saveBookButton', 'click', function() {
 	        url: "/api/book",
 	        data: JSON.stringify(data),
 	        success: function(res){
-	        	genre.html($("#genreSelect option:selected" ).text());
 	        	author.html($("#authorSelect option:selected" ).text());
 	        	title.html(title.children("input[type=text]").val());
+	        	genre.html(genre.children("input[type=text]").val());
 	        	buttons.html("<button id='updateBookButton' type='submit' class='btn btn-success'>Изменить книгу</button>") 
 	          	alert( "Success");
 			  },

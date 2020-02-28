@@ -38,17 +38,17 @@ public class BookRestController {
 
 	@DeleteMapping("/api/book/{id}")
 	@ResponseStatus(value = HttpStatus.OK)
-	public void deleteBook(@PathVariable("id") long id) throws DaoException {
+	public void deleteBook(@PathVariable("id") String id) throws DaoException {
 		logger.debug("***Call delete for BookID = {}", id);
 		//bookService.delete(id);
 	}
 
 	@PutMapping("/api/book")
 	@ResponseStatus(value = HttpStatus.OK)
-	public Book updateBook(@RequestBody BookDTO bookDTO) throws DaoException {
+	public void updateBook(@RequestBody BookDTO bookDTO) throws DaoException {
 		String id = bookDTO.getId();
 		logger.debug("***Call updateBook for BookID = {}", id);
 		//return bookService.update(id, bookDTO.getTitle(), bookDTO.getAuthorId(), bookDTO.getGenreId());
-		return null;
+		bookService.update(id, bookDTO.getTitle(), bookDTO.getGenre());
 	}
 }

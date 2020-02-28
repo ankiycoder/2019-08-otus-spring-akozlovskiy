@@ -59,4 +59,15 @@ public class BookServiceImpl implements BookService {
 	public void removeByTitle(String title) {
 		bookRepository.removeByTitle(title);
 	}
+
+	@Override
+	public void update(String id, String title, String genre) {
+		Optional<Book> bookOpt = bookRepository.findById(id);
+		if (bookOpt.isPresent()) {
+			Book book = bookOpt.get();
+			book.setTitle(title);
+			book.setGenre(new Genre(genre));
+			bookRepository.save(book);
+		}
+	}
 }

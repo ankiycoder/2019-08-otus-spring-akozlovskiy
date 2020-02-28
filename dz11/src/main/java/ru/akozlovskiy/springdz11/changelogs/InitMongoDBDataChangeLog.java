@@ -24,6 +24,9 @@ public class InitMongoDBDataChangeLog {
 	public void initAuthor(MongoTemplate template) {
 		Author authorForSave = new Author("Маршак");
 		author = template.save(authorForSave);
+		
+		authorForSave = new Author("Пушкин");
+		author = template.save(authorForSave);
 	}
 
 	@ChangeSet(order = "002", id = "initBook", author = "ak", runAlways = true)

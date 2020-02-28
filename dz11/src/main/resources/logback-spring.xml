@@ -11,10 +11,10 @@
 			<charset>UTF-8</charset>
 		</encoder>
 	</appender>
-	<root level="info">
+	<root level="ERROR">
 		<appender-ref ref="Console" />
 	</root>
-	<logger name="ru.akozlovskiy.springdz10" level="debug"
+	<logger name="ru.akozlovskiy.springdz11" level="debug"
 		additivity="false">
 		<appender-ref ref="Console" />
 	</logger>
