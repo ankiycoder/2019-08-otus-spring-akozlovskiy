@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import reactor.core.publisher.Flux;
 import ru.akozlovskiy.springdz11.domain.Book;
 import ru.akozlovskiy.springdz11.domain.dto.BookDTO;
 import ru.akozlovskiy.springdz11.domain.repository.AuthorRepository;
@@ -30,12 +31,10 @@ public class WelcomeController {
 	@GetMapping(value = { "/", "/index" })
 	public String index(Model model) throws DaoException {
 
-		List<Book> books = bookService.getAll();
-		List<BookDTO> bookDTOList = books.stream().map(BookDTO::new).collect(Collectors.toList());
+		/*Flux<Book> books = bookService.getAll();
+		List<BookDTO> bookDTOList = books.map(BookDTO::new).collect(
 		model.addAttribute("bookDTOList", bookDTOList);
-
-//		model.addAttribute("genres", genreRepository.findAll());
-		model.addAttribute("authors", authorRepository.findAll());
+		model.addAttribute("authors", authorRepository.findAll());*/
 		return "index";
 	}
 

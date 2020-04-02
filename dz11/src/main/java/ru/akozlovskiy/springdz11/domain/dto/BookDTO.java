@@ -27,7 +27,6 @@ public class BookDTO {
 
 		if (book.getGenre() != null) {
 			this.genre = book.getGenre().getDescription();
-			//this.genreId = book.getGenre().getId();
 		}
 	}
 

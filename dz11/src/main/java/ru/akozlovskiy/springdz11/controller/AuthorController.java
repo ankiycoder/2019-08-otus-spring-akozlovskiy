@@ -12,10 +12,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import ru.akozlovskiy.springdz11.domain.Author;
 import ru.akozlovskiy.springdz11.domain.repository.AuthorRepository;
 
-//@Controller
+@Controller
 public class AuthorController {
 
-	/*private final AuthorRepository authorRepository;
+	private final AuthorRepository authorRepository;
 
 	public AuthorController(AuthorRepository authorRepository) {
 		this.authorRepository = authorRepository;
@@ -37,6 +37,6 @@ public class AuthorController {
 
 		authorRepository.save(author);
 		return "redirect:/index";
-	}*/
+	}
 
 }

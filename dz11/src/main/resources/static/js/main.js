@@ -17,7 +17,6 @@ $(function() {
        		authors.forEach(function (author) {
        		 $("table#authorTable").append(`
                    <tr id="${author.id}">
-       				   <td>${author.id}</td>
                        <td>${author.name}</td>
                        <td>${author.birthDate}</td>
                        <td width='0*'>                       				 		
@@ -57,7 +56,7 @@ $(document).delegate('#saveBookButton', 'click', function() {
 	var id = parent.attr('id');
 	
 	var title = parent.children("td:nth-child(1)");
-	var author = parent.children("td:nth-child(3)");
+	var author = parent.children("td:nth-child(2)");
 	var genre = parent.children("td:nth-child(3)");
 	var buttons = parent.children("td:nth-child(4)");	
 	
@@ -88,12 +87,12 @@ $(document).delegate('#saveBookButton', 'click', function() {
 
 $(document).delegate('#deleteBookButton', 'click', function() {
 	var parent = $(this).parent().parent();		
-	var id = parent.children("td:nth-child(1)");	
+	var id = parent.attr('id');	
 	
 	$.ajax({
 		 	type: "DELETE",
 	        contentType: "application/json",
-	        url: "/api/book/" + id.html(),
+	        url: "/api/book/" + id,
 	        success: function(res){
 	     	   $(parent).fadeOut('slow', function(){
 	               $(parent).remove();
@@ -111,9 +110,9 @@ $(document).delegate('#deleteBookButton', 'click', function() {
 $(document).delegate('#updateAuthorButton', 'click', function() {
 	var parent = $(this).parent().parent();
 	
-	var name = parent.children("td:nth-child(2)");
-	var birthDate = parent.children("td:nth-child(3)");
-	var buttons = parent.children("td:nth-child(4)");
+	var name = parent.children("td:nth-child(1)");
+	var birthDate = parent.children("td:nth-child(2)");
+	var buttons = parent.children("td:nth-child(3)");
 			
 	name.html("<input type='text' id='name' value='" + name.html() + "'/>");
 	birthDate.html("<input type='text' id='birthDate' value='" + birthDate.html() + "'/>");
@@ -123,13 +122,13 @@ $(document).delegate('#updateAuthorButton', 'click', function() {
 $(document).delegate('#saveAuthorButton', 'click', function() {
 	var parent = $(this).parent().parent();
 		
-	var id = parent.children("td:nth-child(1)");
-	var name = parent.children("td:nth-child(2)");
-	var birthDate = parent.children("td:nth-child(3)");
-	var buttons = parent.children("td:nth-child(4)");
+	var id = parent.attr('id');
+	var name = parent.children("td:nth-child(1)");
+	var birthDate = parent.children("td:nth-child(2)");
+	var buttons = parent.children("td:nth-child(3)");
 	
 	var data = {}
-	data["id"] = id.html();
+	data["id"] = id;
 	data["name"] = name.children("input[type=text]").val();
 	data["birthDate"] = birthDate.children("input[type=text]").val();
 		
@@ -153,69 +152,11 @@ $(document).delegate('#saveAuthorButton', 'click', function() {
 
 $(document).delegate('#deleteAuthorButton', 'click', function() {
 	var parent = $(this).parent().parent();		
-	var id = parent.children("td:nth-child(1)");		
+	var id = parent.attr('id');		
 	$.ajax({
 		 	type: "DELETE",
 	        contentType: "application/json",
-	        url: "/api/author/"+id.html(),
-	        success: function(res){
-		     	   $(parent).fadeOut('slow', function(){
-		               $(parent).remove();
-		           }); 
-				  },
-            error: function(xhr, ajaxOptions, thrownError) {
-                alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
-            }
-		});
-});
-
-$(document).delegate('#updateGenreButton', 'click', function() {
-	var parent = $(this).parent().parent();
-	
-	var id = parent.children("td:nth-child(1)");
-	var description = parent.children("td:nth-child(2)");
-	var buttons = parent.children("td:nth-child(3)");
-			
-	description.html("<input type='text' id='description' value='" + description.html() + "'/>");
-	buttons.html("<button id='saveGenreButton' type='submit' class='btn btn-success'>Save</button>&nbsp;&nbsp;<button class='btn btn-danger' id='deleteGenreButton'>Delete</button>");
-});
-
-
-$(document).delegate('#saveGenreButton', 'click', function() {
-	var parent = $(this).parent().parent();
-		
-	var id = parent.children("td:nth-child(1)");
-	var description = parent.children("td:nth-child(2)");
-	var buttons = parent.children("td:nth-child(3)");
-	
-	var data = {}
-	data["id"] = id.html();
-	data["description"] = description.children("input[type=text]").val();
-		
-	$.ajax({
-		 	type: "PUT",
-	        contentType: "application/json",
-	        url: "/api/genre",
-	        data: JSON.stringify(data),
-	        success: function(res){
-	        	description.html(description.children("input[type=text]").val());
-	        	buttons.html("<button id='updateGenreButton' type='submit' class='btn btn-success'>Изменить жанр</button>")
-				  },
-            error: function(xhr, ajaxOptions, thrownError) {
-                alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
-            }
-		});  
-});
-
-$(document).delegate('#deleteGenreButton', 'click', function() {
-	var parent = $(this).parent().parent();
-		
-	var id = parent.children("td:nth-child(1)");	
-	
-	$.ajax({
-		 	type: "DELETE",
-	        contentType: "application/json",
-	        url: "/api/genre/" + id.html(),
+	        url: "/api/author/"+id,
 	        success: function(res){
 		     	   $(parent).fadeOut('slow', function(){
 		               $(parent).remove();

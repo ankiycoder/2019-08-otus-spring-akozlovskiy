@@ -1,15 +1,13 @@
 package ru.akozlovskiy.springdz11.domain.repository;
 
-import java.util.Optional;
-
-import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.data.repository.reactive.ReactiveCrudRepository;
 import org.springframework.stereotype.Repository;
 
+import reactor.core.publisher.Mono;
 import ru.akozlovskiy.springdz11.domain.Author;
 
-
 @Repository
-public interface AuthorRepository extends MongoRepository<Author, String> {
+public interface AuthorRepository extends ReactiveCrudRepository<Author, String> {
 
-	Optional<Author> findByName(String name);
+	Mono<Author> findByName(String name);
 }

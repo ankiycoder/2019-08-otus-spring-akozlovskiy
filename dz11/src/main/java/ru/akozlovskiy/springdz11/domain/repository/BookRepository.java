@@ -1,24 +1,21 @@
 package ru.akozlovskiy.springdz11.domain.repository;
 
-import java.util.List;
-import java.util.Optional;
-
-import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.data.repository.reactive.ReactiveCrudRepository;
 import org.springframework.stereotype.Repository;
 
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 import ru.akozlovskiy.springdz11.domain.Book;
 
-
-
 @Repository
-public interface BookRepository extends MongoRepository<Book, String> {
+public interface BookRepository extends ReactiveCrudRepository<Book, String> {
 
-	Optional<Book> findByTitle(String title);
+	Mono<Book> findByTitle(String title);
 
-	List<Book> findAll();
+	Flux<Book> findAll();
 
-	List<Book> findAllByAuthorId(String id);
+	Flux<Book> findAllByAuthorId(String id);
 
 	void removeByTitle(String title);
-		
+
 }

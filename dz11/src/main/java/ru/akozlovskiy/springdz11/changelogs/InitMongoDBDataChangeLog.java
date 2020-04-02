@@ -22,11 +22,10 @@ public class InitMongoDBDataChangeLog {
 
 	@ChangeSet(order = "001", id = "initAuthor", author = "ak", runAlways = true)
 	public void initAuthor(MongoTemplate template) {
-		Author authorForSave = new Author("Маршак");
+		Author authorForSave = new Author("Самуил Яковлевич Маршак", "1887-11-03");
 		author = template.save(authorForSave);
-		
-		authorForSave = new Author("Пушкин");
-		author = template.save(authorForSave);
+		template.save(new Author("Александр Сергеевич Пушкин", "1799-06-06"));
+		template.save(new Author("Михаил Юрьевич Лермонтов", "1814-10-15"));
 	}
 
 	@ChangeSet(order = "002", id = "initBook", author = "ak", runAlways = true)
@@ -37,11 +36,24 @@ public class InitMongoDBDataChangeLog {
 		book.setAuthor(author);
 		book.setGenre(new Genre("Детский"));
 		template.save(book);
-		
+
 		book = new Book();
 		book.setTitle("Вот такой рассеяный");
 		book.setAuthor(author);
 		book.setGenre(new Genre("Детский"));
 		template.save(book);
+
+		book = new Book();
+		book.setTitle("Багаж");
+		book.setAuthor(author);
+		book.setGenre(new Genre("Детский"));
+		template.save(book);
+
+		book = new Book();
+		book.setTitle("Сказка об умном мышонке");
+		book.setAuthor(author);
+		book.setGenre(new Genre("Детский"));
+		template.save(book);
+
 	}
 }

@@ -32,7 +32,6 @@ public class BookController {
 
 		BookDTO bookDTO = new BookDTO();
 		model.addAttribute("bookDto", bookDTO);
-		//model.addAttribute("genres", genreRepository.findAll());
 		model.addAttribute("authors", authorRepository.findAll());
 		return "addBook";
 	}
@@ -41,7 +40,6 @@ public class BookController {
 	public String saveBook(Model model, @ModelAttribute("bookDto") @Valid BookDTO bookDTO, BindingResult result)
 			throws DaoException {
 		if (result.hasErrors()) {
-			//model.addAttribute("genres", genreRepository.findAll());
 			model.addAttribute("authors", authorRepository.findAll());
 			model.addAttribute("bookDto", bookDTO);
 			return "addBook";

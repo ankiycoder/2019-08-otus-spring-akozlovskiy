@@ -1,6 +1,6 @@
 package ru.akozlovskiy.springdz11.controller.rest;
 
-import java.util.List;
+import java.time.Duration;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,11 +13,15 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 import ru.akozlovskiy.springdz11.domain.Author;
 import ru.akozlovskiy.springdz11.domain.repository.AuthorRepository;
 
 @RestController
 public class AuthorRestController {
+	
+	private static final int DELAY_PER_ITEM_MS = 1000;
 
 	private static Logger logger = LoggerFactory.getLogger(AuthorRestController.class);
 
@@ -28,21 +32,21 @@ public class AuthorRestController {
 	}
 
 	@GetMapping("/api/author")
-	public List<Author> getAllAuthor() {
+	public Flux<Author> getAllAuthor() {
 		logger.debug("***Call getAllAuthor");
-		return authorRepository.findAll();
+		return authorRepository.findAll().delayElements(Duration.ofMillis(DELAY_PER_ITEM_MS));    
 	}
 
 	@DeleteMapping("/api/author/{id}")
 	@ResponseStatus(value = HttpStatus.OK)
-	public void deleteAuthor(@PathVariable("id") long id) {
+	public void deleteAuthor(@PathVariable("id") String id) {
 		logger.debug("***Call delete for AuthorID = {}", id);
-		//authorRepository.deleteById(id);
+		authorRepository.deleteById(id);
 	}
 
 	@PutMapping("/api/author")
 	@ResponseStatus(value = HttpStatus.OK)
-	public Author updateAuthor(@RequestBody Author author) {
+	public Mono<Author> updateAuthor(@RequestBody Author author) {
 		logger.debug("***Call updateAuthor for authorID = {}", author.getId());
 		return authorRepository.save(author);
 	}
