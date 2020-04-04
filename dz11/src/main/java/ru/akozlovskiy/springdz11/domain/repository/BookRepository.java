@@ -16,6 +16,6 @@ public interface BookRepository extends ReactiveCrudRepository<Book, String> {
 
 	Flux<Book> findAllByAuthorId(String id);
 
-	void removeByTitle(String title);
+	Mono<Void> removeByTitle(String title);
 
 }

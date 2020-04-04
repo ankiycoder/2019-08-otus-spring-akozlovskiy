@@ -30,7 +30,7 @@ import ru.akozlovskiy.springdz11.domain.repository.AuthorRepository;
 @DisplayName("Rest контроллер для авторов")
 public class AuthorRestControllerTest {
 
-	@Autowired
+	/*@Autowired
 	private MockMvc mockMvc;
 
 	@MockBean
@@ -65,5 +65,5 @@ public class AuthorRestControllerTest {
 		this.mockMvc.perform(MockMvcRequestBuilders.delete("/api/author/{id}", "1").contentType(MediaType.APPLICATION_JSON)
 				.accept(MediaType.APPLICATION_JSON)).andExpect(status().isOk());
 	}
-
+*/
 }

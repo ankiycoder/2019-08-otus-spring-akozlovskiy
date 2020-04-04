@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
+import ru.akozlovskiy.springdz11.domain.Book;
 import ru.akozlovskiy.springdz11.domain.dto.BookDTO;
 import ru.akozlovskiy.springdz11.domain.service.BookService;
 import ru.akozlovskiy.springdz11.exception.DaoException;
@@ -28,6 +30,7 @@ public class BookRestController {
 	}
 
 	@GetMapping("/api/book")
+	@ResponseStatus(value = HttpStatus.OK)
 	public Flux<BookDTO> getAllBook() throws DaoException {
 		logger.debug("***Call getAllBook");
 		return bookService.getAll().map(BookDTO::new);
@@ -35,16 +38,16 @@ public class BookRestController {
 
 	@DeleteMapping("/api/book/{id}")
 	@ResponseStatus(value = HttpStatus.OK)
-	public void deleteBook(@PathVariable("id") String id) {
+	public Mono<Void> deleteBook(@PathVariable("id") String id) {
 		logger.debug("***Call delete for BookID = {}", id);
-		bookService.removeById(id);
+		return bookService.removeById(id);
 	}
 
 	@PutMapping("/api/book")
 	@ResponseStatus(value = HttpStatus.OK)
-	public void updateBook(@RequestBody BookDTO bookDTO) {
+	public Mono<Book> updateBook(@RequestBody BookDTO bookDTO) {
 		String id = bookDTO.getId();
 		logger.debug("***Call updateBook for BookID = {}", id);
-		bookService.update(id, bookDTO.getTitle(), bookDTO.getGenre());
+		return bookService.update(id, bookDTO.getTitle(), bookDTO.getGenre(), bookDTO.getAuthorId());
 	}
 }

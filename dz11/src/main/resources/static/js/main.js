@@ -35,7 +35,6 @@ $(document).delegate('#updateBookButton', 'click', function() {
 	var author = parent.children("td:nth-child(2)");
 	var genre = parent.children("td:nth-child(3)");
 	var buttons = parent.children("td:nth-child(4)");
-
 		
 	var authorSelect = $('<select name="options" id="authorSelect">test</select>');	 	 
 		$.get('/api/author').done(function (authors) {
@@ -70,13 +69,13 @@ $(document).delegate('#saveBookButton', 'click', function() {
 		 	type: "PUT",
 	        contentType: "application/json",
 	        url: "/api/book",
+	        dataType: 'text',
 	        data: JSON.stringify(data),
 	        success: function(res){
 	        	author.html($("#authorSelect option:selected" ).text());
 	        	title.html(title.children("input[type=text]").val());
 	        	genre.html(genre.children("input[type=text]").val());
 	        	buttons.html("<button id='updateBookButton' type='submit' class='btn btn-success'>Изменить книгу</button>") 
-	          	alert( "Success");
 			  },
             error: function(xhr, ajaxOptions, thrownError) {
                 alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
@@ -102,8 +101,6 @@ $(document).delegate('#deleteBookButton', 'click', function() {
                 alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
             }			  
 		});
-	
-
 });
 
 

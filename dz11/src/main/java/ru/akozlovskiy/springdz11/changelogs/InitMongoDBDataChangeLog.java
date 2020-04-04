@@ -54,6 +54,5 @@ public class InitMongoDBDataChangeLog {
 		book.setAuthor(author);
 		book.setGenre(new Genre("Детский"));
 		template.save(book);
-
 	}
 }

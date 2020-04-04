@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import reactor.core.publisher.Mono;
+import ru.akozlovskiy.springdz11.domain.Book;
 import ru.akozlovskiy.springdz11.domain.dto.BookDTO;
 import ru.akozlovskiy.springdz11.domain.repository.AuthorRepository;
 
@@ -45,7 +47,8 @@ public class BookController {
 			return "addBook";
 		}
 
-		bookService.add(bookDTO.getTitle(), bookDTO.getAuthorName(), bookDTO.getGenre());
+		Mono<Book> bookAdd = bookService.add(bookDTO.getTitle(), bookDTO.getAuthorName(), bookDTO.getGenre());
+		bookAdd.subscribe();
 		return "redirect:/index";
 	}
 }

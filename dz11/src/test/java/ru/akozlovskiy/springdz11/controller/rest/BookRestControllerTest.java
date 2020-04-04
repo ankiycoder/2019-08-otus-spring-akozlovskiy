@@ -33,7 +33,7 @@ import ru.akozlovskiy.springdz11.domain.service.BookService;
 @DisplayName("Rest контроллер для книг")
 public class BookRestControllerTest {
 
-	@Autowired
+/*	@Autowired
 	private MockMvc mockMvc;
 
 	@MockBean
@@ -84,5 +84,5 @@ public class BookRestControllerTest {
 		this.mockMvc.perform(
 				put("/api/book").content(JsonUtil.mapToJson(testBookDTO)).contentType(MediaType.APPLICATION_JSON_VALUE))
 				.andExpect(status().isOk());
-	}
+	}*/
 }

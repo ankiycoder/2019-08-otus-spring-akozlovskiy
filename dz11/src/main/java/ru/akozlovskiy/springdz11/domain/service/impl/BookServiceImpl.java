@@ -1,9 +1,5 @@
 package ru.akozlovskiy.springdz11.domain.service.impl;
 
-import java.util.List;
-import java.util.Optional;
-import java.util.function.Function;
-
 import org.springframework.stereotype.Service;
 
 import reactor.core.publisher.Flux;
@@ -29,44 +25,38 @@ public class BookServiceImpl implements BookService {
 	}
 
 	@Override
-	public Mono<String> add(String bookName, String authorName, String genre) throws DaoException {
+	public Mono<Book> add(String bookName, String authorName, String genre) {
 
-		Mono<Author> monoAuthor = authorRepository.findByName(authorName);
-						
-		
-		Author author = monoAuthor.block();
-		/*if (!author.block()) {
-			throw new DaoException("Ошибка добавления книги. В базе на найден автор с именем: " + authorName);
-		}*/
-
-		Book book = new Book();
-		book.setAuthor(author);
-		book.setTitle(bookName);
-		book.setGenre(new Genre(genre));
-
-		return bookRepository.save(book).flatMap(savedBook -> Mono.just(savedBook.getId()));
+		return authorRepository.findByName(authorName).flatMap(author -> {
+			Book book = new Book();
+			book.setAuthor(author);
+			book.setTitle(bookName);
+			book.setGenre(new Genre(genre));
+			return bookRepository.save(book);
+		});
 	}
 
 	@Override
-	public Flux<Book> getAll() throws DaoException {
+	public Flux<Book> getAll()  {
 		return bookRepository.findAll();
 	}
 
 	@Override
-	public void update(String id, String title, String genre) {
-		Mono<Book> bookOpt = bookRepository.findById(id);
-		Optional<Book> monoOpt = bookOpt.blockOptional();
+	public Mono<Book> update(String id, String title, String genre, String authorId) {
 
-		if (monoOpt.isPresent()) {
-			Book book = monoOpt.get();
+		Mono<Author> authorMono = authorRepository.findById(authorId);
+		return authorMono.flatMap(author -> {
+			Book book = new Book();
+			book.setId(id);
+			book.setAuthor(author);
 			book.setTitle(title);
 			book.setGenre(new Genre(genre));
-			bookRepository.save(book);
-		}
+			return Mono.just(book);
+		}).flatMap(book -> bookRepository.save(book));
 	}
 
 	@Override
-	public void removeById(String id) {
-		bookRepository.deleteById(id);
+	public Mono<Void> removeById(String id) {
+		return bookRepository.deleteById(id);
 	}
 }

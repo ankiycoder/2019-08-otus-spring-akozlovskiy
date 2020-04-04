@@ -20,8 +20,8 @@ import ru.akozlovskiy.springdz11.domain.repository.AuthorRepository;
 
 @RestController
 public class AuthorRestController {
-	
-	private static final int DELAY_PER_ITEM_MS = 1000;
+
+	private static final int DELAY_PER_ITEM_MS = 10;
 
 	private static Logger logger = LoggerFactory.getLogger(AuthorRestController.class);
 
@@ -32,16 +32,17 @@ public class AuthorRestController {
 	}
 
 	@GetMapping("/api/author")
+	@ResponseStatus(value = HttpStatus.OK)
 	public Flux<Author> getAllAuthor() {
 		logger.debug("***Call getAllAuthor");
-		return authorRepository.findAll().delayElements(Duration.ofMillis(DELAY_PER_ITEM_MS));    
+		return authorRepository.findAll().delayElements(Duration.ofMillis(DELAY_PER_ITEM_MS));
 	}
 
 	@DeleteMapping("/api/author/{id}")
 	@ResponseStatus(value = HttpStatus.OK)
-	public void deleteAuthor(@PathVariable("id") String id) {
+	public Mono<Void> deleteAuthor(@PathVariable("id") String id) {
 		logger.debug("***Call delete for AuthorID = {}", id);
-		authorRepository.deleteById(id);
+		return authorRepository.deleteById(id);
 	}
 
 	@PutMapping("/api/author")
