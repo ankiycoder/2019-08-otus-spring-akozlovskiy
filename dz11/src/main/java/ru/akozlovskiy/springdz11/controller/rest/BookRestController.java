@@ -16,7 +16,6 @@ import reactor.core.publisher.Mono;
 import ru.akozlovskiy.springdz11.domain.Book;
 import ru.akozlovskiy.springdz11.domain.dto.BookDTO;
 import ru.akozlovskiy.springdz11.domain.service.BookService;
-import ru.akozlovskiy.springdz11.exception.DaoException;
 
 @RestController
 public class BookRestController {
@@ -31,7 +30,7 @@ public class BookRestController {
 
 	@GetMapping("/api/book")
 	@ResponseStatus(value = HttpStatus.OK)
-	public Flux<BookDTO> getAllBook() throws DaoException {
+	public Flux<BookDTO> getAllBook() {
 		logger.debug("***Call getAllBook");
 		return bookService.getAll().map(BookDTO::new);
 	}

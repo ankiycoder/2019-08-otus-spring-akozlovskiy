@@ -10,7 +10,6 @@ import ru.akozlovskiy.springdz11.domain.Genre;
 import ru.akozlovskiy.springdz11.domain.repository.AuthorRepository;
 import ru.akozlovskiy.springdz11.domain.repository.BookRepository;
 import ru.akozlovskiy.springdz11.domain.service.BookService;
-import ru.akozlovskiy.springdz11.exception.DaoException;
 
 @Service
 public class BookServiceImpl implements BookService {

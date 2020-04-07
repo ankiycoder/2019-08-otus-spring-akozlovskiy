@@ -13,7 +13,6 @@ public class BookDTO {
 	private String authorName;
 	private String authorId;
 	private String genre;
-	private String genreId;
 
 	public BookDTO(Book book) {
 
@@ -72,13 +71,4 @@ public class BookDTO {
 	public void setAuthorId(String authorId) {
 		this.authorId = authorId;
 	}
-
-	public String getGenreId() {
-		return genreId;
-	}
-
-	public void setGenreId(String genreId) {
-		this.genreId = genreId;
-	}
-
 }

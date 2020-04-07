@@ -1,69 +1,86 @@
 package ru.akozlovskiy.springdz11.controller.rest;
 
+import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.client.match.MockRestRequestMatchers.anything;
+import static org.assertj.core.api.Assertions.anyOf;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.hamcrest.CoreMatchers.any;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
-import java.util.Arrays;
-import java.util.List;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.when;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.ArgumentCaptor;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.autoconfigure.web.reactive.WebFluxTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.reactive.server.WebTestClient;
 
-import ru.akozlovskiy.springdz11.JsonUtil;
-import ru.akozlovskiy.springdz11.controller.rest.AuthorRestController;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 import ru.akozlovskiy.springdz11.domain.Author;
 import ru.akozlovskiy.springdz11.domain.repository.AuthorRepository;
 
 @ExtendWith(SpringExtension.class)
-@WebMvcTest(value = AuthorRestController.class)
+@WebFluxTest(value = AuthorRestController.class)
 @DisplayName("Rest контроллер для авторов")
 public class AuthorRestControllerTest {
 
-	/*@Autowired
-	private MockMvc mockMvc;
+	@Autowired
+	private WebTestClient webTestClient;
 
 	@MockBean
 	private AuthorRepository authorRepository;
 
+	private Author testAuthor = new Author("AuthorName", "1891-05-15");
+
 	@Test
 	@DisplayName("Поиск всех авторов")
-	public void testGetAllGenre() throws Exception {
+	public void testFindAllAuthor() throws Exception {
 
-		Author author = new Author(1l, "name", null);
-		Author author2 = new Author(2l, "name2", null);
+		when(authorRepository.findAll()).thenReturn(Flux.just(testAuthor));
 
-		List<Author> authorList = Arrays.asList(author, author2);
-		when(authorRepository.findAll()).thenReturn(authorList);
+		webTestClient.get().uri("/api/author").accept(MediaType.APPLICATION_JSON).exchange().expectStatus().isOk()
+				.expectBodyList(Author.class).consumeWith(response -> assertThat(response.getResponseBody().get(0))
+						.isEqualToComparingFieldByField(testAuthor));
 
-		this.mockMvc.perform(get("/api/author")).andExpect(status().isOk())
-				.andExpect(content().json(JsonUtil.mapToJson(authorList)));
-	}
-
-	@Test
-	@DisplayName("Изменение автора")
-	public void updateGenre() throws Exception {
-		Author author = new Author(1l, "name", null);
-		this.mockMvc.perform(
-				put("/api/author").content(JsonUtil.mapToJson(author)).contentType(MediaType.APPLICATION_JSON_VALUE))
-				.andExpect(status().isOk());
+		Mockito.verify(authorRepository, times(1)).findAll();
 	}
 
 	@Test
 	@DisplayName("Удаление автора")
-	public void deleteGenre() throws Exception {
-		this.mockMvc.perform(MockMvcRequestBuilders.delete("/api/author/{id}", "1").contentType(MediaType.APPLICATION_JSON)
-				.accept(MediaType.APPLICATION_JSON)).andExpect(status().isOk());
+	public void testDeleteAuthor() throws Exception {
+
+		String authorId = "1";
+		Mockito.when(authorRepository.deleteById(authorId)).thenReturn(Mono.empty());
+
+		webTestClient.delete().uri("/api/author/{id}", authorId).accept(MediaType.APPLICATION_JSON).exchange()
+				.expectStatus().isOk();
+
+		Mockito.verify(authorRepository, times(1)).deleteById(authorId);
 	}
-*/
+
+	@Test
+	@DisplayName("Изменение автора")
+	public void updateAuthor() throws Exception {
+
+		when(authorRepository.save(any())).thenReturn(Mono.just(testAuthor));
+
+		webTestClient.put().uri("/api/author").contentType(MediaType.APPLICATION_JSON)
+				.accept(MediaType.APPLICATION_JSON).body(Mono.just(testAuthor), Author.class).exchange().expectStatus()
+				.isOk().expectBody(Author.class).consumeWith(
+						response -> assertThat(testAuthor).isEqualToComparingFieldByField(response.getResponseBody()));
+
+		ArgumentCaptor<Author> requestCaptor = ArgumentCaptor.forClass(Author.class);
+		Mockito.verify(authorRepository, times(1)).save(requestCaptor.capture());
+		assertThat(requestCaptor.getValue()).isEqualToComparingFieldByField(testAuthor);
+	}
 }

@@ -48,7 +48,7 @@ public class AuthorRestController {
 	@PutMapping("/api/author")
 	@ResponseStatus(value = HttpStatus.OK)
 	public Mono<Author> updateAuthor(@RequestBody Author author) {
-		logger.debug("***Call updateAuthor for authorID = {}", author.getId());
+		logger.debug("***Call updateAuthor for author  {}", author);
 		return authorRepository.save(author);
 	}
 }

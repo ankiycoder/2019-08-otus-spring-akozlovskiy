@@ -3,6 +3,10 @@ package ru.akozlovskiy.springdz11.domain;
 public class Genre {
 
 	private String description;
+	
+	public Genre() {
+		super();
+	}
 
 	public Genre(String description) {
 		super();

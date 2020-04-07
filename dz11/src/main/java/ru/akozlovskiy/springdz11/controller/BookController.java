@@ -13,9 +13,7 @@ import reactor.core.publisher.Mono;
 import ru.akozlovskiy.springdz11.domain.Book;
 import ru.akozlovskiy.springdz11.domain.dto.BookDTO;
 import ru.akozlovskiy.springdz11.domain.repository.AuthorRepository;
-
 import ru.akozlovskiy.springdz11.domain.service.BookService;
-import ru.akozlovskiy.springdz11.exception.DaoException;
 
 @Controller
 public class BookController {
@@ -39,8 +37,7 @@ public class BookController {
 	}
 
 	@PostMapping(value = { "/addBook" })
-	public String saveBook(Model model, @ModelAttribute("bookDto") @Valid BookDTO bookDTO, BindingResult result)
-			throws DaoException {
+	public String saveBook(Model model, @ModelAttribute("bookDto") @Valid BookDTO bookDTO, BindingResult result) {
 		if (result.hasErrors()) {
 			model.addAttribute("authors", authorRepository.findAll());
 			model.addAttribute("bookDto", bookDTO);
