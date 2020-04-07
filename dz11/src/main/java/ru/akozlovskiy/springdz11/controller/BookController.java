@@ -37,13 +37,7 @@ public class BookController {
 	}
 
 	@PostMapping(value = { "/addBook" })
-	public String saveBook(Model model, @ModelAttribute("bookDto") @Valid BookDTO bookDTO, BindingResult result) {
-		if (result.hasErrors()) {
-			model.addAttribute("authors", authorRepository.findAll());
-			model.addAttribute("bookDto", bookDTO);
-			return "addBook";
-		}
-
+	public String saveBook(@ModelAttribute("bookDto") BookDTO bookDTO, Model model) {
 		Mono<Book> bookAdd = bookService.add(bookDTO.getTitle(), bookDTO.getAuthorName(), bookDTO.getGenre());
 		bookAdd.subscribe();
 		return "redirect:/index";
