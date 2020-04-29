@@ -2,7 +2,6 @@ package ru.akozlovskiy.springdz12.security;
 
 import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User.UserBuilder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -16,18 +15,18 @@ import ru.akozlovskiy.springdz12.domain.repository.UserRepository;
 @Service
 public class UserDetailsServiceImp implements UserDetailsService {
 
-	@Autowired
 	private UserRepository userRepository;
+
+	public UserDetailsServiceImp(UserRepository userRepository) {
+		this.userRepository = userRepository;
+	}
 
 	@Override
 	public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
 
 		Optional<User> userOpt = userRepository.findByLogin(login);
 
-		if (userOpt.isPresent()) {
-			
-			System.out.println("***User is found!");
-			
+		return userOpt.map(u -> {
 			User user = userOpt.get();
 
 			UserBuilder builder = null;
@@ -38,7 +37,6 @@ public class UserDetailsServiceImp implements UserDetailsService {
 			builder.roles(user.getRole());
 
 			return builder.build();
-		}
-		throw new UsernameNotFoundException("User not found.");
+		}).orElseThrow(() -> new UsernameNotFoundException("User not found."));
 	}
 }
