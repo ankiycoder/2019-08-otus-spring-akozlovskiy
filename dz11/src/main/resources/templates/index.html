@@ -1,0 +1,62 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<title>БИБЛИОТЕКА</title>
+<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script src="webjars/jquery/3.3.1/jquery.min.js"></script>
+
+<script type="application/javascript" th:src="@{/js/main.js}"></script>
+
+</head>
+<body>
+	<h1>Добро пожаловать в библиотеку</h1>
+
+	<p id="demo"></p>
+
+	<div id="container" style="margin-left: 50px;">
+		<div id="bookDiv">
+			<h1>Книги</h1>
+			<hr>
+			<table id="bookTable">
+				<thead>
+					<tr>
+						<th style="width: 400px;">Название</th>
+						<th style="width: 300px;">Автор</th>
+						<th style="width: 150px;">Жанр</th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+				</tbody>
+			</table>
+			<form action="/addBook">
+				<button type="submit" class="btn btn-success">Добавить
+					книгу</button>
+			</form>
+		</div>
+		<br>
+		<div>
+			<h1>Авторы</h1>
+			<hr>
+			<table id="authorTable">
+				<thead>
+					<tr>
+						<th style="width: 400px;">Автор</th>
+						<th style="width: 100px;">Дата рождения</th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+				</tbody>
+			</table>
+			<form action="/addAuthor">
+				<button type="submit" class="btn btn-success">Добавить
+					автора</button>
+			</form>
+		</div>		
+	</div>
+</body>
+</html>
