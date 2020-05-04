@@ -1,0 +1,98 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<title>БИБЛИОТЕКА</title>
+<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+</head>
+<body>
+	<h1>Добро пожаловать в библиотеку</h1>
+	<div id="container" style="margin-left: 50px;" >
+	
+	<a th:href="@{/logout}" class="btn btn-danger" >Logout</a>	
+	
+		<div>
+			<h1>Книги</h1>
+			<hr>
+			<table>
+				<thead>
+					<tr>
+						<th style="width: 400px;">Название</th>
+						<th style="width: 300px;">Автор</th>
+						<th style="width: 150px;">Жанр</th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="book : ${bookDTOList}">
+						<td th:utext="${book.title}">...</td>
+						<td th:utext="${book.authorName}">...</td>
+						<td th:utext="${book.genre}" align="center">...</td>
+						<td width='0*'>
+								<a th:href="@{/updateBook/{id}(id=${book.id})}"
+							class="btn btn-info">Изменить</a>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			<form action="/addBook">
+				<button type="submit" class="btn btn-success">Добавить
+					книгу</button>
+			</form>
+		</div>
+		<br>
+		<div>
+			<h1>Авторы</h1>
+			<hr>
+			<table>
+				<thead>
+					<tr>
+						<th style="width: 400px;">Автор</th>
+						<th>Дата рождения</th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="author : ${authors}">
+						<td th:utext="${author.name}">...</td>
+						<td th:utext="${author.birthDate}">...</td>
+						<td>
+							<a th:href="@{/updateAuthor/{id}(id=${author.id})}"
+							class="btn btn-info">Изменить</a>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			<form action="/addAuthor">
+				<button type="submit" class="btn btn-success">Добавить
+					автора</button>
+			</form>
+		</div>
+		<br />
+		<div>
+			<h1>Жанры</h1>
+			<hr>
+			<table>
+				<thead>
+					<tr>
+						<th style="width: 400px;">Название</th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="genre : ${genres}">
+						<td th:utext="${genre.description}">...</td>
+						<td><a th:href="@{/updateGenre/{id}(id=${genre.id})}"
+							class="btn btn-info">Изменить</a></td>
+					</tr>
+				</tbody>
+			</table>
+			<form action="/addGenre">
+				<button type="submit" class="btn btn-success">Добавить жанр</button>
+			</form>
+		</div>
+	</div>
+</body>
+</html>
