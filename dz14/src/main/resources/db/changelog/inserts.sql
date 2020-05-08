@@ -1,6 +1,8 @@
-insert into AUTHOR (ID, NAME, BIRTHDATE) values (1, 'AUTHOR_NAME', '2012-09-17');
-insert into GENRE (ID, DESCRIPTION) values (1, 'GENRE_TEST');
-insert into BOOK (ID, TITLE, AUTHORID, GENREID) values (1, 'BOOK_NAME1', 1, 1);
-insert into BOOK (ID, TITLE, AUTHORID, GENREID) values (2, 'BOOK_NAME2', 1, 1);
-insert into BOOK (ID, TITLE, AUTHORID, GENREID) values (3, 'BOOK_NAME3', 1, 1);
-insert into BOOK (ID, TITLE, AUTHORID, GENREID) values (4, 'BOOK_NAME4', 1, 1);
+insert into AUTHOR (ID, NAME, BIRTHDATE) values (1, 'Маршак', '1887-11-03');
+insert into AUTHOR (ID, NAME, BIRTHDATE) values (2, 'Пушкин', '1799-06-06');
+insert into GENRE (ID, DESCRIPTION) values (1, 'Детский');
+insert into GENRE (ID, DESCRIPTION) values (2, 'Сказки');
+insert into BOOK (ID, TITLE, AUTHORID, GENREID) values (1, 'Багаж', 1, 1);
+insert into BOOK (ID, TITLE, AUTHORID, GENREID) values (2, 'Вот какой рассеянный', 1, 1);
+insert into BOOK (ID, TITLE, AUTHORID, GENREID) values (3, 'Усатый-полосатый', 1, 1);
+insert into BOOK (ID, TITLE, AUTHORID, GENREID) values (4, 'Сказка о золотом петушке', 2, 2);
