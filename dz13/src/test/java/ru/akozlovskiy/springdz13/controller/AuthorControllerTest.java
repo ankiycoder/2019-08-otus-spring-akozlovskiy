@@ -22,13 +22,13 @@ import org.mockito.ArgumentCaptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
-import ru.akozlovskiy.springdz13.controller.AuthorController;
 import ru.akozlovskiy.springdz13.domain.Author;
 import ru.akozlovskiy.springdz13.domain.repository.AuthorRepository;
 import ru.akozlovskiy.springdz13.domain.repository.UserRepository;
@@ -42,6 +42,9 @@ public class AuthorControllerTest {
 
 	@MockBean
 	private AuthorRepository authorRepository;
+	
+	@MockBean
+	private UserDetailsService UserDetailsService;
 
 	@Autowired
 	private MockMvc mvc;
@@ -61,7 +64,7 @@ public class AuthorControllerTest {
 
 	@Test
 	@DisplayName("Добавление автора")
-	@WithMockUser("admin")
+	@WithMockUser(roles={"ADMIN"})
 	void testAddAuthor() throws Exception {
 
 		when(authorRepository.save(testAuthor)).thenReturn(testAuthor);
@@ -78,7 +81,7 @@ public class AuthorControllerTest {
 
 	@Test
 	@DisplayName("Изменение автора")
-	@WithMockUser("admin")
+	@WithMockUser(roles={"ADMIN"})
 	void testShowUpdateAuthorPage() throws Exception {
 
 		Long id = 1l;
@@ -99,7 +102,7 @@ public class AuthorControllerTest {
 
 	@Test
 	@DisplayName("Изменение автора")
-	@WithMockUser("admin")
+	@WithMockUser(roles={"ADMIN"})
 	void testUpdateAuthor() throws Exception {
 
 		Long id = 1l;

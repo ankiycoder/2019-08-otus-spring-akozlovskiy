@@ -17,6 +17,7 @@ import ru.akozlovskiy.springdz13.domain.repository.GenreRepository;
 import ru.akozlovskiy.springdz13.exception.DaoException;
 
 @DataJpaTest
+@DisplayName("Репозиторий по работе с жанрами")
 public class GenreRepositoryTest {
 
 	private static final String GENRE_DESCRIPTION = "Драма";

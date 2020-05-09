@@ -18,6 +18,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
@@ -35,10 +36,15 @@ import ru.akozlovskiy.springdz13.domain.repository.GenreRepository;
 import ru.akozlovskiy.springdz13.domain.repository.UserRepository;
 import ru.akozlovskiy.springdz13.domain.service.BookService;
 
+
+
 @ExtendWith(SpringExtension.class)
 @WebMvcTest(value = BookController.class)
 @DisplayName("Контроллер по работе с книгами")
 public class BookControllerTest {
+	
+	@MockBean
+	private UserDetailsService UserDetailsService;
 
 	@MockBean
 	private BookService bookService;
@@ -86,7 +92,7 @@ public class BookControllerTest {
 
 	@Test
 	@DisplayName("Добавление книги")
-	@WithMockUser("admin")
+	@WithMockUser(roles={"ADMIN"})
 	void testAddBook() throws Exception {
 
 		when(bookService.add("bookName", "authorName", "genreDescription")).thenReturn(1l);
@@ -102,7 +108,7 @@ public class BookControllerTest {
 
 	@Test
 	@DisplayName("Изменение книги")
-	@WithMockUser("admin")
+	@WithMockUser(roles={"ADMIN"})
 	void testShowUpdateBookPage() throws Exception {
 
 		Optional<Book> bookOpt = Optional.of(testBook);

@@ -6,5 +6,5 @@ insert into BOOK (ID, TITLE, AUTHORID, GENREID) values (1, 'Кошкин Дом'
 insert into BOOK (ID, TITLE, AUTHORID, GENREID) values (2, 'Вот какой рассеянный', 1, 1);
 insert into BOOK (ID, TITLE, AUTHORID, GENREID) values (3, 'Усатый полосатый', 1, 1);
 insert into BOOK (ID, TITLE, AUTHORID, GENREID) values (4, 'Дом, который построил Джек', 1, 1);
-insert into USER (ID, LOGIN, PASSWORD, ROLE) values (1, 'admin', '123', 'ADMIN');
-insert into USER (ID, LOGIN, PASSWORD, ROLE) values (2, 'guest', '123', 'QUEST');
+insert into USER (ID, LOGIN, PASSWORD, ROLE) values (1, 'admin', '$2a$10$.aCm9N0rrDg4fXzeDsYBDuYU21eMTSYAoxwl.kOseveYpqFAnz8sO', 'ADMIN');
+insert into USER (ID, LOGIN, PASSWORD, ROLE) values (2, 'guest', '$2a$10$C3EyjV8ByMaeU4KVvdxhgOHGRBHVnJV2xPV.wQb/vcAyfxhvwTu0y', 'QUEST');

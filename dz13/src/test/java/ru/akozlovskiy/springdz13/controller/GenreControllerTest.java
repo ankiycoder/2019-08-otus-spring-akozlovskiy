@@ -20,6 +20,7 @@ import org.mockito.ArgumentCaptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
@@ -35,6 +36,9 @@ import ru.akozlovskiy.springdz13.domain.repository.UserRepository;
 @WebMvcTest(value = GenreController.class)
 @DisplayName("Контроллер по работе с жанрами")
 public class GenreControllerTest {
+	
+	@MockBean
+	private UserDetailsService UserDetailsService;
 
 	@MockBean
 	private GenreRepository genreRepository;
@@ -56,7 +60,7 @@ public class GenreControllerTest {
 
 	@Test
 	@DisplayName("Добавление жанра")
-    @WithMockUser("admin")
+	@WithMockUser(roles={"ADMIN"})
 	void testAddAuthor() throws Exception {
 
 		when(genreRepository.save(testGenre)).thenReturn(testGenre);
@@ -73,7 +77,7 @@ public class GenreControllerTest {
 
 	@Test
 	@DisplayName("Изменение жанра")
-	@WithMockUser("admin")
+	@WithMockUser(roles={"ADMIN"})
 	void testShowUpdateGenrePage() throws Exception {
 
 		Long id = 1l;
@@ -93,7 +97,7 @@ public class GenreControllerTest {
 
 	@Test
 	@DisplayName("Изменение жанра")
-	@WithMockUser("admin")
+	@WithMockUser(roles={"ADMIN"})
 	void testUpdateGenre() throws Exception {
 
 		when(genreRepository.save(testGenre)).thenReturn(testGenre);
