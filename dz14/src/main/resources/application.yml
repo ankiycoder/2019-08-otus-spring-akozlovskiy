@@ -1,0 +1,17 @@
+logging:
+   level:
+      root: INFO
+spring:
+   h2:
+      console:
+         enabled: true
+   jpa:
+      hibernate:
+         ddl-auto: none
+   liquibase:
+      change-log: classpath:db/liquibase-changelog.xml
+   data:
+      mongodb:
+         uri: mongodb://localhost
+         port: 0
+         database: awesomeMongo
