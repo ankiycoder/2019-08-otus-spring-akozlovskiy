@@ -12,8 +12,6 @@ public class Document {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 
-	private String owner;
-
 	private String comment;
 
 	public long getId() {
@@ -24,14 +22,6 @@ public class Document {
 		this.id = id;
 	}
 
-	public String getOwner() {
-		return owner;
-	}
-
-	public void setOwner(String owner) {
-		this.owner = owner;
-	}
-
 	public String getComment() {
 		return comment;
 	}
@@ -39,5 +29,4 @@ public class Document {
 	public void setComment(String comment) {
 		this.comment = comment;
 	}
-
 }

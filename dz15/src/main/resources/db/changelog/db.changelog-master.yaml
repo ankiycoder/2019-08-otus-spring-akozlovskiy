@@ -13,10 +13,6 @@ databaseChangeLog:
                   constraints:
                     primaryKey: true
                     nullable: false
-              - column:
-                  name: owner
-                  type: varchar(255)
-                  constraints:
                     nullable: true
               - column:
                   name: comment

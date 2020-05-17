@@ -7,8 +7,8 @@ import org.springframework.messaging.handler.annotation.Payload;
 import ru.akozlovskiy.springdz15.domain.Document;
 
 @MessagingGateway
-public interface DocumentProcessor {
+public interface DocumentProcessorGateway {
 
 	@Gateway(requestChannel = "documentFlow.input")
-	void process(@Payload Document activity);
+	void process(@Payload Document document);
 }
