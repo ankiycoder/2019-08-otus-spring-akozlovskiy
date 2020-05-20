@@ -22,6 +22,6 @@ public class DbAvailableHealthIndicator implements HealthIndicator {
 		} catch (SQLException e) {
 			return Health.down().withDetail("DB is not available", e.getMessage()).build();
 		}
-		return Health.up().build();
+		return Health.up().withDetail("Connect status",  "Is OK!!!!!!").build();
 	}
 }

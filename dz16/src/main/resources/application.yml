@@ -11,6 +11,11 @@ spring:
       cache: false
    resources:
       add-mappings: true
+      
+   data:
+      rest:
+        basePath: /datarest
+      
 server:
    error:
       include-stacktrace: always
@@ -19,7 +24,10 @@ management:
   endpoints:
     web:
       exposure:
-        include: health, info, env, metrics
+        include: health, logfile, metrics
   endpoint:
     health:
       show-details: always
+      
+logging:
+  file: log.txt    
