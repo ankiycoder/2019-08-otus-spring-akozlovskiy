@@ -2,6 +2,12 @@ spring:
    h2:
       console:
          enabled: true
+        
+   datasource:
+      driverClassName: ${DB_DRIVER}      
+      url: ${DB_URL}
+      user: ${DB_USER}
+                                
    jpa:
       hibernate:
          ddl-auto: none
