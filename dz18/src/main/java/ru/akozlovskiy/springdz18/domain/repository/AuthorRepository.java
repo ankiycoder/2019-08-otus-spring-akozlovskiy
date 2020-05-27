@@ -9,7 +9,6 @@ import org.springframework.data.rest.core.annotation.RestResource;
 import ru.akozlovskiy.springdz18.domain.Author;
 
 @RepositoryRestResource(path = "authors")
-@HystrixCommand(fallbackMethod = "callUserService_Fallback")
 public interface AuthorRepository extends JpaRepository<Author, Long> {
 
 	@RestResource(path = "name", rel = "name")

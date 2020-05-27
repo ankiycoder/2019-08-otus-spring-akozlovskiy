@@ -1,10 +1,13 @@
 package ru.akozlovskiy.springdz18.domain.service.impl;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
+
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 
 import ru.akozlovskiy.springdz18.domain.Author;
 import ru.akozlovskiy.springdz18.domain.Book;
@@ -76,8 +79,15 @@ public class BookServiceImpl implements BookService {
 	}
 
 	@Override
+	@HystrixCommand(fallbackMethod = "getAllFallback")
 	public List<Book> getAll() throws DaoException {
 		return bookRepository.findAll();
+	}
+
+	public List<Book> defaultGetAll() {
+		Book book = new Book();
+		book.setTitle("N/A");
+		return Collections.singletonList(book);
 	}
 
 	@Override
@@ -102,6 +112,6 @@ public class BookServiceImpl implements BookService {
 
 	@Override
 	public void delete(long bookId) throws DaoException {
-		bookRepository.deleteById(bookId);		
+		bookRepository.deleteById(bookId);
 	}
 }

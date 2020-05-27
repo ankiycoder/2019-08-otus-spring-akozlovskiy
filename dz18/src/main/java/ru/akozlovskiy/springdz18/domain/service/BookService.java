@@ -3,8 +3,6 @@ package ru.akozlovskiy.springdz18.domain.service;
 import java.util.List;
 import java.util.Optional;
 
-import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
-
 import ru.akozlovskiy.springdz18.domain.Book;
 import ru.akozlovskiy.springdz18.exception.DaoException;
 
@@ -23,6 +21,6 @@ public interface BookService {
 	void save(Book book);
 
 	Book update(long bookId, String bookName, long authorId, long genreId) throws DaoException;
-	
+
 	void delete(long bookId) throws DaoException;
 }

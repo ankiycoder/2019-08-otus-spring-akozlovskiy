@@ -10,15 +10,15 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import ru.akozlovskiy.springdz18.domain.Genre;
-import ru.akozlovskiy.springdz18.domain.repository.GenreRepository;
+import ru.akozlovskiy.springdz18.domain.service.GenreService;
 
 @Controller
 public class GenreController {
 
-	private final GenreRepository genreRepository;
+	private final GenreService genreService;
 
-	public GenreController(GenreRepository genreRepository) {
-		this.genreRepository = genreRepository;
+	public GenreController(GenreService genreService) {
+		this.genreService = genreService;
 	}
 
 	@GetMapping(value = { "/addGenre" })
@@ -34,7 +34,7 @@ public class GenreController {
 			model.addAttribute("genre", genre);
 			return "addGenre";
 		}
-		genreRepository.save(genre);
+		genreService.save(genre);
 		return "redirect:/index";
 	}
 }

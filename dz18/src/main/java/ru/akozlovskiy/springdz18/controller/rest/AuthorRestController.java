@@ -14,36 +14,36 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import ru.akozlovskiy.springdz18.domain.Author;
-import ru.akozlovskiy.springdz18.domain.repository.AuthorRepository;
+import ru.akozlovskiy.springdz18.domain.service.AuthorService;
 
 @RestController
 public class AuthorRestController {
 
 	private static Logger logger = LoggerFactory.getLogger(AuthorRestController.class);
 
-	private final AuthorRepository authorRepository;
+	private final AuthorService authorService;
 
-	public AuthorRestController(AuthorRepository authorRepository) {
-		this.authorRepository = authorRepository;
+	public AuthorRestController(AuthorService authorService) {
+		this.authorService = authorService;
 	}
 
 	@GetMapping("/api/author")
 	public List<Author> getAllAuthor() {
 		logger.debug("***Call getAllAuthor");
-		return authorRepository.findAll();
+		return authorService.findAll();
 	}
 
 	@DeleteMapping("/api/author/{id}")
 	@ResponseStatus(value = HttpStatus.OK)
 	public void deleteAuthor(@PathVariable("id") long id) {
 		logger.debug("***Call delete for AuthorID = {}", id);
-		authorRepository.deleteById(id);
+		authorService.deleteById(id);
 	}
 
 	@PutMapping("/api/author")
 	@ResponseStatus(value = HttpStatus.OK)
 	public Author updateAuthor(@RequestBody Author author) {
 		logger.debug("***Call updateAuthor for authorID = {}", author.getId());
-		return authorRepository.save(author);
+		return authorService.save(author);
 	}
 }

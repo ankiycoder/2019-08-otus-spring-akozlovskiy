@@ -14,36 +14,36 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import ru.akozlovskiy.springdz18.domain.Genre;
-import ru.akozlovskiy.springdz18.domain.repository.GenreRepository;
+import ru.akozlovskiy.springdz18.domain.service.GenreService;
 
 @RestController
 public class GenreRestController {
 
 	private static Logger logger = LoggerFactory.getLogger(GenreRestController.class);
 
-	private final GenreRepository genreRepository;
+	private final GenreService genreService;
 
-	public GenreRestController(GenreRepository genreRepository) {
-		this.genreRepository = genreRepository;
+	public GenreRestController(GenreService genreService) {
+		this.genreService = genreService;
 	}
 
 	@GetMapping("/api/genre")
 	public List<Genre> getAllGenre() {
 		logger.debug("***Call getAllGenre");
-		return genreRepository.findAll();
+		return genreService.findAll();
 	}
 
 	@PutMapping("/api/genre")
 	@ResponseStatus(value = HttpStatus.OK)
 	public void updateGenre(@RequestBody Genre genre) {
 		logger.debug("***Call updateGenre for GenrerID = {}", genre.getId());
-		genreRepository.save(genre);
+		genreService.save(genre);
 	}
 
 	@DeleteMapping("/api/genre/{id}")
 	@ResponseStatus(value = HttpStatus.OK)
 	public void deleteGenre(@PathVariable("id") long id) {
 		logger.debug("***Call delete for GenreID = {}", id);
-		genreRepository.deleteById(id);
+		genreService.deleteById(id);
 	}
 }

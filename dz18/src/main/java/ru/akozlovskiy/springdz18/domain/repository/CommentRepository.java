@@ -10,8 +10,8 @@ import ru.akozlovskiy.springdz18.domain.Comment;
 
 @RepositoryRestResource(path = "comments")
 public interface CommentRepository extends JpaRepository<Comment, Long> {
-	
-	@RestResource(path = "title", rel = "title")	
+
+	@RestResource(path = "title", rel = "title")
 	public List<Comment> findByBookTitle(String title);
 
 }

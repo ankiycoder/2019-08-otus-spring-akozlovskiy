@@ -10,15 +10,15 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import ru.akozlovskiy.springdz18.domain.Author;
-import ru.akozlovskiy.springdz18.domain.repository.AuthorRepository;
+import ru.akozlovskiy.springdz18.domain.service.AuthorService;
 
 @Controller
 public class AuthorController {
 
-	private final AuthorRepository authorRepository;
+	private final AuthorService authorService;
 
-	public AuthorController(AuthorRepository authorRepository) {
-		this.authorRepository = authorRepository;
+	public AuthorController(AuthorService authorService) {
+		this.authorService = authorService;
 	}
 
 	@GetMapping(value = { "/addAuthor" })
@@ -35,7 +35,7 @@ public class AuthorController {
 			return "addAuthor";
 		}
 
-		authorRepository.save(author);
+		authorService.save(author);
 		return "redirect:/index";
 	}
 
