@@ -31,11 +31,11 @@ public class AuthorServiceImpl implements AuthorService {
 	}
 
 	@Override
-	@HystrixCommand(fallbackMethod = "findAllFallback")
+	@HystrixCommand(fallbackMethod = "findAllFallback", ignoreExceptions = Throwable.class)
 	public List<Author> findAll() {
 		return authorRepository.findAll();
 	}
-	
+
 	public List<Author> findAllFallback() {
 		Author author = new Author();
 		author.setName("N/A");

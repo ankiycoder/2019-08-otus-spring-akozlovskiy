@@ -36,7 +36,7 @@ public class GenreServiceImpl implements GenreService {
 	}
 
 	@Override
-	@HystrixCommand(fallbackMethod = "findAllFallback")
+	@HystrixCommand(fallbackMethod = "findAllFallback", ignoreExceptions = Throwable.class)
 	public List<Genre> findAll() {
 		return genreRepository.findAll();
 	}

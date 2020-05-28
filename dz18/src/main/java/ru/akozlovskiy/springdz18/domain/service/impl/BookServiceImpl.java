@@ -79,14 +79,23 @@ public class BookServiceImpl implements BookService {
 	}
 
 	@Override
-	@HystrixCommand(fallbackMethod = "getAllFallback")
+	@HystrixCommand(fallbackMethod = "getAllFallback", ignoreExceptions = Throwable.class)
 	public List<Book> getAll() throws DaoException {
 		return bookRepository.findAll();
 	}
 
-	public List<Book> defaultGetAll() {
+	public List<Book> getAllFallback() {
 		Book book = new Book();
 		book.setTitle("N/A");
+
+		Author author = new Author();
+		author.setName("N/A");
+		book.setAuthor(author);
+
+		Genre genre = new Genre();
+		genre.setDescription("N/A");
+		book.setGenre(genre);
+
 		return Collections.singletonList(book);
 	}
 
