@@ -4,14 +4,14 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>ru.otus.example</groupId>
-    <artifactId>spring-mail-rabbitmq-demo</artifactId>
+    <groupId>ru.akozlovskiy</groupId>
+    <artifactId>project</artifactId>
     <version>1.0</version>
 
     <packaging>pom</packaging>
 
     <modules>
         <module>library</module>        
-	<!--module>userActivityProcessor</module-->
+	<module>activity-processor</module>
     </modules>
 </project>

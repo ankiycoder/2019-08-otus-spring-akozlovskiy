@@ -1,0 +1,18 @@
+spring:
+   datasource:
+      initialization-mode: always
+   jpa:
+      generate-ddl: false
+      hibernate:
+         ddl-auto: none
+      show-sql: true   
+   rabbitmq:
+     addresses: rabbitmq
+management:
+   endpoints:
+      web:
+         exposure:
+            include: health, info, activity-stat
+   endpoint:
+      health:
+         show-details: always

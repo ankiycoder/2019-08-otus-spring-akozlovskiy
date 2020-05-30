@@ -21,5 +21,21 @@ services:
       - rabbitmq
     environment:
       - DB_DRIVER=org.h2.Driver
-      - DB_URL=jdbc:h2:tcp://h2:1521/my-db-name
+      - DB_URL=jdbc:h2:tcp://h2:1521/library-db
       - DB_USER=sa 
+
+  activity-processor:
+    build: activity-processor/.
+    image: activity-processor
+    ports:
+      - 8080:8080
+    depends_on:
+      - h2
+      - rabbitmq
+    environment:
+      - DB_DRIVER=org.h2.Driver
+      - DB_URL=jdbc:h2:tcp://h2:1521/library-db
+      - DB_USER=sa 
+
+
+
