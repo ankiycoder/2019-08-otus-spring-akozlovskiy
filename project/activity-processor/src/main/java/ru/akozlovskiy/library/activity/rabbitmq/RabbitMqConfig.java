@@ -1,4 +1,4 @@
-package ru.akozlovskiy.library.rabbitmq;
+package ru.akozlovskiy.library.activity.rabbitmq;
 
 import org.springframework.amqp.core.Binding;
 import org.springframework.amqp.core.BindingBuilder;

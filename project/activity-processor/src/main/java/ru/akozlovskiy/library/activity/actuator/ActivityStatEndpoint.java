@@ -1,4 +1,4 @@
-package ru.akozlovskiy.library.actuator;
+package ru.akozlovskiy.library.activity.actuator;
 
 import java.util.Collections;
 import java.util.List;
@@ -8,7 +8,7 @@ import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
 import org.springframework.stereotype.Component;
 
 import lombok.RequiredArgsConstructor;
-import ru.akozlovskiy.library.domain.UserAcitvity;
+import ru.akozlovskiy.library.activity.domain.UserAcitvity;
 
 @RequiredArgsConstructor
 @Component

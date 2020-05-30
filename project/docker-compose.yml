@@ -28,7 +28,7 @@ services:
     build: activity-processor/.
     image: activity-processor
     ports:
-      - 8080:8080
+      - 8081:8081
     depends_on:
       - h2
       - rabbitmq
