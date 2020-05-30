@@ -20,7 +20,8 @@ public class ActivityStatEndpoint {
 	@ReadOperation
 	public List<UserAcitvity> getAppUsersActivityStat() {
 
-		UserAcitvity userAcitvity = new UserAcitvity("appUserName", "activityType", 1);
+		UserAcitvity userAcitvity = new UserAcitvity();
+		userAcitvity.setBookName("Name");
 
 		return Collections.singletonList(userAcitvity);
 	}

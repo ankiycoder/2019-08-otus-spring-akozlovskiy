@@ -1,9 +1,5 @@
 package ru.akozlovskiy.useractivity.domain;
 
-
-//import javax.persistence.Id;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import lombok.Data;
@@ -13,23 +9,19 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class UserAcitvity {
 
-	@JsonIgnore
-	//@Id
-	//@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
+	/*@JsonIgnore
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private long id;*/
 
-	@JsonProperty("Имя пользователя")
-	private String appUserName;
+	@JsonProperty("Логин пользователя")
+	private String userLogin;
 
-	@JsonProperty("Тип активности")
-	private String activityType;
+	@JsonProperty("Книга")
+	private String bookName;
 
-	@JsonProperty("Количество")
-	private long activitiesCount;
+	@JsonProperty("Автор")
+	private String authorName;
 
-	public UserAcitvity(String appUserName, String activityType, long activitiesCount) {
-		this.appUserName = appUserName;
-		this.activityType = activityType;
-		this.activitiesCount = activitiesCount;
-	}
+
 }

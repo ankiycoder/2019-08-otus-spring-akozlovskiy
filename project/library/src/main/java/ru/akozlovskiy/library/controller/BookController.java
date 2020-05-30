@@ -19,6 +19,7 @@ import ru.akozlovskiy.library.domain.repository.AuthorRepository;
 import ru.akozlovskiy.library.domain.repository.GenreRepository;
 import ru.akozlovskiy.library.domain.service.BookService;
 import ru.akozlovskiy.library.exception.DaoException;
+import ru.akozlovskiy.library.mq.UserActivityEmitterService;
 
 @Controller
 public class BookController {
@@ -28,11 +29,14 @@ public class BookController {
 	private final GenreRepository genreRepository;
 
 	private final AuthorRepository authorRepository;
+	
+	private final UserActivityEmitterService userActivityEmitterService;
 
-	public BookController(BookService bookService, GenreRepository genreRepository, AuthorRepository authorRepository) {
+	public BookController(BookService bookService, GenreRepository genreRepository, AuthorRepository authorRepository, UserActivityEmitterService userActivityEmitterService) {
 		this.bookService = bookService;
 		this.genreRepository = genreRepository;
 		this.authorRepository = authorRepository;
+		this.userActivityEmitterService = userActivityEmitterService;
 	}
 	
 	@GetMapping(value = { "/", "/index" })
@@ -90,6 +94,20 @@ public class BookController {
 			return "updateBook";
 		}
 		bookService.update(id, bookDTO.getTitle(), bookDTO.getAuthorId(), bookDTO.getGenreId());
+		return "redirect:/index";
+	}
+	
+	@GetMapping("/viewBook/{id}")
+	public String showViewBookPage(@PathVariable("id") long id, Model model) {
+		Book book = bookService.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid Book Id:" + id));
+		userActivityEmitterService.emitAppUserActivity(book);
+		model.addAttribute("bookDto", new BookDTO(book));
+		return "viewBook";
+	}
+
+	@PostMapping(value = { "/viewBook/{id}" })
+	public String viewBook(Model model, @ModelAttribute("bookDto") @Valid BookDTO bookDTO, BindingResult result,
+			@PathVariable("id") Long id) throws DaoException {	
 		return "redirect:/index";
 	}
 }

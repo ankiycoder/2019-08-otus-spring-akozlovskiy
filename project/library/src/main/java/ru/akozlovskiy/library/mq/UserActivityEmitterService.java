@@ -11,7 +11,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
-import ru.akozlovskiy.library.domain.UserAcitvity;
+import ru.akozlovskiy.library.domain.Book;
+import ru.akozlovskiy.library.domain.UserRequest;
 
 @RequiredArgsConstructor
 @Service
@@ -20,28 +21,26 @@ public class UserActivityEmitterService {
 	private static Logger logger = LoggerFactory.getLogger(UserActivityEmitterService.class);
 
 	private final RabbitTemplate rabbitTemplate;
-	
+
 	private final ObjectMapper objectMapper;
 
-	private int activitiesCount = 0;
-
 	@SneakyThrows
-	public void emitAppUserActivity() {
+	public void emitAppUserActivity(Book book) {
 
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		String username = null;
+		String userLogin = null;
 		if (principal instanceof UserDetails) {
-			username = ((UserDetails) principal).getUsername();
+			userLogin = ((UserDetails) principal).getUsername();
 		} else {
-			username = principal.toString();
+			userLogin = principal.toString();
 		}
 
-		UserAcitvity appUserActivity = new UserAcitvity(username, "TestActivity", ++activitiesCount);
+		UserRequest appUserActivity = new UserRequest(book, userLogin);
 
 		String userActivityJson = objectMapper.writeValueAsString(appUserActivity);
 
-		logger.info("****** Send to RabbitMQ: {}", userActivityJson);
+		logger.info("****** Send to RabbitMQ message: {}", userActivityJson);
 
-		rabbitTemplate.convertAndSend("all-activity-queue", userActivityJson);
+		rabbitTemplate.convertAndSend("user-request-queue", userActivityJson);
 	}
 }

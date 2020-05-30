@@ -11,8 +11,8 @@ import org.springframework.context.annotation.Configuration;
 public class RabbitMqConfig {
 
 	@Bean
-	public Queue allActivityQueue() {
-		return new Queue("all-activity-queue");
+	public Queue userRequestQueue() {
+		return new Queue("user-request-queue");
 	}
 
 	@Bean
@@ -22,6 +22,6 @@ public class RabbitMqConfig {
 
 	@Bean
 	public Binding allActivityBinding() {
-		return BindingBuilder.bind(allActivityQueue()).to(directExchange()).withQueueName();
+		return BindingBuilder.bind(userRequestQueue()).to(directExchange()).withQueueName();
 	}
 }

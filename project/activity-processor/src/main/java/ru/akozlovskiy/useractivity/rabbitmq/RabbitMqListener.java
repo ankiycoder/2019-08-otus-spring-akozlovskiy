@@ -18,7 +18,7 @@ public class RabbitMqListener {
 
 	private final ObjectMapper objectMapper;
 
-	@RabbitListener(queues = "all-activity-queue")
+	@RabbitListener(queues = "user-request-queue")
 	public void processAllMessages(String message) throws JsonProcessingException {
 
 		logger.info("RECEIVED FROM all-activity-queue: {}", message);

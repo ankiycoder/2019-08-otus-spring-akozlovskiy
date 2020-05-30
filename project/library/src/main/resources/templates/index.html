@@ -32,6 +32,7 @@
 						<td width='0*'>
 								<a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/updateBook/{id}(id=${book.id})}"
 							class="btn btn-info">Изменить</a>
+								<a th:href="@{/viewBook/{id}(id=${book.id})}" class="btn btn-info">Просмотреть</a>
 						</td>
 					</tr>
 				</tbody>
