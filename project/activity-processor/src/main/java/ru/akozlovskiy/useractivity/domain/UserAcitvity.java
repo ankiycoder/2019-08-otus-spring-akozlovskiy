@@ -1,4 +1,4 @@
-package ru.akozlovskiy.library.activity.domain;
+package ru.akozlovskiy.useractivity.domain;
 
 
 import javax.persistence.GeneratedValue;

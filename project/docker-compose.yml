@@ -28,13 +28,13 @@ services:
     build: activity-processor/.
     image: activity-processor
     ports:
-      - 8081:8081
+      - 8081:8080
     depends_on:
       - h2
       - rabbitmq
     environment:
       - DB_DRIVER=org.h2.Driver
-      - DB_URL=jdbc:h2:tcp://h2:1521/library-db
+      - DB_URL=jdbc:h2:tcp://h2:1521/activity-processor-db
       - DB_USER=sa 
 
 

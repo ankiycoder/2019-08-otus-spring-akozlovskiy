@@ -6,13 +6,6 @@
 
 	<include
 		file="changelog/01-create-book-and-author-and-genre-schema.xml"
-		relativeToChangelogFile="true" />
-		
-	<include file="changelog/02-create-comment-schema.xml"
-		relativeToChangelogFile="true" />
-		
-			<include file="changelog/03-first-data.xml"
-		relativeToChangelogFile="true" />
-
+		relativeToChangelogFile="true" />		
 
 </databaseChangeLog>

@@ -1,4 +1,4 @@
-package ru.akozlovskiy.library.activity.actuator;
+package ru.akozlovskiy.useractivity.actuator;
 
 import java.util.Collections;
 import java.util.List;
@@ -8,11 +8,11 @@ import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
 import org.springframework.stereotype.Component;
 
 import lombok.RequiredArgsConstructor;
-import ru.akozlovskiy.library.activity.domain.UserAcitvity;
+import ru.akozlovskiy.useractivity.domain.UserAcitvity;
 
 @RequiredArgsConstructor
 @Component
-@Endpoint(id = "activity-stat")
+@Endpoint(id = "activitystat")
 public class ActivityStatEndpoint {
 
 	// private final ActivityStatRepository activityStatRepository;

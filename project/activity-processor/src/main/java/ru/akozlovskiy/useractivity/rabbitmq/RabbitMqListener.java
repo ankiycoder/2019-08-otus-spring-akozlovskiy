@@ -1,4 +1,4 @@
-package ru.akozlovskiy.library.activity.rabbitmq;
+package ru.akozlovskiy.useractivity.rabbitmq;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,15 +20,10 @@ public class RabbitMqListener {
 
 	@RabbitListener(queues = "all-activity-queue")
 	public void processAllMessages(String message) throws JsonProcessingException {
-		System.out.println("RECEIVED FROM all-activity-queue: " + message);
 
 		logger.info("RECEIVED FROM all-activity-queue: {}", message);
 
 		try {
-			// val userActivity = objectMapper.readValue(message, UserActivity.class);
-
-			// System.out.println("userActivity: " + userActivity);
-
 			// activityRepository.save(userActivity);
 		} catch (Exception e) {
 			e.printStackTrace();

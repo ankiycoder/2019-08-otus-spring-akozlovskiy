@@ -1,15 +1,13 @@
 spring:
-  port: 8081
- 
+
   rabbitmq:
     addresses: rabbitmq
-
+    
   datasource:
     driverClassName: ${DB_DRIVER}      
     url: ${DB_URL}
     user: ${DB_USER}
-                                
-   
+                                   
   jpa:
       hibernate:
          ddl-auto: none
@@ -20,7 +18,10 @@ management:
   endpoints:
     web:
       exposure:
-        include: health, info, activity-stat
+        include: health, info, activitystat
   endpoint:
     health:
       show-details: always
+
+logging:
+  file: log.txt
