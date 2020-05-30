@@ -14,6 +14,7 @@ import ru.akozlovskiy.library.domain.repository.BookRepository;
 import ru.akozlovskiy.library.domain.repository.GenreRepository;
 import ru.akozlovskiy.library.domain.service.BookService;
 import ru.akozlovskiy.library.exception.DaoException;
+import ru.akozlovskiy.library.mq.UserActivityEmitterService;
 
 @Service
 public class BookServiceImpl implements BookService {
@@ -23,12 +24,15 @@ public class BookServiceImpl implements BookService {
 	private final GenreRepository genreRepository;
 
 	private final BookRepository bookRepository;
+	
+	private final UserActivityEmitterService userActivityEmitterService;
 
 	public BookServiceImpl(AuthorRepository authorRepository, BookRepository bookRepository,
-			GenreRepository genreRepository) {
+			GenreRepository genreRepository, UserActivityEmitterService userActivityEmitterService) {
 		this.authorRepository = authorRepository;
 		this.bookRepository = bookRepository;
 		this.genreRepository = genreRepository;
+		this.userActivityEmitterService = userActivityEmitterService;
 	}
 
 	@Override
@@ -77,6 +81,7 @@ public class BookServiceImpl implements BookService {
 
 	@Override
 	public List<Book> getAll() throws DaoException {
+		userActivityEmitterService.emitAppUserActivity();
 		return bookRepository.findAll();
 	}
 

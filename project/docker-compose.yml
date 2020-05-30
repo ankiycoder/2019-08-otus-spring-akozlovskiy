@@ -1,0 +1,25 @@
+version: '3'
+services:
+  h2:
+    image: buildo/h2database
+    ports:
+      - 8082:8082
+      
+  rabbitmq:
+    image: rabbitmq:management
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+
+  library:
+    build: library/.
+    image: library-project
+    ports:
+      - 8080:8080
+    depends_on:
+      - h2
+      - rabbitmq
+    environment:
+      - DB_DRIVER=org.h2.Driver
+      - DB_URL=jdbc:h2:tcp://h2:1521/my-db-name
+      - DB_USER=sa 

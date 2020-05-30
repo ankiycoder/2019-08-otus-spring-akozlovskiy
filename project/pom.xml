@@ -11,8 +11,7 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>user-activity-models</module>
-        <module>user-activity-emitter-microservice</module>
-        <module>user-activity-processor-microservice</module>
+        <module>library</module>        
+	<!--module>userActivityProcessor</module-->
     </modules>
 </project>
