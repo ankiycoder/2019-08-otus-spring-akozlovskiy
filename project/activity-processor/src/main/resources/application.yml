@@ -10,15 +10,13 @@ spring:
                                    
   jpa:
       hibernate:
-         ddl-auto: none
-  liquibase:
-      change-log: classpath:db/liquibase-changelog.xml
+         ddl-auto: none  
 
 management:
   endpoints:
     web:
       exposure:
-        include: health, info, activitystat
+        include: health, info, userrequeststat
   endpoint:
     health:
       show-details: always

@@ -1,43 +1,35 @@
 spring:
    rabbitmq:
-     addresses: rabbitmq
+      addresses: rabbitmq
    h2:
       console:
          enabled: true
-        
    datasource:
-      driverClassName: ${DB_DRIVER}      
+      driverClassName: ${DB_DRIVER}
       url: ${DB_URL}
       user: ${DB_USER}
-                                
    jpa:
       hibernate:
          ddl-auto: none
    liquibase:
       change-log: classpath:db/liquibase-changelog.xml
-   thymeleaf: 
+   thymeleaf:
       cache: false
    resources:
       add-mappings: true
-      
    data:
       rest:
-        basePath: /datarest
-      
+         basePath: /datarest
 server:
    error:
       include-stacktrace: always
-                        
 management:
-  endpoints:
-    web:
-      exposure:
-        include: health, logfile, metrics
-  endpoint:
-    health:
-      show-details: always
-      
+   endpoints:
+      web:
+         exposure:
+            include: health, logfile, metrics
+   endpoint:
+      health:
+         show-details: always
 logging:
-  file: log.txt    
-  
-    
+   file: log.txt

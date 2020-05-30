@@ -1,13 +1,13 @@
-package ru.akozlovskiy.useractivity;
+package ru.akozlovskiy.userstat;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class UserActivityApplication {
+public class UserRequestStatApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(UserActivityApplication.class, args);
+		SpringApplication.run(UserRequestStatApplication.class, args);
 	}
 
 }
