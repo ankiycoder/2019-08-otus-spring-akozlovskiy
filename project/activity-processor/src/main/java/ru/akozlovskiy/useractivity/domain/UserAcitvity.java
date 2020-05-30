@@ -1,9 +1,7 @@
 package ru.akozlovskiy.useractivity.domain;
 
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+//import javax.persistence.Id;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -16,8 +14,8 @@ import lombok.NoArgsConstructor;
 public class UserAcitvity {
 
 	@JsonIgnore
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	//@Id
+	//@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 
 	@JsonProperty("Имя пользователя")
