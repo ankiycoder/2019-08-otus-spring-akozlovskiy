@@ -7,19 +7,19 @@ import org.springframework.boot.actuate.endpoint.annotation.ReadOperation;
 import org.springframework.stereotype.Component;
 
 import lombok.RequiredArgsConstructor;
-import ru.akozlovskiy.userstat.domain.UserStatElem;
+import ru.akozlovskiy.userstat.domain.BookStatElem;
 import ru.akozlovskiy.userstat.repositories.UserRequestRepository;
 
 @RequiredArgsConstructor
 @Component
-@Endpoint(id = "userrequeststat")
-public class UserRequestStatEndpoint {
+@Endpoint(id = "bookrequeststat")
+public class BookRequestStatEndpoint {
 
 	private final UserRequestRepository userRequestRepository;
 
 	@ReadOperation
-	public List<UserStatElem> getBooksCountByUser() {
-		return userRequestRepository.getBooksCountByUser();
+	public List<BookStatElem> getBooksCountByBook() {
+		return userRequestRepository.getBooksCountByBook();
 
 	}
 }

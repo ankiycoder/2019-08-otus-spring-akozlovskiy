@@ -33,7 +33,7 @@ public class RabbitMqListener {
 			UserRequest userActivity = objectMapper.readValue(message, UserRequest.class);
 			userRequestRepository.save(userActivity);
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.error("Error process meassge " + message, e);
 		}
 	}
 }

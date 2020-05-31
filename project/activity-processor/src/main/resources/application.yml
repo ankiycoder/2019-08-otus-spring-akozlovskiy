@@ -1,5 +1,4 @@
 spring:
-
   rabbitmq:
     addresses: ${RABBITMQ_ADDRESS:localhost}
     
@@ -16,7 +15,7 @@ management:
   endpoints:
     web:
       exposure:
-        include: health, info, userrequeststat
+        include: health, info, userrequeststat, bookrequeststat
   endpoint:
     health:
       show-details: always
