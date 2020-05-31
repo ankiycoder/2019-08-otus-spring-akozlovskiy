@@ -10,9 +10,11 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class RabbitMqConfig {
 
+	public static final String BOOK_REUEST_STAT_QUEUE_NAME = "user-request-queue";
+
 	@Bean
 	public Queue userRequestQueue() {
-		return new Queue("user-request-queue");
+		return new Queue(BOOK_REUEST_STAT_QUEUE_NAME);
 	}
 
 	@Bean

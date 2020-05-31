@@ -1,13 +1,15 @@
 spring:
    rabbitmq:
-      addresses: rabbitmq
+      addresses: ${RABBITMQ_ADDRESS:localhost}                 
+                                  
    h2:
       console:
          enabled: true
    datasource:
-      driverClassName: ${DB_DRIVER}
-      url: ${DB_URL}
-      user: ${DB_USER}
+      driverClassName: ${DB_DRIVER:org.h2.Driver}
+      url: ${DB_URL:jdbc:h2:mem:library-db}
+      user: ${DB_USER:sa}
+
    jpa:
       hibernate:
          ddl-auto: none

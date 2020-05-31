@@ -18,11 +18,13 @@ public class RabbitMqListener {
 
 	private static Logger logger = LoggerFactory.getLogger(RabbitMqListener.class);
 
+	public static final String BOOK_REUEST_STAT_QUEUE_NAME = "user-request-queue";
+
 	private final ObjectMapper objectMapper;
-	
+
 	private final UserRequestRepository userRequestRepository;
 
-	@RabbitListener(queues = "user-request-queue")
+	@RabbitListener(queues = BOOK_REUEST_STAT_QUEUE_NAME)
 	public void processAllMessages(String message) throws JsonProcessingException {
 
 		logger.info("RECEIVED FROM user-request-queue: {}", message);

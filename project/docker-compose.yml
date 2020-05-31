@@ -22,7 +22,8 @@ services:
     environment:
       - DB_DRIVER=org.h2.Driver
       - DB_URL=jdbc:h2:tcp://h2:1521/library-db
-      - DB_USER=sa 
+      - DB_USER=sa
+      - RABBITMQ_ADDRESS=rabbitmq 
 
   activity-processor:
     build: activity-processor/.
@@ -35,7 +36,8 @@ services:
     environment:
       - DB_DRIVER=org.h2.Driver
       - DB_URL=jdbc:h2:tcp://h2:1521/activity-processor-db
-      - DB_USER=sa 
+      - DB_USER=sa
+      - RABBITMQ_ADDRESS=rabbitmq 
 
 
 

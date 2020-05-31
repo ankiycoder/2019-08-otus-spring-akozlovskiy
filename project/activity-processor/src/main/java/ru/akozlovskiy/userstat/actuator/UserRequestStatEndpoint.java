@@ -17,16 +17,16 @@ import ru.akozlovskiy.userstat.repositories.UserRequestRepository;
 @Endpoint(id = "userrequeststat")
 public class UserRequestStatEndpoint {
 
-	private final UserRequestRepository userRequestRepository;
+	private final UserRequestRepository userRequestRepository;		
 
 	@ReadOperation
 	public List<?> getBooksCountByUserStat(@Selector StatType statType) {
 
 		Assert.notNull(statType, "category must not be null");
 		switch (statType) {
-		case BooksCountByUser:
+		case BOOKS_COUNT_BY_USER:
 			return userRequestRepository.getBooksCountByUser();
-		case BooksCountByBook:
+		case BOOKS_COUNT_BY_BOOK:
 			return userRequestRepository.getBooksCountByBook();
 		default:
 			return Collections.emptyList();
@@ -34,6 +34,6 @@ public class UserRequestStatEndpoint {
 	}
 
 	enum StatType {
-		BooksCountByUser, BooksCountByBook
+		BOOKS_COUNT_BY_USER, BOOKS_COUNT_BY_BOOK
 	}
 }
