@@ -28,6 +28,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		http.csrf().disable()
 		.authorizeRequests().antMatchers("/index").hasAnyRole("ADMIN", "QUEST")
 		.and()
+		.authorizeRequests().antMatchers("/viewBook/**").hasAnyRole("ADMIN", "QUEST")
+		.and()
 		.authorizeRequests().antMatchers("/**/**").hasAnyRole("ADMIN")
 		.and()
 		.formLogin().defaultSuccessUrl("/index", true);
