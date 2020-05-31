@@ -3,4 +3,10 @@ spring:
     name: library
   cloud:
     config:
-      uri: ${CONFIG_SERVER_URI:http://localhost:5000}
+      fail-fast: true
+      uri: ${CONFIG_SERVER_URI:http://localhost:8888}
+      retry:
+        initial-interval: 1500
+        multiplier: 1.5
+        max-attempts: 10000
+        max-interval: 1000
