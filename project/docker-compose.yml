@@ -19,11 +19,13 @@ services:
     depends_on:
       - h2
       - rabbitmq
+      - config-server
     environment:
       - DB_DRIVER=org.h2.Driver
       - DB_URL=jdbc:h2:tcp://h2:1521/library-db
       - DB_USER=sa
       - RABBITMQ_ADDRESS=rabbitmq 
+      - CONFIG_SERVER_URI=config-server
 
   activity-processor:
     build: activity-processor/.
@@ -33,11 +35,18 @@ services:
     depends_on:
       - h2
       - rabbitmq
+      - config-server
     environment:
       - DB_DRIVER=org.h2.Driver
       - DB_URL=jdbc:h2:tcp://h2:1521/activity-processor-db
       - DB_USER=sa
       - RABBITMQ_ADDRESS=rabbitmq 
+      - CONFIG_SERVER_URI=config-server:5000
 
-
-
+  config-server:
+    build: config-server/.
+    image: config-server
+    ports:
+      - 5000:5000
+    environment:
+      - CONFIG_SERVER_PORT=5000
