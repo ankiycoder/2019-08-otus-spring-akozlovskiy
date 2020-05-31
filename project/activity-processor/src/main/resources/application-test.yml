@@ -1,14 +1,13 @@
 spring:
-  port: 8081
+  port: 8082
  
   rabbitmq:
-    addresses: rabbitmq
+    addresses: localhost
 
   datasource:
-    driverClassName: ${DB_DRIVER}      
-    url: ${DB_URL}
-    user: ${DB_USER}
-                                
+    driverClassName: org.h2.Driver
+    url: jdbc:h2:192.168.99.100:1521/activity-processor-db
+    user: sa                                
    
   jpa:
       hibernate:
