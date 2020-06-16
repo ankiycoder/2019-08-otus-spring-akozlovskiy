@@ -1,0 +1,24 @@
+spring:
+  rabbitmq:
+    addresses: ${RABBITMQ_ADDRESS:localhost}
+    
+  datasource:    
+    driverClassName: ${DB_DRIVER:org.h2.Driver}
+    url: ${DB_URL:jdbc:h2:mem:activity-processor-db}
+    user: ${DB_USER:sa}
+                                   
+  jpa:
+      hibernate:
+         ddl-auto: none  
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health, info, userrequeststat, bookrequeststat
+  endpoint:
+    health:
+      show-details: always
+
+logging:
+  file: log.txt

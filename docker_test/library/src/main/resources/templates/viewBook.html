@@ -1,0 +1,36 @@
+<!DOCTYPE HTML>
+
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<title>Update Book</title>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+</head>
+<body>
+	<div class="container">
+	<h3>Данные по книге</h3> 
+			<hr>		
+		<form action="#" th:action="@{/viewBook/{id}(id=${bookDto.id})}"
+			th:object="${bookDto}" method="post">
+			
+			<div class="form-group">									
+				<label for="title">Название: </label>				
+				<span th:text="*{title}"></span>												
+			</div>						
+			<div class="form-group">				
+				<label for="title">Автор: </label>
+				<span th:text="*{authorName}"></span>
+			</div>
+			<div class="form-group">			
+				<label for="title">Жанр: </label>				
+				<span th:text="*{genre}"></span>				
+			</div>
+			<hr>
+			<button type="submit" class="btn btn-success">На глвную страницу</button>
+		</form>
+	</div>
+</body>
+</html>
+
+

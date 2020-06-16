@@ -1,0 +1,10 @@
+ru\akozlovskiy\library\domain\repository\BookRepositoryTest.class
+ru\akozlovskiy\library\domain\repository\GenreRepositoryTest.class
+ru\akozlovskiy\library\domain\service\impl\CommentServiceImplTest.class
+ru\akozlovskiy\library\controller\AuthorControllerTest.class
+ru\akozlovskiy\library\domain\repository\AuthorRepositoryTest.class
+ru\akozlovskiy\library\domain\service\impl\BookServiceImplTest.class
+ru\akozlovskiy\library\domain\repository\CommentRepositoryTest.class
+ru\akozlovskiy\library\controller\GenreControllerTest.class
+ru\akozlovskiy\library\controller\BookControllerTest.class
+ru\akozlovskiy\library\domain\TestApplication.class

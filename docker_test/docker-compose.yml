@@ -1,0 +1,52 @@
+version: '3'
+services:
+  h2:
+    image: buildo/h2database
+    ports:
+      - 8082:8082
+      
+  rabbitmq:
+    image: rabbitmq:management
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+
+  library:
+    build: library/.
+    image: library-project
+    ports:
+      - 8080:8080
+    depends_on:
+      - h2
+      - rabbitmq
+      - cfgserver
+    environment:
+      - DB_DRIVER=org.h2.Driver
+      - DB_URL=jdbc:h2:tcp://h2:1521/library-db
+      - DB_USER=sa
+      - RABBITMQ_ADDRESS=rabbitmq 
+      - CONFIG_SERVER_URI=http://cfgserver:8888
+
+#  activity-processor:
+#    build: activity-processor/.
+#    image: activity-processor
+#    ports:
+#      - 8081:8080
+#    depends_on:
+#      - h2
+#      - rabbitmq
+#      - cfgserver
+#    environment:
+#      - DB_DRIVER=org.h2.Driver
+#      - DB_URL=jdbc:h2:tcp://h2:1521/activity-processor-db
+#      - DB_USER=sa
+#      - RABBITMQ_ADDRESS=rabbitmq 
+#      - CONFIG_SERVER_URI=http://cfgserver:8888
+
+  cfgserver:
+    build: config-server/.
+    image: config-server
+    ports:
+      - 8888:8888
+    environment:
+      - CONFIG_SERVER_PORT=8888

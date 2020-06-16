@@ -1,0 +1,65 @@
+<databaseChangeLog
+	xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+
+	<changeSet id="01" author="me">
+		<createTable tableName="AUTHOR"
+			remarks="A table to contain all books">
+			<column name="ID" type="long" autoIncrement="true">
+				<constraints unique="true" primaryKey="true" />
+			</column>
+			<column name="NAME" type="varchar(255)">
+				<constraints nullable="false" unique="false" />
+			</column>
+			<column name="BIRTHDATE" type="DATE">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+
+		<createTable tableName="GENRE"
+			remarks="A table to contain all the genre">
+			<column name="ID" type="long" autoIncrement="true">
+				<constraints primaryKey="true" />
+			</column>
+			<column name="DESCRIPTION" type="varchar(100)">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+
+		<createTable tableName="BOOK"
+			remarks="A table to contain all the genre">
+			<column name="ID" type="long" autoIncrement="true">
+				<constraints primaryKey="true" />
+			</column>
+			<column name="TITLE" type="varchar(100)">
+				<constraints nullable="false" />
+			</column>
+			<column name="AUTHORID" type="int">
+				<constraints nullable="false" primaryKey="true" />
+			</column>
+			<column name="GENREID" type="int">
+				<constraints nullable="false" primaryKey="true" />
+			</column>
+		</createTable>
+		
+		<createTable tableName="USER"
+			remarks="A table to contain all the genre">
+			<column name="ID" type="long" autoIncrement="true">
+				<constraints primaryKey="true" />
+			</column>
+			<column name="LOGIN" type="varchar(20)">
+				<constraints nullable="false" />
+			</column>
+			<column name="PASSWORD" type="varchar(100)">
+				<constraints nullable="false"/>
+			</column>
+			<column name="ROLE" type="varchar(20)">
+				<constraints nullable="false"/>
+			</column>
+		</createTable>
+	</changeSet>
+
+
+</databaseChangeLog>
