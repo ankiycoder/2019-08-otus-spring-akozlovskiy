@@ -1,0 +1,75 @@
+package ru.akozlovskiy.library.controller;
+
+import javax.validation.Valid;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+
+import ru.akozlovskiy.library.domain.Genre;
+import ru.akozlovskiy.library.domain.repository.GenreRepository;
+
+@Controller
+public class GenreController {
+	
+	private static Logger logger = LoggerFactory.getLogger(GenreController.class);
+
+	private final GenreRepository genreRepository;
+
+	public GenreController(GenreRepository genreRepository) {
+		this.genreRepository = genreRepository;
+	}
+
+	@GetMapping(value = { "/addGenre" })
+	public String showAddGenre(Model model) {
+		
+		logger.debug("*** Call showAddGenre");
+		
+		Genre genre = new Genre();
+		model.addAttribute("genre", genre);
+		return "addGenre";
+	}
+
+	@PostMapping(value = { "/addGenre" })
+	public String saveGenre(Model model, @ModelAttribute("genre") @Valid Genre genre, BindingResult result) {
+		
+		logger.debug("*** Call saveGenre");
+		
+		if (result.hasErrors()) {
+			model.addAttribute("genre", genre);
+			return "addGenre";
+		}
+		genreRepository.save(genre);
+		return "redirect:/index";
+	}
+
+	@GetMapping("/updateGenre/{id}")
+	public String showUpdateGenrePage(@PathVariable("id") long id, Model model) {
+				
+		logger.debug("*** Call showUpdateGenrePage");
+		
+		Genre genre = genreRepository.findById(id)
+				.orElseThrow(() -> new IllegalArgumentException("Invalid Genre Id:" + id));
+		model.addAttribute("genre", genre);
+		return "updateGenre";
+	}
+
+	@PostMapping(value = { "/updateGenre/{id}" })
+	public String updateGenre(Model model, @PathVariable("id") long id, @Valid Genre genre, BindingResult result) {
+		
+		logger.debug("*** Call updateGenre");
+		
+		if (result.hasErrors()) {
+			model.addAttribute("genre", genre);
+			return "updateGenre";
+		}
+		genreRepository.save(genre);
+		return "redirect:/index";
+	}
+}

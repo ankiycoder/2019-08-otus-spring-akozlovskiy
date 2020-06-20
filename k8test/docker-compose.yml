@@ -1,0 +1,31 @@
+version: '3.6'
+
+volumes:
+  esdata01:
+
+services:
+  
+  library:
+    build: library/.
+    image: library-project
+    ports:
+      - 8080:8080
+    depends_on:
+      - cfgserver
+    environment:
+      - DB_DRIVER=org.h2.Driver
+      - DB_URL=jdbc:h2:tcp://h2:1521/library-db
+      - DB_USER=sa
+      - CONFIG_SERVER_URI=http://cfgserver:8889
+#    depends_on:
+#      - fluentbit
+#    logging:
+#      driver: fluentd
+
+  cfgserver:
+    build: config-server/.
+    image: config-server
+#    ports:
+#      - 8889:8889
+    environment:
+      - CONFIG_SERVER_PORT=8889
